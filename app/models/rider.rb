@@ -4,8 +4,14 @@ class Rider < ActiveRecord::Base
 
   RIDE_OPTIONS = ['Original Track', 'Light Track', 'Hiking', 'Combination Hiking/Riding']
 
+  TITLES = ['Mr', 'Ms', 'Dr', 'Rabbi', 'Cantor', 'Chazzan', 'Educator', 'None']
+
   def self.ride_options 
   	RIDE_OPTIONS
+  end
+
+  def self.titles 
+  	TITLES
   end
 
 
