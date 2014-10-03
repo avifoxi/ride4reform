@@ -6,3 +6,7 @@ This site will manage registrations for riders participating in the Ride for Ref
 ##Developers
 * [Avi Fox-Rosen](https://github.com/avifoxi)
 * [Alan Cohen](https://github.com/alancohen)
+
+###Tools
+* [Trello](https://trello.com/b/0l5p3KFG/ride4reform)
+* [Original Spec](https://docs.google.com/document/d/1HaCiJ6or8ZuCRphLkziCouc2JkX5fqHEDdV-8YV6Wms/edit)
