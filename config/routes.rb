@@ -2,8 +2,14 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  root 'riders#index'
-  resources :riders
+  root 'rider_regs#index'
+  
+  resources :users do 
+    resources :rider_regs, only: [:new, :create]
+  end
+
+  resources :rider_regs, except: [:new, :create]
+  resources :donations
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

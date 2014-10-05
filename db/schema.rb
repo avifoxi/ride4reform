@@ -11,31 +11,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141002175523) do
+ActiveRecord::Schema.define(version: 20141005201030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: true do |t|
+    t.string   "line1"
+    t.string   "line2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.integer  "addressable_id_id"
+    t.string   "addressable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "admin_regs", force: true do |t|
+    t.integer  "user_id"
+    t.string   "access_level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "donations", force: true do |t|
     t.integer  "amount"
     t.integer  "donor_id"
     t.integer  "rider_id"
-    t.string   "address"
+    t.boolean  "distinct_billing_address"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "donors", force: true do |t|
-    t.string   "name"
-    t.string   "email"
+  create_table "rider_regs", force: true do |t|
+    t.integer  "rider_id"
+    t.string   "ride_option"
+    t.date     "birthdate"
+    t.string   "primary_phone"
+    t.string   "secondary_phone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "riders", force: true do |t|
+  create_table "users", force: true do |t|
+    t.string   "title"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
+    t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
