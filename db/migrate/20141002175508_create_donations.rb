@@ -4,7 +4,8 @@ class CreateDonations < ActiveRecord::Migration
     	t.integer :amount
 			t.references :donor
 			t.references :rider
-			t.string :address
+			t.boolean :distinct_billing_address
+			
       t.timestamps
     end
   end

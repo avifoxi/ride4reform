@@ -12,12 +12,21 @@ when "development"
 		User.create(title: User.titles.sample, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: Faker::Internet.password )
 	end
 
-	users = User.all
+	users = User.all.to_a
 	   
+
 	5.times do 
 		user = users.pop
-		RiderReg.create(rider: user, ride_option: RiderReg.ride_options.sample, )
+		RiderReg.create(rider: user, ride_option: RiderReg.ride_options.sample, birthdate: Date.new(1982,4,19) )
+	end
 
+	donors = (0..9).to_a
+	amounts = (500..5000).to_a
+	tf = [true, false]
+
+	20.times do 
+		Donation.create(amount: amounts.sample, donor: users.sample, rider: RiderReg.all.sample.rider)
+	end
 
 when "production"
    
