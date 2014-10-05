@@ -40,6 +40,7 @@ gem 'spring',        group: :development
 
 
 group :development, :test do
+	gem 'faker'
   gem 'rspec-rails', '~> 3.0.0'
 end
 

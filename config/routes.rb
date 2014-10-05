@@ -6,11 +6,10 @@ Rails.application.routes.draw do
   
   resources :users do 
     resources :rider_regs, only: [:new, :create]
-    resources :donations, only: [:new, :create]
   end
 
   resources :rider_regs, except: [:new, :create]
-  resources :donations, except: [:new, :create]
+  resources :donations
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
