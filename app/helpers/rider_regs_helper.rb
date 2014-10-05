@@ -1,0 +1,2 @@
+module RiderRegsHelper
+end
