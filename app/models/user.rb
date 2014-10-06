@@ -1,4 +1,9 @@
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+  
   has_many :donations_received, :foreign_key => "rider_id", :class_name => "Donation"
   has_many :donations_given, :foreign_key => "donor_id", :class_name => "Donation"
 
