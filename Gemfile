@@ -40,6 +40,9 @@ gem 'devise'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Paypal SDK
+gem 'paypal-sdk-rest'
+
 
 group :development, :test do
 	gem 'faker'
