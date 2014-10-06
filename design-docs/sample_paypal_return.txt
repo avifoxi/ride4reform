@@ -1,0 +1,24 @@
+#<PayPal::SDK::REST::DataTypes::Payment:0x007ff57e6a64b0
+  @error=nil,
+  @intent="sale",
+  @payer=#<PayPal::SDK::REST::DataTypes::Payer:0x007ff57cbd3250
+    @error=nil,
+    @payment_method="credit_card",
+    @funding_instruments=
+      [#<PayPal::SDK::REST::DataTypes::FundingInstrument:0x007ff57cbdb2c0
+        @error=nil,
+        @credit_card=#<PayPal::SDK::REST::DataTypes::CreditCard:0x007ff57cbda910
+          @error=nil,
+          @type="visa",
+          @number="xxxxxxxxxxxx0331",
+          @expire_month=11,
+          @expire_year=2018,
+          @first_name="Joe",
+          @last_name="Shopper",
+          @billing_address=#<PayPal::SDK::REST::DataTypes::Address:0x007ff57cbd8750
+            @error=nil,
+            @line1="52 N Main ST",
+            @city="Johnstown",
+            @state="OH",
+            @postal_code="43210",
+            @country_code="US">>>]>, @transactions=[#<PayPal::SDK::REST::DataTypes::Transaction:0x007ff57cbe87b8 @error=nil, @item_list=#<PayPal::SDK::REST::DataTypes::ItemList:0x007ff57cbfb110 @error=nil, @items=[#<PayPal::SDK::REST::DataTypes::Item:0x007ff57cbf9ea0 @error=nil, @name="item", @sku="item", @price="1.00", @currency="USD", @quantity="1">]>, @amount=#<PayPal::SDK::REST::DataTypes::Amount:0x007ff57cbf16b0 @error=nil, @total="1.00", @currency="USD", @details=#<PayPal::SDK::REST::DataTypes::Details:0x007ff57cbf0698 @error=nil, @subtotal="1.00">>, @description="This is the payment transaction description.", @related_resources=[#<PayPal::SDK::REST::DataTypes::RelatedResources:0x007ff57cc0a408 @error=nil, @sale=#<PayPal::SDK::REST::DataTypes::Sale:0x007ff57cc09c88 @error=nil, @id="8YS27326E4689211L", @create_time=Mon, 06 Oct 2014 16:48:06 +0000, @update_time=Mon, 06 Oct 2014 16:48:28 +0000, @amount=#<PayPal::SDK::REST::DataTypes::Amount:0x007ff57cc1b5f0 @error=nil, @total="1.00", @currency="USD">, @state="completed", @parent_payment="PAY-3U447746TW013535WKQZMPRQ", @links=[#<PayPal::SDK::REST::DataTypes::Links:0x007ff57cc18c38 @error=nil, @href="https://api.sandbox.paypal.com/v1/payments/sale/8YS27326E4689211L", @rel="self", @method="GET">, #<PayPal::SDK::REST::DataTypes::Links:0x007ff57cc21978 @error=nil, @href="https://api.sandbox.paypal.com/v1/payments/sale/8YS27326E4689211L/refund", @rel="refund", @method="POST">, #<PayPal::SDK::REST::DataTypes::Links:0x007ff57cc20c58 @error=nil, @href="https://api.sandbox.paypal.com/v1/payments/payment/PAY-3U447746TW013535WKQZMPRQ", @rel="parent_payment", @method="GET">]>>]>], @request_id="18a191c4-0557-49a7-8aec-53bb49fa2b5c", @header={}, @id="PAY-3U447746TW013535WKQZMPRQ", @create_time=Mon, 06 Oct 2014 16:48:06 +0000, @update_time=Mon, 06 Oct 2014 16:48:28 +0000, @state="approved", @links=[#<PayPal::SDK::REST::DataTypes::Links:0x007ff57cc29c68 @error=nil, @href="https://api.sandbox.paypal.com/v1/payments/payment/PAY-3U447746TW013535WKQZMPRQ", @rel="self", @method="GET">]> 
