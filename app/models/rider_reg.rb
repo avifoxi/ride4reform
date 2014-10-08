@@ -11,5 +11,10 @@ class RiderReg < ActiveRecord::Base
   def self.ride_options 
   	RIDE_OPTIONS
   end
+
+  def percent_of_goal
+  	perc = (self.raised.to_f / self.goal.to_f).round(2) * 100
+  	perc.to_i.to_s + '%'
+  end
   
 end
