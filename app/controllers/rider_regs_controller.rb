@@ -23,11 +23,28 @@ class RiderRegsController < ApplicationController
 		@donors = @rider.donors
 	end
 
+	def edit
+		@rider_reg = RiderReg.find(params[:id])
+		unless current_user == @rider_reg.rider
+			redirect_to root_url
+		end
+	end
+
+	def update
+		rider_reg = RiderReg.find(params[:id])
+		
+		if rider_reg.update_attributes(rider_reg_params)
+			redirect_to rider_reg
+		else
+			# notify error
+		end
+	end
+
 
 	private 
 
 	def rider_reg_params
-    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal)
+    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio)
   end
 
 end
