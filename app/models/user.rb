@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :donations_given, :foreign_key => "donor_id", :class_name => "Donation"
 
   has_one :rider_reg, :foreign_key => :rider_id
+  
   has_one :admin_reg
 
   has_one :address, :as => :addressable
