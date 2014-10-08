@@ -3,5 +3,14 @@
 <p><%= @rider.first_name %> has raised <%= @rider.percent_of_goal %> of their goal of $<%= @rider.goal %> </p>
 
 <div>replace with percentage of goal visualization</div>
+<%= link_to 'Donate Now!', rider_reg_path(rider) %>
 
+
+
+<h3>Rider Bio</h3>
 <p><%= @rider.bio %></p>
+
+<h3>All Donors to <%= @rider.first_name %>'s Campaign </h3>
+<ul>
+	
+</ul>
