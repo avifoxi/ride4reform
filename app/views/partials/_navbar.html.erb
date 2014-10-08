@@ -2,7 +2,7 @@
   
   <% if current_user.rider_reg %>
     <li>
-      <%= link_to('Your Rider Profile', rider_reg( current_user.rider_reg) ) %>
+      <%= link_to('Your Rider Profile', rider_reg_path( current_user.rider_reg) ) %>
     </li>
   <% else %>
     <li>
@@ -26,3 +26,4 @@
 
 
 	<%= link_to('Edit registration', edit_user_registration_path) %>
+

@@ -21,7 +21,6 @@ class RiderRegsController < ApplicationController
 	def show
 		@rider = RiderReg.find(params[:id])
 		@donors = @rider.donors
-		@address = @donor.address
 	end
 
 
