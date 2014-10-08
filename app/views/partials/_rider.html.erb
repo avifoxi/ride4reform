@@ -1,7 +1,8 @@
 <div>
 	<h4><%= rider.title %> <%= rider.first_name %> <%= rider.last_name %></h4>
 	<ul>
-		<li><%= rider.first_name %> has raised <%= rider.title %></li>
+		<li><%= rider.first_name %> has raised <%= rider.percent_of_goal %> of their goal.</li>
+		<li><%= link_to 'Donate Now!', rider_reg_path(rider) %></li>
 
 	</ul>	
 
