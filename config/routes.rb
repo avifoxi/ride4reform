@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   end
 
   resources :rider_regs, except: [:new]
-  resources :donations
+  
+  get 'rider_regs/:id/donations/new' => 'donations#new', as: :rider_reg_donation
+  post 'rider_regs/:id/donations' => 'donations#create'
+
+  resources :donations, except: [:new, :create]
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
