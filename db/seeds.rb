@@ -15,7 +15,7 @@ when "development"
 
 	5.times do 
 		user = users.pop
-		RiderReg.create(rider: user, ride_option: RiderReg.ride_options.sample, birthdate: Date.new(1982,4,19), goal: amounts.sample, raised: amounts.sample )
+		RiderReg.create(rider: user, ride_option: RiderReg.ride_options.sample, birthdate: Date.new(1982,4,19), goal: amounts.sample, raised: amounts.sample, bio: Faker::Hacker.say_something_smart)
 	end
 
 	donors = (0..9).to_a
