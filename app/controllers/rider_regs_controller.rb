@@ -4,7 +4,7 @@ class RiderRegsController < ApplicationController
 		@riders = RiderReg.all
 	end
 
-	def new 
+	def new
 	end
 
 end
