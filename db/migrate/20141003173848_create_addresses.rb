@@ -9,7 +9,7 @@ class CreateAddresses < ActiveRecord::Migration
     	t.string :state
     	t.string :zip
 
-    	t.references :addressable_id
+    	t.integer :addressable_id
   		t.string :addressable_type
 
       t.timestamps

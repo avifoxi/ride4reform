@@ -8,7 +8,7 @@ class DonationsController < ApplicationController
 
   def new
     @rider = RiderReg.find(params[:id])
-    p @rider
+    @donation = Donation.new
   end
 
 
