@@ -5,6 +5,7 @@ class RiderRegsController < ApplicationController
 	end
 
 	def new
+		@rider_reg = RiderReg.new
 	end
 
 end
