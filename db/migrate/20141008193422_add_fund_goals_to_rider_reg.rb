@@ -3,6 +3,7 @@ class AddFundGoalsToRiderReg < ActiveRecord::Migration
   	change_table :rider_regs do |t|
 		  t.integer :goal
 		  t.integer :raised
+		  t.text :bio
 		end
   end
 end

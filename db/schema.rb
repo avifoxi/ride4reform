@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20141008193422) do
     t.datetime "updated_at"
     t.integer  "goal"
     t.integer  "raised"
+    t.text     "bio"
   end
 
   create_table "users", force: true do |t|
