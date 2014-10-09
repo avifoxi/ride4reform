@@ -1,0 +1,34 @@
+<%= form_for @rider_reg do |f| %>
+  <div>
+	  <%= f.label :ride_option %><br />
+	  <%= f.select :ride_option, RiderReg.ride_options %>
+	</div>
+	<div>
+	  <%= f.label :birthdate %><br />
+	  <%= f.text_field :birthdate %>
+	</div>
+	<div>
+	  <%= f.label :primary_phone %><br />
+	  <%= f.text_field :primary_phone %>
+	</div>
+	<div>
+	  <%= f.label :secondary_phone %><br />
+	  <%= f.text_field :secondary_phone %>
+	</div>
+	<div>
+		<p>We ask that all riders commit to raising at least $2000 for their participation in the ride. What is your fundraising goal?</p>
+	  <%= f.label :goal %><br />
+	  <%= f.text_field :goal %>
+	</div>
+	<div>
+	  <%= f.label :bio %><br />
+	  <%= f.text_area :bio %>
+	</div>
+
+
+	<div>
+		<%= f.submit %>
+	</div>
+<% end %>
+
+

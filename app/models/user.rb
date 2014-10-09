@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :donations_given, :foreign_key => "donor_id", :class_name => "Donation"
 
   has_one :rider_reg, :foreign_key => :rider_id
+  
   has_one :admin_reg
 
   has_one :address, :as => :addressable
@@ -25,6 +26,10 @@ class User < ActiveRecord::Base
 
   def rider?
   	self.rider_reg ? true : false
+  end
+
+  def full_name
+    self.title + ' ' + self.first_name + ' ' + self.last_name
   end
 
 

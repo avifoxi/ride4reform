@@ -1,7 +1,15 @@
 <% if user_signed_in? %>
-  <li>
-  	<%= link_to('Your Profile', edit_user_registration_path) %>
-  </li>
+  
+  <% if current_user.rider_reg %>
+    <li>
+      <%= link_to('Your Rider Profile', rider_reg_path( current_user.rider_reg) ) %>
+    </li>
+  <% else %>
+    <li>
+      <%= link_to('Create Your Rider Profile', new_user_rider_reg_path(current_user)  ) %>
+    </li>
+  <% end %>
+  
   <li>
   	<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
   </li>
@@ -18,3 +26,4 @@
 
 
 	<%= link_to('Edit registration', edit_user_registration_path) %>
+

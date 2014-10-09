@@ -1,0 +1,20 @@
+<h2><%= @rider.full_name %></h2>
+
+<% if @rider == current_user.rider_reg %>
+	<%= link_to 'Edit Your Profile', edit_rider_reg_path(@rider) %>
+<% end %>
+
+<p><%= @rider.first_name %> has raised <%= @rider.percent_of_goal %> of their goal of $<%= @rider.goal %> </p>
+
+<div>replace with percentage of goal visualization</div>
+<%= link_to 'Donate Now!', rider_reg_donation_path(@rider) %>
+
+
+
+<h3>Rider Bio</h3>
+<p><%= @rider.bio %></p>
+
+<h3>All Donors to <%= @rider.first_name %>'s Campaign </h3>
+<ul>
+	<%= render partial: "partials/donor", collection: @donors %>
+</ul>

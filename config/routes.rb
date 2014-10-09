@@ -6,11 +6,15 @@ Rails.application.routes.draw do
   root 'rider_regs#index'
   
   resources :users do 
-    resources :rider_regs, only: [:new, :create]
+    resources :rider_regs, only: [:new]
   end
 
-  resources :rider_regs, except: [:new, :create]
-  resources :donations
+  resources :rider_regs, except: [:new]
+  
+  get 'rider_regs/:id/donations/new' => 'donations#new', as: :rider_reg_donation
+  post 'rider_regs/:id/donations' => 'donations#create'
+
+  resources :donations, except: [:new, :create]
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

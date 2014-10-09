@@ -7,9 +7,15 @@ class DonationsController < ApplicationController
   end
 
   def new
+
+    @rider = RiderReg.find(params[:id])
+    @donation = Donation.new
   end
 
+
   def create
+    ##DEBUG CODE TO MAKE IT EASIER TO HIT A ROUTE TO TEST TRANSACTION
+
     PayPal::SDK::REST.set_config(
       :mode => "sandbox", # "sandbox" or "live"
       :client_id => ENV['PAYPAL_CLIENT_ID'],
