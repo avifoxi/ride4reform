@@ -15,7 +15,6 @@ class RiderRegsController < ApplicationController
 		if rider_reg.save
 			redirect_to rider_reg
 		end
-
 	end
 
 	def show
@@ -40,6 +39,14 @@ class RiderRegsController < ApplicationController
 		end
 	end
 
+	def terms_of_entry
+		@rider = current_user.rider_reg
+	end
+
+	def accept_terms
+		@rider = current_user.rider_reg
+		
+	end
 
 	private 
 
