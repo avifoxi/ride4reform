@@ -31,6 +31,11 @@ gem 'spring',        group: :development
 
 gem 'devise'
 
+gem 'bourbon'
+gem 'neat'
+gem 'bitters'
+gem 'refills'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
