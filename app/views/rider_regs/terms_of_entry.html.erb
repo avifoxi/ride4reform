@@ -1,0 +1,16 @@
+<h3>Read and Review These Terms of Entry</h3>
+
+<p>terms......</p>
+
+
+<span>I have read and accept the terms of the ride:</span>
+<%= form_for(@rider, url: rider_regs_terms_of_entry_path, method: :put) do |f| %>
+  <%= label_tag(:accept_terms, "Yes") %>
+  <%= radio_button_tag(:accept_terms, true) %></br>
+  <%= label_tag(:accept_terms, "No") %>
+  <%= radio_button_tag(:accept_terms, false) %>
+
+  <br><%= f.submit %>
+	
+<% end %>
+

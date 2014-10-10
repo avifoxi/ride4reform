@@ -13,9 +13,8 @@ class RiderRegsController < ApplicationController
 		rider_reg.rider = current_user
 
 		if rider_reg.save
-			redirect_to rider_reg
+			redirect_to rider_regs_terms_path
 		end
-
 	end
 
 	def show
@@ -40,11 +39,20 @@ class RiderRegsController < ApplicationController
 		end
 	end
 
+	def terms_of_entry
+		@rider = current_user.rider_reg
+	end
+
+	def accept_terms
+		@rider = current_user.rider_reg
+		@rider.update_attributes(accept_terms: params[:accept_terms])
+		redirect_to root_url
+	end
 
 	private 
 
 	def rider_reg_params
-    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio)
+    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms)
   end
 
 end
