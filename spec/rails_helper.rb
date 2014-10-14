@@ -52,5 +52,5 @@ RSpec.configure do |config|
 
   # Devise related config from here: http://dchua.com/2013/08/19/dry-up-your-devise-logins-in-rspec/
   config.include Devise::TestHelpers, :type => :controller
-  config.include ControllerMacros, :type => :controller
+  # config.incl ude ControllerMacros, :type => :controller
 end

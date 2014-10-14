@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20141014143753) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "goal"
-    t.integer  "raised"
+    t.integer  "raised",          default: 0
     t.text     "bio"
     t.boolean  "accept_terms",    default: false
   end
