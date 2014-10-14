@@ -57,8 +57,41 @@ class DonationsController < ApplicationController
     # Create Payment and return the status(true or false)
     if payment.create
       payment.id     # Payment Id
+
+      user = User.find_by(email: params[:email])
+      rider = Rider.find(params[:id])
+
+      unless user
+        user = User.create()
+        # name 
+        # email 
+
+        ### Address
+        address = Address.create(line1: params[:line1],
+                                 city:  params[:city],
+                                 state: params[:state],
+                                 zip:   params[:zip])
+
+        ### Donation
+        donation = Donation.create(amount:  params[:total],
+                                   paypal:  payment.id,
+                                   user:    user,
+                                   rider:   rider,
+                                   address: address)
+
+
+
+      ## what info do we now need to save to DB  ? 
+      redirect_to donation_path()
     else
       payment.error  # Error Hash
     end
   end
+
+  def show
+
+  end
+
+
+
 end

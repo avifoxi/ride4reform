@@ -1,7 +1,7 @@
 <header class="navigation">
   <div class="menu-wrapper">
-    <a href="<%= root_url %>" class="logo">
-      <i class="fa fa-bicycle"></i>
+    <a href="javascript:void(0)" class="logo">
+      <%= icon('flag') %>
     </a>
     <p class="navigation-menu-button" id="js-mobile-menu">MENU</p>
     <div class="nav">
@@ -32,13 +32,15 @@
           </li>
         <% end %>
 
-        
-<!--         <li class="nav-link more"><a href="javascript:void(0)">More</a>
+        <li class="nav-link"><a href="javascript:void(0)">Products</a></li>
+        <li class="nav-link"><a href="javascript:void(0)">About Us</a></li>
+        <li class="nav-link"><a href="javascript:void(0)">Contact</a></li>
+        <li class="nav-link more"><a href="javascript:void(0)">More</a>
           <ul class="submenu">
             <li><a href="javascript:void(0)">Submenu Item</a></li>
             <li><a href="javascript:void(0)">Another Item</a></li>
           </ul>
-        </li> -->
+        </li>
         
       </ul>
     </div>
@@ -56,11 +58,6 @@
   </div>
 </header>
 
-
-
-
-
-  <%= link_to('Edit registration', edit_user_registration_path) %>
 
 
 

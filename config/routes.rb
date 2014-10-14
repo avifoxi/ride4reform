@@ -8,20 +8,18 @@ Rails.application.routes.draw do
   get 'rider_regs/terms_of_entry' => 'rider_regs#terms_of_entry', as: :rider_regs_terms
   put 'rider_regs/terms_of_entry' => 'rider_regs#accept_terms'
   
-
-  get 'rider_regs/:id/donations/new' => 'donations#new', as: :rider_reg_donation
-  post 'rider_regs/:id/donations' => 'donations#create'
- 
-
-
   resources :users do 
     resources :rider_regs, only: [:new]
   end
 
   resources :rider_regs, except: [:new]
   
-
   resources :donations, except: [:new, :create]
+
+  get 'rider_regs/:id/donations/new' => 'donations#new', as: :rider_reg_donations
+  post 'rider_regs/:id/donations' => 'donations#create', as: :donations_create
+ 
+
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
