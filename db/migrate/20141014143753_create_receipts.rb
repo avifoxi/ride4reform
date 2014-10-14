@@ -1,6 +1,6 @@
-class CreateTransactions < ActiveRecord::Migration
+class CreateReceipts < ActiveRecord::Migration
   def change
-    create_table :transactions do |t|
+    create_table :receipts do |t|
     	t.integer :amount
     	t.string :paypal_id
     	t.references :user
