@@ -36,7 +36,7 @@ gem 'neat'
 gem 'bitters'
 gem 'refills'
 
-gem 'font-awesome-sass', '~> 4.2.0'
+# gem "font-awesome-rails"
 
 # Use unicorn as the app server
 # gem 'unicorn'
