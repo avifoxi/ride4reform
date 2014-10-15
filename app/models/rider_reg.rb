@@ -20,7 +20,7 @@ class RiderReg < ActiveRecord::Base
   def donors
     donor_arr = []
     self.donations_received.each do |d|
-      donor_arr << d.donor
+      donor_arr << d.receipt.user
     end
     donor_arr
   end
