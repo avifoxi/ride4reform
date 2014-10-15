@@ -7,15 +7,12 @@ class DonationsController < ApplicationController
   end
 
   def new
-
     @rider = RiderReg.find(params[:id])
     @donation = Donation.new
   end
 
 
   def create
-    ##DEBUG CODE TO MAKE IT EASIER TO HIT A ROUTE TO TEST TRANSACTION
-
     PayPal::SDK::REST.set_config(
       :mode => "sandbox", # "sandbox" or "live"
       :client_id => ENV['PAYPAL_CLIENT_ID'],
@@ -54,37 +51,25 @@ class DonationsController < ApplicationController
           :currency => "USD" },
         :description => "This is the payment transaction description." }]})
 
-    # Create Payment and return the status(true or false)
+
     if payment.create
-      payment.id     # Payment Id
+      rider_reg = RiderReg.find(params[:id])
+      rider = rider_reg.rider
 
-      user = User.find_by(email: params[:email])
-      rider = Rider.find(params[:id])
+      user = User.create(first_name: params[:first_name],
+                         last_name:  params[:last_name],
+                         email:      params[:email],
+                         password:   "password")
 
-      unless user
-        user = User.create()
-        # name 
-        # email 
+      receipt = Receipt.create(amount: params[:total],
+                               paypal_id: payment.id,
+                               user: user)
 
-        ### Address
-        address = Address.create(line1: params[:line1],
-                                 city:  params[:city],
-                                 state: params[:state],
-                                 zip:   params[:zip])
+      Donation.create(receipt: receipt, rider: rider)
 
-        ### Donation
-        donation = Donation.create(amount:  params[:total],
-                                   paypal:  payment.id,
-                                   user:    user,
-                                   rider:   rider,
-                                   address: address)
-
-
-
-      ## what info do we now need to save to DB  ? 
-      redirect_to donation_path()
+      redirect_to rider_reg_path(rider_reg)
     else
-      payment.error  # Error Hash
+      payment.error
     end
   end
 

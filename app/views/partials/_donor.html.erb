@@ -1,3 +1,8 @@
+<% @donors.each do |donor| %>
 <li>
-	<%= donor.full_name %>
+  <% unless donor == nil %>
+	 <%= donor.full_name %>
+   <br><br>
+  <% end %>
 </li>
+<% end %>

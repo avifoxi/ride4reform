@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20141014143753) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "title"
+    t.string   "title",                  default: ""
     t.string   "first_name"
     t.string   "last_name"
     t.datetime "created_at"
