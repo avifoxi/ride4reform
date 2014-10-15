@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20141014143753) do
     t.date     "birthdate"
     t.string   "primary_phone"
     t.string   "secondary_phone"
+    t.boolean  "paid",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "goal"
