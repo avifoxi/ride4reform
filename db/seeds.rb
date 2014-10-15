@@ -30,7 +30,7 @@ when "development"
   users = User.all.to_a
 
 
-  30.times do
+  10.times do
     address = Address.create(line1: Faker::Address.street_address, line2: Faker::Address.secondary_address, city: Faker::Address.city, state: Faker::Address.state, zip: Faker::Address.zip)    
     receipt = Receipt.create(address: address, amount: amounts.sample, paypal_id: paypal_ids.sample, user: users.sample)
     Donation.create(receipt: receipt, rider: users.sample)
