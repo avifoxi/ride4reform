@@ -1,13 +1,28 @@
-class Receipt < ActiveRecord::Base
-	belongs_to :user
-	has_one :address, :as => :addressable
+class PayPalWrapper
+    
+	def initialize(params)
+		@params = params
+		connect_to_paypal		
 
+	end
 
+	def connect_to_paypal
+		case Rails.env
+			when "test"
+				# do nothing, mock
+			when "development"
+				PayPal::SDK::REST.set_config(
+		      :mode => "sandbox", # "sandbox" or "live"
+		      :client_id => ENV['PAYPAL_CLIENT_ID'],
+		      :client_secret => ENV['PAYPAL_SECRET'])
+			when "production"
+				PayPal::SDK::REST.set_config(
+		      :mode => "sandbox", # for the time being -- don't wanna unnecessarily charge yet
+		      :client_id => ENV['PAYPAL_CLIENT_ID'],
+		      :client_secret => ENV['PAYPAL_SECRET'])
+			end
+	end
 
-	    PayPal::SDK::REST.set_config(
-      :mode => "sandbox", # "sandbox" or "live"
-      :client_id => ENV['PAYPAL_CLIENT_ID'],
-      :client_secret => ENV['PAYPAL_SECRET'])
 
     payment = Payment.new({
       :intent => "sale",
@@ -42,5 +57,5 @@ class Receipt < ActiveRecord::Base
         :description => "This is the payment transaction description." }]})
 
 
-  
+
 end
