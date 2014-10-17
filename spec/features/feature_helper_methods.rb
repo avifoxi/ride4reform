@@ -1,6 +1,3 @@
-# require 'capybara/rspec'
-# require 'capybara/rails'
-
 def register_new_rider
   describe "automation" do
 	  visit '/'
