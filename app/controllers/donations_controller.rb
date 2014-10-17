@@ -18,7 +18,6 @@ class DonationsController < ApplicationController
       :client_id => ENV['PAYPAL_CLIENT_ID'],
       :client_secret => ENV['PAYPAL_SECRET'])
 
-    # Build Payment object
     payment = Payment.new({
       :intent => "sale",
       :payer => {
@@ -81,11 +80,12 @@ class DonationsController < ApplicationController
                                paypal_id: payment.id,
                                user:      user)
 
-      Donation.create(receipt: receipt, rider: rider)
+      donation = Donation.create(receipt: receipt, rider: rider)
 
       redirect_to rider_reg_path(rider_reg)
     else
       payment.error
+      # TODO - add error page redirect
     end
   end
 
