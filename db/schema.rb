@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20141014143753) do
   end
 
   create_table "receipts", force: true do |t|
-    t.integer  "amount"
+    t.integer  "amount",     default: 0
     t.string   "paypal_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20141014143753) do
     t.boolean  "paid",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "goal"
+    t.integer  "goal",            default: 0
     t.integer  "raised",          default: 0
     t.text     "bio"
     t.boolean  "accept_terms",    default: false
