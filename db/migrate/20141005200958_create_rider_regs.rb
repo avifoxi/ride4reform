@@ -10,6 +10,8 @@ class CreateRiderRegs < ActiveRecord::Migration
     	t.string :primary_phone
     	t.string :secondary_phone
 
+      t.boolean :paid, default: false
+
       t.timestamps
     end
   end

@@ -4,7 +4,7 @@ class RiderReg < ActiveRecord::Base
 	delegate :first_name, :last_name, :title, :full_name, to: :rider, allow_nil: true, prefix: false
 
 	has_many :donations_received, through: :rider
-	has_one :address, through: :rider
+  has_one :address, :as => :addressable
 
   RIDE_OPTIONS = ['Original Track', 'Light Track', 'Hiking', 'Combination Hiking/Riding']
 
@@ -20,7 +20,7 @@ class RiderReg < ActiveRecord::Base
   def donors
     donor_arr = []
     self.donations_received.each do |d|
-      donor_arr << d.donor
+      donor_arr << d.receipt.user
     end
     donor_arr
   end

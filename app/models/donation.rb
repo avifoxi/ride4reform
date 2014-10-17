@@ -6,6 +6,15 @@ class Donation < ActiveRecord::Base
 
   accepts_nested_attributes_for :receipt
 
+  before_save :update_amount_raised
+
+
+  protected
+   def update_amount_raised
+    self.rider.rider_reg.raised += self.receipt.amount
+    self.rider.rider_reg.save
+   end
+
 
 
 	# has_one :address, :as => :addressable
