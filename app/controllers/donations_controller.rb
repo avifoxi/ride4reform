@@ -18,7 +18,6 @@ class DonationsController < ApplicationController
       :client_id => ENV['PAYPAL_CLIENT_ID'],
       :client_secret => ENV['PAYPAL_SECRET'])
 
-    # Build Payment object
     payment = Payment.new({
       :intent => "sale",
       :payer => {
@@ -56,20 +55,37 @@ class DonationsController < ApplicationController
       rider_reg = RiderReg.find(params[:id])
       rider = rider_reg.rider
 
-      user = User.create(first_name: params[:first_name],
-                         last_name:  params[:last_name],
-                         email:      params[:email],
-                         password:   "password")
+      user = User.find_by_email(params[:email])
 
-      receipt = Receipt.create(amount: params[:total],
+      unless user
+        user = User.create(first_name: params[:first_name],
+                           last_name:  params[:last_name],
+                           email:      params[:email],
+                           password:   "password")
+      end
+
+      # TODO - need to fix name collision with paypal address class
+      # address = Address.create(line1:  params[:line1],
+      #                          city:   params[:city],
+      #                          state:  params[:state],
+      #                          zip:    params[:postal_code])
+
+      # receipt = Receipt.create(amount:    params[:total],
+      #                          paypal_id: payment.id,
+      #                          user:      user,
+      #                          address:   address)
+
+      # REMOVE THIS RECEIPT CREATION WHEN ADDRESS IS SORTED OUT
+      receipt = Receipt.create(amount:    params[:total],
                                paypal_id: payment.id,
-                               user: user)
+                               user:      user)
 
-      Donation.create(receipt: receipt, rider: rider)
+      donation = Donation.create(receipt: receipt, rider: rider)
 
       redirect_to rider_reg_path(rider_reg)
     else
       payment.error
+      # TODO - add error page redirect
     end
   end
 

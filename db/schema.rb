@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20141014143753) do
   end
 
   create_table "receipts", force: true do |t|
-    t.integer  "amount"
+    t.decimal  "amount",     precision: 10, scale: 2, default: 0.0
     t.string   "paypal_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -57,13 +57,13 @@ ActiveRecord::Schema.define(version: 20141014143753) do
     t.date     "birthdate"
     t.string   "primary_phone"
     t.string   "secondary_phone"
-    t.boolean  "paid",            default: false
+    t.boolean  "paid",                                     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "goal"
-    t.integer  "raised",          default: 0
+    t.decimal  "goal",            precision: 10, scale: 2, default: 0.0
+    t.decimal  "raised",          precision: 10, scale: 2, default: 0.0
     t.text     "bio"
-    t.boolean  "accept_terms",    default: false
+    t.boolean  "accept_terms",                             default: false
   end
 
   create_table "users", force: true do |t|
