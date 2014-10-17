@@ -3,6 +3,7 @@ class DonationsController < ApplicationController
 
   def index
     ##DEBUG ROUTE TO GET ALL TRANSACTIONS
+    p PayPalTestHelper.new('test_pay_dude')
     p Payment.all.payments.first
   end
 
