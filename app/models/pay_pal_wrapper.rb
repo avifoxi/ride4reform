@@ -1,10 +1,12 @@
 include PayPal::SDK::REST
 
 class PayPalWrapper
-    
+   
+  attr_accessor :payment  
+
 	def initialize(params)
 		@params = params
-		@payment
+		@payment = nil
 		connect_to_paypal		
 		fill_new_payment
 	end
@@ -61,7 +63,7 @@ class PayPalWrapper
 			when "test"
 				# do nothing, mock
 			when "development"
-				@payment = Payment.new({
+				self.payment = Payment.new({
 		      :intent => "sale",
 		      :payer => {
 		        :payment_method => "credit_card",

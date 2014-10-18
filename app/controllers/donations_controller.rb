@@ -45,6 +45,7 @@ class DonationsController < ApplicationController
 
       donation = Donation.create(receipt: receipt, rider: rider)
 
+      flash[:thanks_to_donor] = DonorThankerHelper.prep(rider)
       redirect_to rider_reg_path(rider_reg)
     else
       mc_pp.error
