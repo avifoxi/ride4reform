@@ -2,7 +2,7 @@
 
 <p><%= @rider.first_name %> has raised <%= @rider.percent_of_goal %> of their goal of $<%= @rider.goal %> </p>
 
-<%= flash[:thanks_to_donor] if flash[:thanks_to_donor] %>
+<%= render partial: 'partials/thanks_to_donor' %>
 
 <div>replace with percentage of goal visualization</div>
 <%= link_to 'Donate Now!', rider_reg_donations_path(@rider) %>
