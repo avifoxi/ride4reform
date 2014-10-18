@@ -20,14 +20,10 @@ describe "the donation process" do
         fill_in('City', :with => 'Donor')
         fill_in('State', :with => 'New York')
         fill_in('Postal Code', :with => '11225')
-        fill_in('Donation', :with => '1000')
+        fill_in('Donation', :with => '100')
         click_button 'Donate'
+
+        expect(page).to have_content 'Thank you for your generous'
+        expect(page).to have_content 'has raised 10% of their goal'
     end
 end
-
-
-# visa
-# 4417119669820331
-# 11
-# 2018
-# 874

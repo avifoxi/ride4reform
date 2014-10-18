@@ -17,7 +17,7 @@ def register_new_rider_logout
   fill_in('Birthdate', :with=> '05071983')
   fill_in('Primary phone', :with=> '123-456-7890')
   fill_in('Secondary phone', :with=> '098-765-4321')
-  fill_in('Goal', :with=> '123456')
+  fill_in('Goal', :with=> '1000')
   fill_in('Bio', :with=> 'This is my bio.')
   click_button 'Create Rider reg'
 
