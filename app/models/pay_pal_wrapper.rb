@@ -1,3 +1,5 @@
+include PayPal::SDK::REST
+
 class PayPalWrapper
     
 	def initialize(params)

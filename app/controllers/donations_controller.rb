@@ -1,5 +1,4 @@
 class DonationsController < ApplicationController
-  include PayPal::SDK::REST
 
   def index
     ##DEBUG ROUTE TO GET ALL TRANSACTIONS
