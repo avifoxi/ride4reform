@@ -2,6 +2,8 @@
 
 <p><%= @rider.first_name %> has raised <%= @rider.percent_of_goal %> of their goal of $<%= @rider.goal %> </p>
 
+<%= render partial: 'partials/thanks_to_donor' %>
+
 <div>replace with percentage of goal visualization</div>
 <%= link_to 'Donate Now!', rider_reg_donations_path(@rider) %>
 
@@ -15,18 +17,6 @@
 	<%= render partial: "partials/donor", collection: @donors %>
 </ul>
 
-<% if @rider == current_user.rider_reg %>
+<% if current_user && @rider == current_user.rider_reg %>
 	<%= link_to 'Edit Your Profile', edit_rider_reg_path(@rider) %>
-
-
-	<% #display all private content here %>
-
-
-
-
-
-
-
-
-
 <% end %>
