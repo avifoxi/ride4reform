@@ -78,8 +78,20 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+# production:
+#   <<: *default
+#   database: ride4reform_production
+#   username: ride4reform
+#   password: <%= ENV['RIDE4REFORM_DATABASE_PASSWORD'] %>
+
+
+# AWS deployment config:
 production:
-  <<: *default
-  database: ride4reform_production
-  username: ride4reform
-  password: <%= ENV['RIDE4REFORM_DATABASE_PASSWORD'] %>
+  adapter: mysql2
+  encoding: utf8
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
+
