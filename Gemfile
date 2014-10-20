@@ -4,7 +4,13 @@ ruby "2.0.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
 # Use postgresql as the database for Active Record
-gem 'pg'
+group :development, :test do
+  gem 'pg'
+end
+
+# Use mysql as the database for AWS deployment
+gem 'mysql2', group: :production
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
