@@ -87,11 +87,11 @@ class PayPalWrapper
 		          :items => [{
 		            :name => "item",
 		            :sku => "item",
-		            :price => @params[:total],
+		            :price => "%.2f" % @params[:total],
 		            :currency => "USD",
 		            :quantity => 1 }]},
 		        :amount => {
-		          :total => @params[:total],
+		          :total => "%.2f" % @params[:total],
 		          :currency => "USD" },
 		        :description => "This is the payment transaction description." }]})
 
