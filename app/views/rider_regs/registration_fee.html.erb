@@ -1,0 +1,41 @@
+<h3>Registration Fee</h3>
+
+<%= form_for @receipt, url: rider_regs_registration_fee_path(@rider_reg), method: :put do %>
+  <%= label_tag :type, "Credit Card Type:" %>
+  <%= select_tag :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
+  <br>
+  <%= label_tag :credit_card, "Credit Card Number:" %>
+  <%= text_field_tag :credit_card, nil, maxlength: 16 %>
+  <br>
+  <%= label_tag :expire_month, "Month (MM):" %>
+  <%= text_field_tag :expire_month, nil, maxlength: 2  %>
+  <br>
+  <%= label_tag :expire_year, "Year (YYYY):" %>
+  <%= text_field_tag :expire_year, nil, maxlength: 4  %>
+  <br>
+  <%= label_tag :cvv2, "CVV2:" %>
+  <%= text_field_tag :cvv2, nil, maxlength: 4  %>
+  <br>
+  <%= label_tag :first_name, "First Name:" %>
+  <%= text_field_tag :first_name %>
+  <br>
+  <%= label_tag :last_name, "Last Name:" %>
+  <%= text_field_tag :last_name %>
+  <br>
+  <%= label_tag :line1, "Address:" %>
+  <%= text_field_tag :line1 %>
+  <br>
+  <%= label_tag :city, "City:" %>
+  <%= text_field_tag :city %>
+  <br>
+  <%= label_tag :state, "State:" %>
+  <%= text_field_tag :state, nil, maxlength: 2 %>
+  <br>
+  <%= label_tag :postal_code, "Postal Code:" %>
+  <%= text_field_tag :postal_code, nil, maxlength: 5 %>
+  <br>
+  <%= hidden_field_tag :total, 650 %>
+  <p>By clicking "Register", I agree to pay $650.</p>
+  <%= submit_tag 'Register' %>
+<% end %>
+

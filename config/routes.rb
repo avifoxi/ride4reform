@@ -5,8 +5,10 @@ Rails.application.routes.draw do
 
   root 'rider_regs#index'
 
-  get 'rider_regs/terms_of_entry' => 'rider_regs#terms_of_entry', as: :rider_regs_terms
-  put 'rider_regs/terms_of_entry' => 'rider_regs#accept_terms'
+  get 'rider_regs/terms_of_entry'   => 'rider_regs#terms_of_entry', as: :rider_regs_terms
+  put 'rider_regs/terms_of_entry'   => 'rider_regs#accept_terms'
+  get 'rider_regs/registration_fee' => 'rider_regs#registration_fee', as: :rider_regs_fee
+  put 'rider_regs/registration_fee' => 'rider_regs#pay_fee'#, as: :rider_regs_pay_fee
   
   resources :users do 
     resources :rider_regs, only: [:new]
