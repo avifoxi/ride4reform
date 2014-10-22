@@ -46,8 +46,34 @@ class RiderRegsController < ApplicationController
 	def accept_terms
 		@rider = current_user.rider_reg
 		@rider.update_attributes(accept_terms: params[:accept_terms])
-		redirect_to root_url
+		redirect_to rider_regs_fee_path
 	end
+
+  def registration_fee
+    @rider_reg = current_user.rider_reg
+    @receipt = Receipt.new
+  end
+
+  def pay_fee
+    mc_pp = PayPalWrapper.new(params)
+
+    if mc_pp.create
+      rider_reg = current_user.rider_reg
+      rider_reg.paid = true
+      rider_reg.save
+
+      user = current_user
+
+      receipt = Receipt.create(amount:    params[:total],
+                               paypal_id: mc_pp.id,
+                               user:      user)
+
+      redirect_to rider_reg_path(rider_reg)
+    else
+      mc_pp.error
+      # TODO - add error page redirect
+    end
+  end
 
 	private 
 
