@@ -4,7 +4,7 @@ class RiderReg < ActiveRecord::Base
 	delegate :first_name, :last_name, :title, :full_name, to: :rider, allow_nil: true, prefix: false
 
 	has_many :donations_received, through: :rider
-  has_one :address, :as => :addressable
+  has_one :mailing_address, :as => :addressable
 
   RIDE_OPTIONS = ['Original Track', 'Light Track', 'Hiking', 'Combination Hiking/Riding']
 
@@ -13,6 +13,8 @@ class RiderReg < ActiveRecord::Base
   end
 
   def percent_of_goal
+    return "0%" if self.goal <= 0
+    
   	perc = (self.raised.to_f / self.goal.to_f).round(2) * 100
   	perc.to_i.to_s + '%'
   end
