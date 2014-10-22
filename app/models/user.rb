@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
   
   has_one :admin_reg
 
-  has_one :address, :as => :addressable
-  accepts_nested_attributes_for :address
+  has_one :mailing_address, :as => :addressable
+  accepts_nested_attributes_for :mailing_address
 
   TITLES = ['Mr', 'Ms', 'Dr', 'Rabbi', 'Cantor', 'Chazzan', 'Educator', 'None']
 

@@ -1,6 +1,6 @@
-class CreateAddresses < ActiveRecord::Migration
+class CreateMailingAddresses < ActiveRecord::Migration
   def change
-    create_table :addresses do |t|
+    create_table :mailing_addresses do |t|
 
     	t.string :line1
     	t.string :line2
