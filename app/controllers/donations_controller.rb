@@ -12,9 +12,9 @@ class DonationsController < ApplicationController
 
 
   def create
-    mc_pp = PayPalWrapper.new(params)
+    payment = PayPalWrapper.new(params)
 
-    if mc_pp.create
+    if payment.create
       rider_reg = RiderReg.find(params[:id])
       rider = rider_reg.rider
 
@@ -27,27 +27,22 @@ class DonationsController < ApplicationController
                            password:   "password")
       end
 
-      # TODO - need to fix name collision with paypal address class
-      # address = Address.create(line1:  params[:line1],
-      #                          city:   params[:city],
-      #                          state:  params[:state],
-      #                          zip:    params[:postal_code])
+      address = MailingAddress.create(line1:  params[:line1],
+                                      line2:  params[:line2],
+                                      city:   params[:city],
+                                      state:  params[:state],
+                                      zip:    params[:postal_code])
 
-      # receipt = Receipt.create(amount:    params[:total],
-      #                          paypal_id: payment.id,
-      #                          user:      user,
-      #                          address:   address)
-
-      # REMOVE THIS RECEIPT CREATION WHEN ADDRESS IS SORTED OUT
-      receipt = Receipt.create(amount:    params[:total],
-                               paypal_id: mc_pp.id,
-                               user:      user)
+      receipt = Receipt.create(amount:            params[:total],
+                               paypal_id:         payment.id,
+                               user:              user,
+                               mailing_address:   address)
 
       donation = Donation.create(receipt: receipt, rider: rider)
 
       redirect_to rider_reg_path(rider_reg), :flash => { :thanks_to_donor => user.full_name }
     else
-      mc_pp.error
+      payment.error
       # TODO - add error page redirect
     end
   end

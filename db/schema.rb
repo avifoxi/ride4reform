@@ -16,18 +16,6 @@ ActiveRecord::Schema.define(version: 20141014143753) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "addresses", force: true do |t|
-    t.string   "line1"
-    t.string   "line2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.integer  "addressable_id"
-    t.string   "addressable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "admin_regs", force: true do |t|
     t.integer  "user_id"
     t.string   "access_level"
@@ -38,7 +26,18 @@ ActiveRecord::Schema.define(version: 20141014143753) do
   create_table "donations", force: true do |t|
     t.integer  "receipt_id"
     t.integer  "rider_id"
-    t.boolean  "distinct_billing_address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mailing_addresses", force: true do |t|
+    t.string   "line1"
+    t.string   "line2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.integer  "addressable_id"
+    t.string   "addressable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

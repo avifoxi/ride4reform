@@ -55,22 +55,30 @@ class RiderRegsController < ApplicationController
   end
 
   def pay_fee
-    mc_pp = PayPalWrapper.new(params)
+    payment = PayPalWrapper.new(params)
 
-    if mc_pp.create
-      rider_reg = current_user.rider_reg
-      rider_reg.paid = true
-      rider_reg.save
-
+    if payment.create
       user = current_user
 
-      receipt = Receipt.create(amount:    params[:total],
-                               paypal_id: mc_pp.id,
-                               user:      user)
+      address = MailingAddress.create(line1:  params[:line1],
+                                      line2:  params[:line2],
+                                      city:   params[:city],
+                                      state:  params[:state],
+                                      zip:    params[:postal_code])
+
+      receipt = Receipt.create(amount:          params[:total],
+                               paypal_id:       payment.id,
+                               user:            user,
+                               mailing_address: address)
+
+      rider_reg = user.rider_reg
+      rider_reg.paid = true
+      rider_reg.mailing_address = address
+      rider_reg.save
 
       redirect_to rider_reg_path(rider_reg)
     else
-      mc_pp.error
+      payment.error
       # TODO - add error page redirect
     end
   end
