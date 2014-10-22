@@ -4,12 +4,12 @@ ruby "2.0.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
 # Use postgresql as the database for Active Record
-group :development, :test do
-  gem 'pg'
-end
+# group :development, :test do
+gem 'pg'
+# end
 
 # Use mysql as the database for AWS deployment
-gem 'mysql2', group: :production
+# gem 'mysql2', group: :production
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -67,4 +67,5 @@ group :test do
 	gem 'selenium-webdriver'
 end
 
-
+# Heroku asset precompilation
+gem 'rails_12factor', group: :production
