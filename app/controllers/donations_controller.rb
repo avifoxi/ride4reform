@@ -40,6 +40,8 @@ class DonationsController < ApplicationController
 
       donation = Donation.create(receipt: receipt, rider: rider)
 
+      UserMailer.donation_receipt(donation).deliver
+
       redirect_to rider_reg_path(rider_reg), :flash => { :thanks_to_donor => user.full_name }
     else
       payment.error

@@ -29,7 +29,11 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    self.title + ' ' + self.first_name + ' ' + self.last_name
+    if self.title == ""
+      self.first_name + ' ' + self.last_name
+    else
+      self.title + ' ' + self.first_name + ' ' + self.last_name
+    end
   end
 
 
