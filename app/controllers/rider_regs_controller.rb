@@ -60,20 +60,28 @@ class RiderRegsController < ApplicationController
     if payment.create
       user = current_user
 
-      address = MailingAddress.create(line1:  params[:line1],
-                                      line2:  params[:line2],
-                                      city:   params[:city],
-                                      state:  params[:state],
-                                      zip:    params[:postal_code])
+      # Two address creations so one can be assigned to the receipt
+      # and one can be assigned to the rider registration
+      address1 = MailingAddress.create(line1:  params[:line1],
+                                       line2:  params[:line2],
+                                       city:   params[:city],
+                                       state:  params[:state],
+                                       zip:    params[:postal_code])
+
+      address2 = MailingAddress.create(line1:  params[:line1],
+                                       line2:  params[:line2],
+                                       city:   params[:city],
+                                       state:  params[:state],
+                                       zip:    params[:postal_code])
 
       receipt = Receipt.create(amount:          params[:total],
                                paypal_id:       payment.id,
                                user:            user,
-                               mailing_address: address)
+                               mailing_address: address1)
 
       rider_reg = user.rider_reg
       rider_reg.paid = true
-      rider_reg.mailing_address = address
+      rider_reg.mailing_address = address2
       rider_reg.save
 
       redirect_to rider_reg_path(rider_reg)
