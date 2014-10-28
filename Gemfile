@@ -57,8 +57,10 @@ gem 'refills'
 gem 'paypal-sdk-rest'
 
 # Amazon SDK
-
 gem 'aws-sdk-v1'
+
+# Paperclip for file upload
+gem 'paperclip'
 
 group :development, :test do
 	gem 'faker'
