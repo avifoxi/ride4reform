@@ -14,6 +14,8 @@ class RiderRegsController < ApplicationController
 
 		if rider_reg.save
 			redirect_to rider_regs_terms_path
+    else
+     render action: 'new'
 		end
 	end
 
@@ -27,13 +29,13 @@ class RiderRegsController < ApplicationController
 		unless current_user == @rider_reg.rider
 			redirect_to root_url
 		end
-    s3 = AWS::S3.new( :access_key_id => ENV['AWS_ACCESS_KEY_ID'], :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'])
-    s3_bucket = s3.buckets['r4r-development']
+    # s3 = AWS::S3.new( :access_key_id => ENV['AWS_ACCESS_KEY_ID'], :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'])
+    # s3_bucket = s3.buckets['r4r-development']
     
-    uniq_url = SecureRandom.uuid + @rider_reg.id.to_s
-    ## tut @ https://devcenter.heroku.com/articles/direct-to-s3-image-uploads-in-rails 
+    # uniq_url = SecureRandom.uuid + @rider_reg.id.to_s
+    # ## tut @ https://devcenter.heroku.com/articles/direct-to-s3-image-uploads-in-rails 
 
-    @s3_direct_post = s3_bucket.presigned_post(key: "rider_photo/#{uniq_url}/${filename}", success_action_status: 201, acl: :public_read)
+    # @s3_direct_post = s3_bucket.presigned_post(key: "rider_photo/#{uniq_url}/${filename}", success_action_status: 201, acl: :public_read)
 
     
 	end
@@ -103,7 +105,7 @@ class RiderRegsController < ApplicationController
 	private 
 
 	def rider_reg_params
-    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms)
+    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms, :photo)
   end
 
 end
