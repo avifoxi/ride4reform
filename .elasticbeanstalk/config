@@ -1,0 +1,16 @@
+[global]
+ApplicationName=ride4reform
+AwsCredentialFile=/Users/AviFoxi/.elasticbeanstalk/aws_credential_file
+DevToolsEndpoint=git.elasticbeanstalk.us-east-1.amazonaws.com
+EnvironmentName=ride4reform-env
+EnvironmentTier=WebServer::Standard::1.0
+EnvironmentType=SingleInstance
+InstanceProfileName=aws-elasticbeanstalk-ec2-role
+OptionSettingFile=/Users/AviFoxi/Desktop/active_projects/ride4reform/.elasticbeanstalk/optionsettings.ride4reform-env
+RdsDeletionPolicy=Delete
+RdsEnabled=Yes
+RdsSourceSnapshotName=
+Region=us-east-1
+ServiceEndpoint=https://elasticbeanstalk.us-east-1.amazonaws.com
+SolutionStack=64bit Amazon Linux 2014.03 v1.0.9 running Ruby 2.0 (Passenger Standalone)
+

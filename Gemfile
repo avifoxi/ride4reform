@@ -56,6 +56,9 @@ gem 'refills'
 # Paypal SDK
 gem 'paypal-sdk-rest'
 
+# Amazon SDK
+
+gem 'aws-sdk-v1'
 
 group :development, :test do
 	gem 'faker'
