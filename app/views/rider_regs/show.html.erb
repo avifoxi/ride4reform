@@ -7,7 +7,11 @@
 			<i class="fa fa-bicycle"></i>
 		<% end  %> 
 		
-		<div class="raise-visualization"><%= @rider.first_name %> has raised <%= @rider.percent_of_goal %> of their goal of $<%= @rider.goal %> 
+		<div class="raise-visualization">
+
+			<div id="gauge" class="200x160px"></div>
+
+			<%= @rider.first_name %> has raised <span id="percent_of_goal"><%= @rider.percent_of_goal %></span>% of their goal of $<%= @rider.goal %> 
 		</div> 	
   </div>
   
