@@ -28,10 +28,10 @@ class RiderReg < ActiveRecord::Base
   end
 
   def percent_of_goal
-    return "0%" if self.goal <= 0
+    return "0" if self.goal <= 0
     
   	perc = (self.raised.to_f / self.goal.to_f).round(2) * 100
-  	perc.to_i.to_s + '%'
+  	perc.to_i.to_s
   end
 
   def donors
