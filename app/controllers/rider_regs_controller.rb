@@ -22,6 +22,7 @@ class RiderRegsController < ApplicationController
 		if @rider_reg.save
 			redirect_to rider_regs_terms_path
     else
+     p @rider_reg.errors
      render action: 'new'
 		end
 	end
