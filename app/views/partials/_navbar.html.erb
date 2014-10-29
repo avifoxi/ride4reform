@@ -6,7 +6,11 @@
     <p class="navigation-menu-button" id="js-mobile-menu">MENU</p>
     <div class="nav">
       <ul id="navigation-menu">
-
+        
+        <li class="nav-link">
+          <%= link_to('Home', root_url)  %>  
+        </li>
+        
         <% if user_signed_in? %>
   
           <% if current_user.rider_reg %>
@@ -32,6 +36,8 @@
           </li>
         <% end %>
 
+
+
         
 <!--         <li class="nav-link more"><a href="javascript:void(0)">More</a>
           <ul class="submenu">
@@ -55,15 +61,6 @@
     </div>
   </div>
 </header>
-
-
-
-
-
-  <%= link_to('Edit registration', edit_user_registration_path) %>
-
-
-
 
 
 

@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    if self.title == ""
+    if self.title == "None"
       self.first_name + ' ' + self.last_name
     else
       self.title + ' ' + self.first_name + ' ' + self.last_name

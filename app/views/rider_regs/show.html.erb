@@ -1,27 +1,39 @@
-<h2><%= @rider.full_name %></h2>
+<div class="side-image">
+  
+  <div class="images-wrapper">
+		<% if @rider.photo_file_size %>
+			<%= image_tag @rider.photo.url(:medium), :class => "img" %>
+		<% else %>
+			<i class="fa fa-bicycle"></i>
+		<% end  %> 
+		
+		<div class="raise-visualization"><%= @rider.first_name %> has raised <%= @rider.percent_of_goal %> of their goal of $<%= @rider.goal %> 
+		</div> 	
+  </div>
+  
+  <div class="content">
+  	<% if current_user && @rider == current_user.rider_reg %>
+			<h4><%= link_to 'Edit Your Profile?', edit_rider_reg_path(@rider) %></h4>
+		<% end %>
 
-<% if @rider.photo %>
-	<%= image_tag @rider.photo.url(:square) %>
-<% end  %>
+    <h1><%= @rider.full_name %></h1>
+		
+		<%= render partial: 'partials/thanks_to_donor' %>
+    
+    <p><%= @rider.bio %></p>
 
+    <%= link_to 'Donate Now!', rider_reg_donations_path(@rider), class: 'button' %>
 
-<p><%= @rider.first_name %> has raised <%= @rider.percent_of_goal %> of their goal of $<%= @rider.goal %> </p>
+    <% if @donors %>
+    	<h3>All Donors to <%= @rider.first_name %>'s Campaign </h3>
+    <% else %>
+			<h3>Be the first to <%= link_to 'donate', rider_reg_donations_path(@rider) %> to <%= @rider.first_name %>'s campaign!</h3>
+		<% end %>
 
-<%= render partial: 'partials/thanks_to_donor' %>
+		<ul>
+			<%= render partial: "partials/donor", collection: @donors %>
+		</ul>
 
-<div>replace with percentage of goal visualization</div>
-<%= link_to 'Donate Now!', rider_reg_donations_path(@rider) %>
+  </div>
 
-
-
-<h3>Rider Bio</h3>
-<p><%= @rider.bio %></p>
-
-<h3>All Donors to <%= @rider.first_name %>'s Campaign </h3>
-<ul>
-	<%= render partial: "partials/donor", collection: @donors %>
-</ul>
-
-<% if current_user && @rider == current_user.rider_reg %>
-	<%= link_to 'Edit Your Profile', edit_rider_reg_path(@rider) %>
-<% end %>
+</div>

@@ -22,23 +22,16 @@ class RiderRegsController < ApplicationController
 
 	def show
 		@rider = RiderReg.find(params[:id])
-		@donors = @rider.donors
+		if @rider.donors.count > 0
+      @donors = @rider.donors
+    end
 	end
 
 	def edit
 		@rider_reg = RiderReg.find(params[:id])
 		unless current_user == @rider_reg.rider
 			redirect_to root_url
-		end
-    # s3 = AWS::S3.new( :access_key_id => ENV['AWS_ACCESS_KEY_ID'], :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'])
-    # s3_bucket = s3.buckets['r4r-development']
-    
-    # uniq_url = SecureRandom.uuid + @rider_reg.id.to_s
-    # ## tut @ https://devcenter.heroku.com/articles/direct-to-s3-image-uploads-in-rails 
-
-    # @s3_direct_post = s3_bucket.presigned_post(key: "rider_photo/#{uniq_url}/${filename}", success_action_status: 201, acl: :public_read)
-
-    
+		end    
 	end
 
 	def update
