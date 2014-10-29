@@ -1,5 +1,10 @@
 <h2><%= @rider.full_name %></h2>
 
+<% if @rider.photo %>
+	<%= image_tag @rider.photo.url(:square) %>
+<% end  %>
+
+
 <p><%= @rider.first_name %> has raised <%= @rider.percent_of_goal %> of their goal of $<%= @rider.goal %> </p>
 
 <%= render partial: 'partials/thanks_to_donor' %>

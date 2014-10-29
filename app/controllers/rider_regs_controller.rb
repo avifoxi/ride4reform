@@ -9,10 +9,17 @@ class RiderRegsController < ApplicationController
 	end
 
 	def create 
-		rider_reg = RiderReg.new(rider_reg_params)
-		rider_reg.rider = current_user
+		@rider_reg = RiderReg.new(rider_reg_params)
 
-		if rider_reg.save
+		@rider_reg.rider = current_user
+    p '#' * 50
+    puts ''
+    p @rider_reg
+    puts ''
+    p '#' * 50
+
+
+		if @rider_reg.save
 			redirect_to rider_regs_terms_path
     else
      render action: 'new'
