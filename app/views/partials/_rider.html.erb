@@ -1,9 +1,11 @@
-<div>
-	<h4><%= rider.title %> <%= rider.first_name %> <%= rider.last_name %></h4>
-	<ul>
-		<li><%= rider.first_name %> has raised <%= rider.percent_of_goal %> of their goal.</li>
-		<li><%= link_to 'Donate Now!', rider_reg_path(rider) %></li>
 
-	</ul>	
 
-</div>
+<%= link_to rider_reg_path(rider), class: 'grid-item'  do %>
+	<% if rider.photo %>
+		<%= image_tag rider.photo.url(:square) %>
+	<% end  %>
+  <h1><%= rider.title %> <%= rider.first_name %> <%= rider.last_name %></h1>
+  <p><%= rider.first_name %> has raised <%= rider.percent_of_goal %> of their goal.</p>
+
+<% end %>
+
