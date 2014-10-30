@@ -35,6 +35,22 @@ describe "the signin process" do
     choose('accept_terms_true')
     click_button 'Update Rider reg'
 
-    expect(page).to have_content 'Alan Cohen'
+    expect(page).to have_content 'Registration Fee'
+    select('Visa', :from => 'Credit Card Type:')
+    fill_in('Credit Card Number:', :with=> '05071983')
+    fill_in('Month (MM):', :with=> '05')
+    fill_in('Year (YYYY):', :with=> '2017')
+    fill_in('CVV2:', :with=> '123')
+    fill_in('First Name:', :with=> 'Rider')
+    fill_in('Last Name:', :with=> 'Riderovitch')
+    fill_in('Address 1:', :with=> '1 Rider Row')
+    fill_in('City:', :with=> 'Riderstown')
+    fill_in('State:', :with=> 'CA')
+    fill_in('Postal Code:', :with=> '90035')
+
+    click_button 'Register'
+
+
+
   end
 end
