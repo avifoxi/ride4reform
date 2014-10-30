@@ -50,6 +50,8 @@ describe "the signin process" do
 
     click_button 'Register'
 
+    expect(page).to have_content 'Alan Cohen'
+    expect(page).to have_content 'Edit Your Profile'
 
 
   end
