@@ -1,0 +1,8 @@
+to get donations:
+
+/donations.csv
+
+
+to get rider registrations:
+
+/rider_regs.csv

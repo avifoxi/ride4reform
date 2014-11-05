@@ -9,6 +9,31 @@ class Donation < ActiveRecord::Base
   before_save :update_amount_raised
 
 
+  def self.as_csv
+    CSV.generate do |csv|
+      columns = ["id", "donor", "email", "address1",
+                 "address2", "city", "state", "zip",
+                 "rider", "amount", "date"]
+      csv << columns
+
+      all.each do |item|
+        row = [item.id,
+               item.user.full_name,
+               item.user.email,
+               item.receipt.mailing_address.line1,
+               item.receipt.mailing_address.line2,
+               item.receipt.mailing_address.city,
+               item.receipt.mailing_address.state,
+               item.receipt.mailing_address.zip,
+               item.rider.full_name,
+               item.amount,
+               item.created_at]
+        csv << row
+      end
+    end
+  end
+
+
   protected
    def update_amount_raised
     self.rider.rider_reg.raised += self.receipt.amount
