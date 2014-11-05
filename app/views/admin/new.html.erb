@@ -1,0 +1,58 @@
+<!-- 		@current_admins = User.where(admin: true)
+		@users = User.where(admin: false) -->
+
+<h3></h3>
+
+
+<h3>Current Admins:</h3>
+
+<ul>
+	<% @current_admins.each do |admin| %>
+		<li><%= admin.full_name %></li>
+	<% end %>
+</ul>
+
+<h3>Create New Admin From Current Users:</h3>
+
+
+	<%= form_tag("/admin", method: "post") do %>
+		<% options = options_from_collection_for_select(@users, 'id', 'full_name') %>
+		<%= select_tag :user_id,  options %>
+	  <%= submit_tag("Add Admin Status To User") %>
+	<% end %>
+
+
+<h3>Create New Admin User and Add to System:</h3>
+
+	<%= form_tag("/admin", method: "post") do %>
+
+
+		<div><%= label_tag :first_name %><br />
+	  <%= text_field_tag :first_name %></div>
+
+		<div><%= label_tag :last_name %><br />
+	  <%= text_field_tag :last_name %></div>
+
+	  <div><%= label_tag :email %><br />
+	  <%= email_field_tag :email %></div>
+
+	  <div><%= label_tag :password %> <% if @validatable %><i>(<%= @minimum_password_length %> characters minimum)</i><% end %><br />
+	    <%= password_field_tag :password %></div>
+
+	  <div><%= label_tag :password_confirmation %><br />
+	    <%= password_field_tag :password_confirmation %></div>
+
+	  <div><%= submit_tag "Create New Admin" %></div>
+	<% end %>
+
+<h3>Remove Existing Admin:</h3>
+	
+	<%= form_tag("/admin", method: "delete") do %>
+		<% options = options_from_collection_for_select(@current_admins, 'id', 'full_name') %>
+		<%= select_tag :user_id,  options %>
+	  <%= submit_tag("Remove Admin Status From User")  %>
+	<% end %>
+
+
+
+
