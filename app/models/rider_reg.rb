@@ -1,4 +1,5 @@
 class RiderReg < ActiveRecord::Base
+  belongs_to :ride_year
 	
 	belongs_to :rider, :class_name => "User"
 	delegate :first_name, :last_name, :title, :full_name, to: :rider, allow_nil: true, prefix: false
