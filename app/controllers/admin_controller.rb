@@ -8,7 +8,12 @@ class AdminController < ApplicationController
 	def new
 		@current_admins = User.where(admin: true)
 		@users = User.where(admin: false)
+ 		@admin = User.new
 	end
+
+	def create
+		p params
+	end 
 	
 
 	private
