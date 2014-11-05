@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'rider_regs/:id/donations/new' => 'donations#new', as: :rider_reg_donations
   post 'rider_regs/:id/donations' => 'donations#create', as: :donations_create
  
+  resources :ride_years
 
 
   # You can have the root of your site routed with "root"
