@@ -11,9 +11,16 @@ class Donation < ActiveRecord::Base
 
   def self.as_csv
     CSV.generate do |csv|
-      csv << column_names
+      columns = ["id", "donor", "rider", "amount", "date"]
+      csv << columns
+
       all.each do |item|
-        csv << item.attributes.values_at(*column_names)
+        row = [item.id,
+               item.receipt.user.full_name,
+               item.rider.full_name,
+               item.amount,
+               item.created_at]
+        csv << row
       end
     end
   end
