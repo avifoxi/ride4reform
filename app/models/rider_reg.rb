@@ -45,9 +45,34 @@ class RiderReg < ActiveRecord::Base
 
   def self.as_csv
     CSV.generate do |csv|
-      csv << column_names
+      columns = ["id", "ride_year", "ride_option", "paid",
+                 "accept_terms", "goal", "raised", "rider",
+                 "birthday", "email", "phone1", "phone2",
+                 "address1", "address2", "city", "state",
+                 "zip", "bio", "date"]
+      csv << columns
+
       all.each do |item|
-        csv << item.attributes.values_at(*column_names)
+        row = [item.id,
+               item.ride_year,
+               item.ride_option,
+               item.paid,
+               item.accept_terms,
+               item.goal,
+               item.raised,
+               item.rider.full_name,
+               item.birthdate,
+               item.rider.email,
+               item.primary_phone,
+               item.secondary_phone,
+               item.mailing_address.line1,
+               item.mailing_address.line2,
+               item.mailing_address.city,
+               item.mailing_address.state,
+               item.mailing_address.zip,
+               item.bio,
+               item.created_at]
+        csv << row
       end
     end
   end
