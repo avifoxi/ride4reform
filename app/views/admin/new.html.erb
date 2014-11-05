@@ -1,6 +1,8 @@
 <!-- 		@current_admins = User.where(admin: true)
 		@users = User.where(admin: false) -->
 
+<h3></h3>
+
 
 <h3>Current Admins:</h3>
 
@@ -10,19 +12,17 @@
 	<% end %>
 </ul>
 
-There are <%= @users.count %> users without admin access
-
 <h3>Create New Admin From Current Users:</h3>
 
 
 	<%= form_tag("/admin", method: "post") do %>
 		<% options = options_from_collection_for_select(@users, 'id', 'full_name') %>
 		<%= select_tag :user_id,  options %>
-	  <%= submit_tag("Create") %>
+	  <%= submit_tag("Add Admin Status To User") %>
 	<% end %>
 
 
-<h3>Create New Admin, Add to System:</h3>
+<h3>Create New Admin User and Add to System:</h3>
 
 	<%= form_tag("/admin", method: "post") do %>
 
@@ -34,15 +34,25 @@ There are <%= @users.count %> users without admin access
 	  <%= text_field_tag :last_name %></div>
 
 	  <div><%= label_tag :email %><br />
-	  <%= email_field_tag :email, autofocus: true %></div>
+	  <%= email_field_tag :email %></div>
 
 	  <div><%= label_tag :password %> <% if @validatable %><i>(<%= @minimum_password_length %> characters minimum)</i><% end %><br />
-	    <%= password_field_tag :password, autocomplete: "off" %></div>
+	    <%= password_field_tag :password %></div>
 
 	  <div><%= label_tag :password_confirmation %><br />
-	    <%= password_field_tag :password_confirmation, autocomplete: "off" %></div>
+	    <%= password_field_tag :password_confirmation %></div>
 
-	  <div><%= submit_tag "Sign up" %></div>
+	  <div><%= submit_tag "Create New Admin" %></div>
 	<% end %>
 
 <h3>Remove Existing Admin:</h3>
+	
+	<%= form_tag("/admin", method: "delete") do %>
+		<% options = options_from_collection_for_select(@current_admins, 'id', 'full_name') %>
+		<%= select_tag :user_id,  options %>
+	  <%= submit_tag("Remove Admin Status From User")  %>
+	<% end %>
+
+
+
+

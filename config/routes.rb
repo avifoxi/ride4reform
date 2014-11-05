@@ -14,7 +14,14 @@ Rails.application.routes.draw do
     resources :rider_regs, only: [:new]
   end
 
-  resources :admin
+  # resources :admin
+
+  get 'admin' => 'admin#index'
+  post 'admin' => 'admin#create'
+  delete 'admin' => 'admin#destroy'
+  get 'admin/edit' => 'admin#edit'
+  get 'admin/new' => 'admin#new'
+
 
   resources :rider_regs, except: [:new]
   
