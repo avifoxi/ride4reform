@@ -1,8 +1,12 @@
 class DonationsController < ApplicationController
 
   def index
-    ##DEBUG ROUTE TO GET ALL TRANSACTIONS
-    p Payment.all.payments.first
+    @donations = Donation.order(:created_at)
+  
+    respond_to do |format|
+      format.html
+      format.csv { send_data @donations.as_csv }
+    end
   end
 
   def new
@@ -52,7 +56,5 @@ class DonationsController < ApplicationController
   def show
 
   end
-
-
 
 end
