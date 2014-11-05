@@ -32,7 +32,7 @@ when "development"
 
   avi = User.create(title: User.titles.sample, first_name: 'Avi', last_name: 'FR', email: 'email@email.com', password: 'password')
   alan = User.create(title: User.titles.sample, first_name: 'Alan', last_name: 'C', email: 'email2@email.com', password: 'password')
-  
+
 
 when "production"
    

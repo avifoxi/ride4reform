@@ -2,6 +2,11 @@ class RiderRegsController < ApplicationController
 	
 	def index 
 		@riders = RiderReg.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @riders.as_csv }
+    end
 	end
 
 	def new
