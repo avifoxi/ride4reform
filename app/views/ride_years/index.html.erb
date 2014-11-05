@@ -1,0 +1,13 @@
+<%= link_to "New Ride Year", new_ride_year_path %>
+
+<br><br>
+
+<% @ride_years.each do |ride_year| %>
+  <ul>
+    <li>Year: <%= ride_year.year %> <%= link_to "[edit]", edit_ride_year_path(ride_year) %> <%= link_to "[delete]", ride_year, method: :delete %> </li>
+    <li>Registration Fee: $<%= ride_year.registration_fee %></li>
+    <li>Early Registration Fee: $<%= ride_year.registration_fee_early %></li>
+    <li>Minimum Amount: $<%= ride_year.min_rider_fundraise %></li>
+    <li>Early Bird Cutoff: <%= ride_year.early_bird_cutoff %></li>
+  </ul>
+<% end %>

@@ -1,0 +1,13 @@
+<%= form_for @ride_year do |f| %>
+  <%= f.label :year %>
+  <%= f.number_field :year %>
+  <%= f.label :registration_fee %>
+  <%= f.number_field :registration_fee %>
+  <%= f.label :registration_fee_early %>
+  <%= f.number_field :registration_fee_early %>
+  <%= f.label :min_rider_fundraise %>
+  <%= f.number_field :min_rider_fundraise %>
+  <%= f.label :early_bird_cutoff %>
+  <%= f.date_field :early_bird_cutoff %>
+  <%= f.submit %>
+<% end %>
