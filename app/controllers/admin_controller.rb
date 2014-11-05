@@ -5,6 +5,12 @@ class AdminController < ApplicationController
 
 	end
 
+	def new
+		@current_admins = User.where(admin: true)
+		@users = User.where(admin: false)
+	end
+	
+
 	private
 
 	def require_admin
