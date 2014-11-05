@@ -20,10 +20,6 @@ class User < ActiveRecord::Base
   	TITLES
   end
 
-  def admin?
-  	self.admin_reg ? true : false
-  end
-
   def rider?
   	self.rider_reg ? true : false
   end
