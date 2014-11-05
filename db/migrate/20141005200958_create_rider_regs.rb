@@ -1,7 +1,7 @@
 class CreateRiderRegs < ActiveRecord::Migration
   def change
     create_table :rider_regs do |t|
-    	
+    	t.references :ride_year
     	t.references :rider
     	t.string :ride_option
 
