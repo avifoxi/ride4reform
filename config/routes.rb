@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :rider_regs, only: [:new]
   end
 
+  resources :admin
+
   resources :rider_regs, except: [:new]
   
   resources :donations, except: [:new, :create]
