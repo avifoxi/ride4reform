@@ -1,6 +1,9 @@
 case Rails.env
 when "development"
 
+  rideyear1 = RideYear.create(year: 2014, registration_fee: 650, registration_fee_early: 500, min_rider_fundraise: 2500, early_bird_cutoff: Date.parse('31-12-2014'))
+  rideyear2 = RideYear.create(year: 2013, registration_fee: 650, registration_fee_early: 500, min_rider_fundraise: 2500, early_bird_cutoff: Date.parse('31-12-2013'))
+
 
   10.times do 
     User.create(title: User.titles.sample, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: Faker::Internet.password)
@@ -14,7 +17,7 @@ when "development"
   10.times do 
     user = users.pop
     address = MailingAddress.create(line1: Faker::Address.street_address, line2: Faker::Address.secondary_address, city: Faker::Address.city, state: Faker::Address.state, zip: Faker::Address.zip)
-    RiderReg.create(rider: user, ride_option: RiderReg.ride_options.sample, birthdate: Date.new(1982,4,19), primary_phone: Faker::PhoneNumber.phone_number, secondary_phone: Faker::PhoneNumber.phone_number, goal: amounts.sample, bio: Faker::Hacker.say_something_smart, accept_terms: [true,false].sample, mailing_address: address)
+    RiderReg.create(ride_year: [rideyear1, rideyear2].sample, rider: user, ride_option: RiderReg.ride_options.sample, birthdate: Date.new(1982,4,19), primary_phone: Faker::PhoneNumber.phone_number, secondary_phone: Faker::PhoneNumber.phone_number, goal: amounts.sample, bio: Faker::Hacker.say_something_smart, accept_terms: [true,false].sample, mailing_address: address)
   end
 
 
