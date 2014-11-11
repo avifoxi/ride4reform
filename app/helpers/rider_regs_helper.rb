@@ -16,8 +16,9 @@ module RiderRegsHelper
 		1..31
 	end
 
-  def setup_mailing_addy(rider_reg)
+  def setup_mailing_addy_receipt(rider_reg)
     rider_reg.mailing_address ||= MailingAddress.new
+    rider_reg.rider.receipts.new
     rider_reg
   end
 

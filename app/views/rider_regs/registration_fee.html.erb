@@ -2,6 +2,37 @@
  
   <h3>Registration Fee</h3>
 
+  <%= form_for setup_mailing_addy_receipt(@rider_reg) do |f| %>
+
+      <%= f.fields_for :receipt do |ff|%>
+      <% end %>
+
+      <%= f.fields_for :mailing_address do |ff| %>
+        <div>
+        <h4>Your Primary Mailing Address</h4>
+        <%= ff.label :line1, 'Line 1' %><br>
+        <%= ff.text_field :line1 %>
+        
+        <%= ff.label :line2, 'Line 2' %><br>
+        <%= ff.text_field :line2 %>
+        
+        <%= ff.label :city %><br>
+        <%= ff.text_field :city %>
+
+        <%= ff.label :state %><br>
+        <%= ff.select :state, fiddy_states %>
+
+
+        <%= ff.label :zip %><br>
+        <%= ff.text_field :zip %>
+        </div>
+      <% end %>
+    
+
+  <% end %>
+
+
+
   <%= form_for @receipt, url: rider_regs_registration_fee_path(@rider_reg), method: :put do %>
     <%= label_tag :type, "Credit Card Type:" %>
     <%= select_tag :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>

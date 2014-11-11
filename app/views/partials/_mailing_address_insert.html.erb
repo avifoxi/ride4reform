@@ -1,0 +1,20 @@
+	<%= f.fields_for :mailing_address do |ff| %>
+	  <div>
+	    <h4>Your Primary Mailing Address</h4>
+	    <%= ff.label :line1, 'Line 1' %><br>
+	    <%= ff.text_field :line1 %>
+	    
+	    <%= ff.label :line2, 'Line 2' %><br>
+	    <%= ff.text_field :line2 %>
+	    
+	    <%= ff.label :city %><br>
+	    <%= ff.text_field :city %>
+
+	    <%= ff.label :state %><br>
+	    <%= ff.select :state, fiddy_states %>
+
+
+	    <%= ff.label :zip %><br>
+	    <%= ff.text_field :zip %>
+	  </div>
+	<% end %>

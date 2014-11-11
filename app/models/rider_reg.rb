@@ -9,10 +9,11 @@ class RiderReg < ActiveRecord::Base
   has_one :mailing_address, :as => :addressable
   accepts_nested_attributes_for :mailing_address
 
-  has_many :receipts 
-  accepts_nested_attributes_for :receipts
+  # has_one :registration_receipt, 
+  # has_many :jobs, :foreign_key => 'user_id', :class_name => "Task"
+  # accepts_nested_attributes_for :receipts
 
-  # This method associates the attribute ":avatar" with a file attachment
+  # This method associates the attribute ":photo" with a file attachment, paperclip gem
   has_attached_file :photo, styles: {
     thumb: '100x100>',
     square: '200x200#',
