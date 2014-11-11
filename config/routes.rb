@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'admin/edit' => 'admin#edit'
   get 'admin/new' => 'admin#new'
 
+  get 'admin/donation'
 
   resources :rider_regs, except: [:new]
   
