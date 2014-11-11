@@ -63,6 +63,7 @@ class RiderRegsController < ApplicationController
 
   def registration_fee
     @rider_reg = current_user.rider_reg
+    @db_address = @rider_reg.mailing_address
     @receipt = Receipt.new
   end
 

@@ -24,21 +24,42 @@
     <%= label_tag :last_name, "Last Name:" %>
     <%= text_field_tag :last_name %>
     <br>
-    <%= label_tag :line1, "Address 1:" %>
-    <%= text_field_tag :line1 %>
-    <br>
-    <%= label_tag :line2, "Address 2:" %>
-    <%= text_field_tag :line2 %>
-    <br>
-    <%= label_tag :city, "City:" %>
-    <%= text_field_tag :city %>
-    <br>
-    <%= label_tag :state, "State:" %>
-    <%= text_field_tag :state, nil, maxlength: 2 %>
-    <br>
-    <%= label_tag :postal_code, "Postal Code:" %>
-    <%= text_field_tag :postal_code, nil, maxlength: 5 %>
-    <br>
+    
+    <div class="use_db_address">
+      <h4>Use this address for billing?</h4>
+      
+      <%= @db_address.line1 %>
+      <%= @db_address.line2 %>
+      <%= @db_address.city %>
+      <%= @db_address.state %>
+      <%= @db_address.zip %>
+
+       
+      <select name="use_db_address">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+
+    </div>
+
+    <div class="separate_address_option">
+      <h4>Alternate Billing Address</h4>
+      <%= label_tag :line1, "Address 1:" %>
+      <%= text_field_tag :line1 %>
+      <br>
+      <%= label_tag :line2, "Address 2:" %>
+      <%= text_field_tag :line2 %>
+      <br>
+      <%= label_tag :city, "City:" %>
+      <%= text_field_tag :city %>
+      <br>
+      <%= label_tag :state, "State:" %>
+      <%= text_field_tag :state, nil, maxlength: 2 %>
+      <br>
+      <%= label_tag :postal_code, "Postal Code:" %>
+      <%= text_field_tag :postal_code, nil, maxlength: 5 %>
+      <br>
+    </div>
     <%= hidden_field_tag :total, 650 %>
     <p>By clicking "Register", I agree to pay $650.</p>
     <%= submit_tag 'Register' %>

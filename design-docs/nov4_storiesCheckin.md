@@ -16,7 +16,7 @@ USER STORY 1 -- RIDER REGISTERS
 
 BUT -- as rider fills out rider_reg complete in THIS order:
 
--- CHECK - step 1 in correct order 
+	-- CHECK - step 1 in correct order 
 -- TODO - add validations
 
 SINGLE PAGE
@@ -33,6 +33,8 @@ conditions page
 	what we need from the pdf's are just conditions of entry section with checkboxes.
 	3 different forms based on track choice.
 	http://www.riding4reform.org/Eng/2015/Pages/Costs.asp
+
+-- CHECK - created helper for these 
 
 rider fee page -- here give an option with autofilled address, if we need a different address they fill, other wise use same pre-entered address from before
 
