@@ -5,7 +5,9 @@ class RiderReg < ActiveRecord::Base
 	delegate :first_name, :last_name, :title, :full_name, to: :rider, allow_nil: true, prefix: false
 
 	has_many :donations_received, through: :rider
+  
   has_one :mailing_address, :as => :addressable
+  accepts_nested_attributes_for :mailing_address
 
   # This method associates the attribute ":avatar" with a file attachment
   has_attached_file :photo, styles: {

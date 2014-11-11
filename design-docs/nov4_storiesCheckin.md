@@ -16,7 +16,8 @@ USER STORY 1 -- RIDER REGISTERS
 
 BUT -- as rider fills out rider_reg complete in THIS order:
 
-add validations... 
+-- CHECK - step 1 in correct order 
+-- TODO - add validations
 
 SINGLE PAGE
 1) ride option

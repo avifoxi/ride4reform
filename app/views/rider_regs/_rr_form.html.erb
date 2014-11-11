@@ -1,8 +1,39 @@
-<%= form_for @rider_reg do |f| %>
+<%= form_for setup_mailing_addy(@rider_reg) do |f| %>
   <div>
-	  <%= f.label :ride_option %><br />
+	  <%= f.label :ride_option, 'Choose which ride option you want to participate in:' %><br />
 	  <%= f.select :ride_option, RiderReg.ride_options %>
 	</div>
+		
+	<%= f.fields_for :mailing_address do |ff| %>
+	  <div>
+	    <h4>Your Primary Mailing Address</h4>
+	    <%= ff.label :line1, 'Line 1' %><br>
+	    <%= ff.text_field :line1 %>
+	    
+	    <%= ff.label :line2, 'Line 2' %><br>
+	    <%= ff.text_field :line2 %>
+	    
+	    <%= ff.label :city %><br>
+	    <%= ff.text_field :city %>
+
+	    <%= ff.label :state %><br>
+	    <%= ff.select :state, fiddy_states %>
+
+
+	    <%= ff.label :zip %><br>
+	    <%= ff.text_field :zip %>
+	  </div>
+	<% end %>
+
+	<div>
+	  <%= f.label :primary_phone %><br />
+	  <%= f.text_field :primary_phone %>
+	</div>
+	<div>
+	  <%= f.label :secondary_phone %><br />
+	  <%= f.text_field :secondary_phone %>
+	</div>
+
 	<div>
 	  <h3>Your Birthdate Info</h3>
 	  <%= f.label :month %><br />
@@ -16,29 +47,20 @@
 
 	</div>
 
-
+	<div class="field">
+	  <%= f.label :photo %><br />
+	  <%= f.file_field :photo %>
+	</div>
 		
-	<div>
-	  <%= f.label :primary_phone %><br />
-	  <%= f.text_field :primary_phone %>
-	</div>
-	<div>
-	  <%= f.label :secondary_phone %><br />
-	  <%= f.text_field :secondary_phone %>
-	</div>
-	<div>
-		<p>We ask that all riders commit to raising at least $2000 for their participation in the ride. What is your fundraising goal?</p>
-	  <%= f.label :goal %><br />
-	  <%= f.text_field :goal %>
-	</div>
 	<div>
 	  <%= f.label :bio %><br />
 	  <%= f.text_area :bio %>
 	</div>
 
-	<div class="field">
-	  <%= f.label :photo %><br />
-	  <%= f.file_field :photo %>
+	<div>
+		<p>We ask that all riders commit to raising at least $2000 for their participation in the ride. What is your fundraising goal?</p>
+	  <%= f.label :goal %><br />
+	  <%= f.text_field :goal %>
 	</div>
 
 
