@@ -8,3 +8,4 @@ class CreateReceipts < ActiveRecord::Migration
     end
   end
 end
+

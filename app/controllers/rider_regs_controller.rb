@@ -68,7 +68,9 @@ class RiderRegsController < ApplicationController
   end
 
   def pay_fee
+    p params
     payment = PayPalWrapper.new(params)
+
 
     if payment.create
       user = current_user
@@ -107,7 +109,8 @@ class RiderRegsController < ApplicationController
 	private 
 
 	def rider_reg_params
-    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms, :photo, :mailing_address_attributes => [:line1, :line2, :city, :state, :zip])
+    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms, :photo, 
+      :mailing_address_attributes => [:line1, :line2, :city, :state, :zip])
   end
 
   def birthdate_params

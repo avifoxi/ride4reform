@@ -2,12 +2,15 @@ class RiderReg < ActiveRecord::Base
   belongs_to :ride_year
 	
 	belongs_to :rider, :class_name => "User"
-	delegate :first_name, :last_name, :title, :full_name, to: :rider, allow_nil: true, prefix: false
+	delegate :first_name, :last_name, :title, :full_name, :receipts, to: :rider, allow_nil: true, prefix: false
 
 	has_many :donations_received, through: :rider
   
   has_one :mailing_address, :as => :addressable
   accepts_nested_attributes_for :mailing_address
+
+  has_many :receipts 
+  accepts_nested_attributes_for :receipts
 
   # This method associates the attribute ":avatar" with a file attachment
   has_attached_file :photo, styles: {
