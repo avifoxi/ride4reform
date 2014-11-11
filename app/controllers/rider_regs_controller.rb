@@ -14,9 +14,9 @@ class RiderRegsController < ApplicationController
 	end
 
 	def create 
-		@rider_reg = RiderReg.new(rider_reg_params)
-
+    @rider_reg = RiderReg.new(rider_reg_params)
 		@rider_reg.rider = current_user
+    @rider_reg.birthdate = birthdate_params
 		if @rider_reg.save
 			redirect_to rider_regs_terms_path
     else
@@ -107,4 +107,10 @@ class RiderRegsController < ApplicationController
     params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms, :photo)
   end
 
+  def birthdate_params
+    month = params["rider_reg_month"].to_i
+    year = params["rider_reg_year"].to_i
+    day = params["rider_reg_day"].to_i
+    Date.new(year,month,day)
+  end
 end

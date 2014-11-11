@@ -4,9 +4,20 @@
 	  <%= f.select :ride_option, RiderReg.ride_options %>
 	</div>
 	<div>
-	  <%= f.label :birthdate %><br />
-	  <%= f.text_field :birthdate %>
+	  <h3>Your Birthdate Info</h3>
+	  <%= f.label :month %><br />
+	  <%= select_tag(:rider_reg_month, options_for_select(month_names_nums)) %>
+		
+		<%= f.label :year %><br />
+		<%= select_tag(:rider_reg_year, options_for_select(birth_year_range))%>
+
+		<%= f.label :day %><br />
+		<%= select_tag(:rider_reg_day, options_for_select(birth_day_range))%>
+
 	</div>
+
+
+		
 	<div>
 	  <%= f.label :primary_phone %><br />
 	  <%= f.text_field :primary_phone %>

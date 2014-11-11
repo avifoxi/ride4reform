@@ -5,7 +5,10 @@ LIVE BY END OF NOVEMBER
 
 USER STORY 1 -- RIDER REGISTERS
 
-- birthdate, input drop down menu
+- birthdate, input drop down menu 
+		-- CHECK -- input in views
+		-- CHECK - parse in controller to birthdate params, read to DB successfully 
+		
 - create container for form elements -- 80% of page, and fields are scaled appropriately
 
 -- User creation first is right on
