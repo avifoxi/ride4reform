@@ -17,7 +17,9 @@ class RiderRegsController < ApplicationController
     @rider_reg = RiderReg.new(rider_reg_params)
 		@rider_reg.rider = current_user
     @rider_reg.birthdate = birthdate_params
-		if @rider_reg.save
+		
+    if @rider_reg.save
+      @rider_reg.mailing_address.save
 			redirect_to rider_regs_terms_path
     else
      p @rider_reg.errors
@@ -104,7 +106,7 @@ class RiderRegsController < ApplicationController
 	private 
 
 	def rider_reg_params
-    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms, :photo)
+    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms, :photo, :mailing_address_attributes => [:line1, :line2, :city, :state, :zip])
   end
 
   def birthdate_params
