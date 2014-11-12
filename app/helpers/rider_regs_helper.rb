@@ -17,7 +17,11 @@ module RiderRegsHelper
 	end
 
   def setup_mailing_addy_receipt(rider_reg)
-    rider_reg.mailing_address ||= MailingAddress.new
+    if rider_reg.rider.mailing_address == nil 
+        rider_reg.rider.mailing_address = MailingAddress.new
+    else
+        rider_reg.rider.mailing_address
+    end
     rider_reg.rider.receipts.new
     rider_reg
   end
@@ -53,7 +57,8 @@ module RiderRegsHelper
 
 
   def fiddy_states
-  	Array[ ["AK", "Alaska"], 
+  	Array[ 
+        ["AK", "Alaska"], 
         ["AL", "Alabama"], 
         ["AR", "Arkansas"], 
         ["AS", "American Samoa"], 
@@ -107,7 +112,8 @@ module RiderRegsHelper
         ["WA", "Washington"], 
         ["WI", "Wisconsin"], 
         ["WV", "West Virginia"], 
-        ["WY", "Wyoming"] ]
+        ["WY", "Wyoming"] 
+    ]
   end
 
 

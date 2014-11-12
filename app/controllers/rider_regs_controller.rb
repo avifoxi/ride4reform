@@ -11,9 +11,11 @@ class RiderRegsController < ApplicationController
 
 	def new
 		@rider_reg = RiderReg.new
+    @rider_reg.rider = current_user
 	end
 
 	def create 
+    p rider_reg_params[:mailing_address]
     @rider_reg = RiderReg.new(rider_reg_params)
 		@rider_reg.rider = current_user
     @rider_reg.birthdate = birthdate_params

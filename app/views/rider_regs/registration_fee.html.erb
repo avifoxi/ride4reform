@@ -2,9 +2,30 @@
  
   <h3>Registration Fee</h3>
 
-  <%= form_for setup_mailing_addy_receipt(@rider_reg) do |f| %>
+  <%= form_for setup_mailing_addy_receipt(@rider_reg),url: rider_regs_registration_fee_path(@rider_reg), method: :put do |f| %>
 
       <%= f.fields_for :receipt do |ff|%>
+        <%= ff.label :type, "Credit Card Type:" %>
+        <%= ff.select :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
+        <br>
+        <%= ff.label :credit_card, "Credit Card Number:" %>
+        <%= ff.text_field :credit_card %>
+        <br>
+        <%= ff.label :expire_month, "Month (MM):" %>
+        <%= ff.text_field :expire_month, nil, maxlength: 2  %>
+        <br>
+        <%= ff.label :expire_year, "Year (YYYY):" %>
+        <%= ff.text_field :expire_year, nil, maxlength: 4  %>
+        <br>
+        <%= ff.label :cvv2, "CVV2:" %>
+        <%= ff.text_field :cvv2, nil, maxlength: 4  %>
+        <br>
+        <%= ff.label :first_name, "First Name:" %>
+        <%= ff.text_field :first_name %>
+        <br>
+        <%= ff.label :last_name, "Last Name:" %>
+        <%= ff.text_field :last_name %>
+        <br>
       <% end %>
 
       <%= f.fields_for :mailing_address do |ff| %>
@@ -56,7 +77,7 @@
     <%= text_field_tag :last_name %>
     <br>
     
-    <div class="use_db_address">
+    <div class="reference_user_address">
       <h4>Use this address for billing?</h4>
       
       <%= @db_address.line1 %></br>
@@ -66,7 +87,7 @@
       <%= @db_address.zip %></br>
 
        
-      <select name="use_db_address">
+      <select name="reference_user_address">
         <option value="true">Yes</option>
         <option value="false">No</option>
       </select>
