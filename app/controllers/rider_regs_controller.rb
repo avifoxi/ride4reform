@@ -19,6 +19,7 @@ class RiderRegsController < ApplicationController
     @rider_reg.birthdate = birthdate_params
 		
     if @rider_reg.save
+      ## TODO -- what if there is an error in mailing address ? do we need error handling?
       @rider_reg.mailing_address.save
 			redirect_to rider_regs_terms_path
     else
