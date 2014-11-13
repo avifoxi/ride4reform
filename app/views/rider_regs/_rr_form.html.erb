@@ -3,27 +3,32 @@
 	  <%= f.label :ride_option, 'Choose which ride option you want to participate in:' %><br />
 	  <%= f.select :ride_option, RiderReg.ride_options %>
 	</div>
+
+
+		<%= f.fields_for :rider do |rf| %>
+		  <%= rf.fields_for :mailing_address do |mf| %>
+		  
+		  <div>
+		    <h4>Your Primary Mailing Address</h4>
+		    <%= mf.label :line1, 'Line 1' %><br>
+		    <%= mf.text_field :line1 %>
+		    
+		    <%= mf.label :line2, 'Line 2' %><br>
+		    <%= mf.text_field :line2 %>
+		    
+		    <%= mf.label :city %><br>
+		    <%= mf.text_field :city %>
+
+		    <%= mf.label :state %><br>
+		    <%= mf.select :state, fiddy_states %>
+
+
+		    <%= mf.label :zip %><br>
+		    <%= mf.text_field :zip %>
+		  </div>
+			<% end %>
+		<% end %>
 		
-		<%= f.fields_for :mailing_address do |ff| %>
-	  <div>
-	    <h4>Your Primary Mailing Address</h4>
-	    <%= ff.label :line1, 'Line 1' %><br>
-	    <%= ff.text_field :line1 %>
-	    
-	    <%= ff.label :line2, 'Line 2' %><br>
-	    <%= ff.text_field :line2 %>
-	    
-	    <%= ff.label :city %><br>
-	    <%= ff.text_field :city %>
-
-	    <%= ff.label :state %><br>
-	    <%= ff.select :state, fiddy_states %>
-
-
-	    <%= ff.label :zip %><br>
-	    <%= ff.text_field :zip %>
-	  </div>
-	<% end %>
 
 	<div>
 	  <%= f.label :primary_phone %><br />

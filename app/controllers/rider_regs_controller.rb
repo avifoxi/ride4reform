@@ -16,14 +16,16 @@ class RiderRegsController < ApplicationController
 	end
 
 	def create 
-    p rider_reg_params[:mailing_address]
     @rider_reg = RiderReg.new(rider_reg_params)
 		@rider_reg.rider = current_user
     @rider_reg.birthdate = birthdate_params
 		
     if @rider_reg.save
+      ## from strong params - this updates mailing address, must do after RR entry made in DB
+      @rider_reg.update_attributes(rider_reg_params)
+
       ## TODO -- what if there is an error in mailing address ? do we need error handling?
-      @rider_reg.rider.mailing_address.save
+      # @rider_reg.rider.mailing_address.save
 			redirect_to rider_regs_terms_path
     else
      p @rider_reg.errors
@@ -113,7 +115,10 @@ class RiderRegsController < ApplicationController
 	private 
 
 	def rider_reg_params
-    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms, :photo, :mailing_address_attributes => [:line1, :line2, :city, :state, :zip])
+    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms, :photo, 
+      :rider_attributes =>
+        [:id, :mailing_address_attributes => [:line1, :line2, :city, :state, :zip]
+      ])
   end
 
   def mailing_address_params
