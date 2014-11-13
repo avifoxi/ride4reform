@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   has_many :receipts
 
   has_one :mailing_address, :as => :addressable
-  accepts_nested_attributes_for :mailing_address
+  
+  accepts_nested_attributes_for :mailing_address, :receipts
 
   TITLES = ['Mr', 'Ms', 'Dr', 'Rabbi', 'Cantor', 'Chazzan', 'Educator', 'None']
 

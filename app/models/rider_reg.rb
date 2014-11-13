@@ -9,6 +9,7 @@ class RiderReg < ActiveRecord::Base
   # has_one :mailing_address, :as => :addressable
   accepts_nested_attributes_for :rider
 
+
   # has_one :registration_receipt, 
   # has_many :jobs, :foreign_key => 'user_id', :class_name => "Task"
   # accepts_nested_attributes_for :receipts

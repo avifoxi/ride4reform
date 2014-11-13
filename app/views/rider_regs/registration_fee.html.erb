@@ -2,31 +2,36 @@
  
   <h3>Registration Fee</h3>
 
+  <p>Every participant in the ride must pay a participation fee of </p>
+
   <%= form_for setup_mailing_addy_receipt(@rider_reg),url: rider_regs_registration_fee_path(@rider_reg), method: :put do |f| %>
 
-      <%= f.fields_for :receipt do |ff|%>
-        <%= ff.label :type, "Credit Card Type:" %>
-        <%= ff.select :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
+      <%= f.fields_for :rider do |rider|%>
+
+      <%= rider.fields_for :receipt do |rcf|%>
+        <%= rcf.label :type, "Credit Card Type:" %>
+        <%= rcf.select :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
         <br>
-        <%= ff.label :credit_card, "Credit Card Number:" %>
-        <%= ff.text_field :credit_card %>
+        <%= rcf.label :credit_card, "Credit Card Number:" %>
+        <%= rcf.text_field :credit_card %>
         <br>
-        <%= ff.label :expire_month, "Month (MM):" %>
-        <%= ff.select :month, options_for_select(month_names_nums)  %>
+        <%= rcf.label :expire_month, "Month (MM):" %>
+        <%= rcf.select :month, options_for_select(month_names_nums)  %>
         <br>
-        <%= ff.label :expire_year, "Year:" %>
-        <%= ff.select :expire_year, options_for_select(cc_years_range)    %>
+        <%= rcf.label :expire_year, "Year:" %>
+        <%= rcf.select :expire_year, options_for_select(cc_years_range)    %>
         <br>
-        <%= ff.label :cvv2, "CVV2:" %>
-        <%= ff.text_field :cvv2 %>
+        <%= rcf.label :cvv2, "CVV2:" %>
+        <%= rcf.text_field :cvv2 %>
         <br>
-        <%= ff.label :first_name, "First Name:" %>
-        <%= ff.text_field :first_name %>
+        <%= rcf.label :first_name, "First Name:" %>
+        <%= rcf.text_field :first_name %>
         <br>
-        <%= ff.label :last_name, "Last Name:" %>
-        <%= ff.text_field :last_name %>
+        <%= rcf.label :last_name, "Last Name:" %>
+        <%= rcf.text_field :last_name %>
         <br>
       <% end %>
+
 
       <div class="reference_user_address">
         <h4>Use this address for billing?</h4>
@@ -39,61 +44,38 @@
 
          
         <select name="reference_user_address">
+          <option value="nil">Please Select</option>
           <option value="true">Yes</option>
           <option value="false">No</option>
         </select>
 
       </div>
-
-      <%= f.fields_for :mailing_address do |ff| %>
+      
+      <%= rider.fields_for :mailing_address do |mf| %>
         <div>
-        <h4>Your Primary Mailing Address</h4>
-        <%= ff.label :line1, 'Line 1' %><br>
-        <%= ff.text_field :line1 %>
+        <h4>Separate Billing Address</h4>
+        <%= mf.label :line1, 'Line 1' %><br>
+        <%= mf.text_field :line1 %>
         
-        <%= ff.label :line2, 'Line 2' %><br>
-        <%= ff.text_field :line2 %>
+        <%= mf.label :line2, 'Line 2' %><br>
+        <%= mf.text_field :line2 %>
         
-        <%= ff.label :city %><br>
-        <%= ff.text_field :city %>
+        <%= mf.label :city %><br>
+        <%= mf.text_field :city %>
 
-        <%= ff.label :state %><br>
-        <%= ff.select :state, fiddy_states %>
+        <%= mf.label :state %><br>
+        <%= mf.select :state, fiddy_states %>
 
 
-        <%= ff.label :zip %><br>
-        <%= ff.text_field :zip %>
+        <%= mf.label :zip %><br>
+        <%= mf.text_field :zip %>
         </div>
       <% end %>
-    
-
-  <% end %>
 
 
-
- 
-    
-
-    <div class="separate_address_option">
-      <h4>Alternate Billing Address</h4>
-      <%= label_tag :line1, "Address 1:" %>
-      <%= text_field_tag :line1 %>
-      <br>
-      <%= label_tag :line2, "Address 2:" %>
-      <%= text_field_tag :line2 %>
-      <br>
-      <%= label_tag :city, "City:" %>
-      <%= text_field_tag :city %>
-      <br>
-      <%= label_tag :state, "State:" %>
-      <%= text_field_tag :state, nil, maxlength: 2 %>
-      <br>
-      <%= label_tag :postal_code, "Postal Code:" %>
-      <%= text_field_tag :postal_code, nil, maxlength: 5 %>
-      <br>
-    </div>
+    <% end %>
     <%= hidden_field_tag :total, 650 %>
     <p>By clicking "Register", I agree to pay $650.</p>
     <%= submit_tag 'Register' %>
-
-</div> 
+    
+  <% end %>
