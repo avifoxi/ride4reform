@@ -2,10 +2,12 @@ include PayPal::SDK::REST
 
 class PayPalWrapper
    
-  attr_accessor :payment  
+  attr_accessor :payment, :amount  
 
-	def initialize(params)
-		@params = params
+	def initialize(address, cc_info, amount)
+		@address = address
+		@cc_info = cc_info
+		@amount = amount
 		@payment = nil
 		connect_to_paypal		
 		fill_new_payment
@@ -74,13 +76,13 @@ class PayPalWrapper
 		            :expire_month => "11",
 		            :expire_year => "2018",
 		            :cvv2 => "874",
-		            :first_name => @params[:first_name],
-		            :last_name => @params[:last_name],
+		            :first_name => @cc_info[:first_name],
+		            :last_name => @cc_info[:last_name],
 		            :billing_address => {
-		              :line1 => @params[:line1],
-		              :city => @params[:city],
-		              :state => @params[:state],
-		              :postal_code => @params[:postal_code],
+		              :line1 => @address[:line1],
+		              :city => @address[:city],
+		              :state => @address[:state],
+		              :postal_code => @address[:postal_code],
 		              :country_code => "US" }}}]},
 		      :transactions => [{
 		        :item_list => {

@@ -88,7 +88,7 @@ class RiderRegsController < ApplicationController
 
     cc_info = rider_reg_params['rider_attributes']['receipt'] 
     # p '%%'*50
-
+    amount = RideYear.current_fee
 
     payment = PayPalWrapper.new(address, cc_info)
 
