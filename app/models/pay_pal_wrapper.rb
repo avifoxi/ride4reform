@@ -89,11 +89,11 @@ class PayPalWrapper
 		          :items => [{
 		            :name => "item",
 		            :sku => "item",
-		            :price => "%.2f" % @params[:total],
+		            :price => "%.2f" % @amount,
 		            :currency => "USD",
 		            :quantity => 1 }]},
 		        :amount => {
-		          :total => "%.2f" % @params[:total],
+		          :total => "%.2f" % @amount,
 		          :currency => "USD" },
 		        :description => "This is the payment transaction description." }]})
 
@@ -122,11 +122,11 @@ class PayPalWrapper
               :items => [{
                 :name => "item",
                 :sku => "item",
-                :price => "%.2f" % @params[:total],
+                :price => "%.2f" % @amount,
                 :currency => "USD",
                 :quantity => 1 }]},
             :amount => {
-              :total => "%.2f" % @params[:total],
+              :total => "%.2f" % @amount,
               :currency => "USD" },
             :description => "This is the payment transaction description." }]})
 		end

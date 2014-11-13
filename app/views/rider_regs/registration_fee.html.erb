@@ -2,6 +2,7 @@
  
   <h3>Registration Fee</h3>
 
+  <%= @errors if @errors %>
   <p>Every participant in the ride must pay a participation fee of $<%= @current_ride_year.registration_fee %>. <br>Register before <%= @current_ride_year.early_bird_cutoff.strftime("%B %d, %Y") %> and pay the discounted early bird rate of $<%= @current_ride_year.registration_fee_early %>.</p>
 
   <%= form_for setup_mailing_addy_receipt(@rider_reg),url: rider_regs_registration_fee_path(@rider_reg), method: :put do |f| %>
@@ -24,10 +25,10 @@
         <%= rcf.label :cvv2, "CVV2:" %>
         <%= rcf.text_field :cvv2 %>
         <br>
-        <%= rcf.label :first_name, "First Name:" %>
+        <%= rcf.label :first_name, "First name as it appears on card:" %>
         <%= rcf.text_field :first_name %>
         <br>
-        <%= rcf.label :last_name, "Last Name:" %>
+        <%= rcf.label :last_name, "Last name as it appears on card:" %>
         <%= rcf.text_field :last_name %>
         <br>
       <% end %>
@@ -74,7 +75,6 @@
 
 
     <% end %>
-    <%= hidden_field_tag :total, 650 %>
     <p>By clicking "Register", I agree to pay $650.</p>
     <%= submit_tag 'Register' %>
     

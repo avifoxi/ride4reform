@@ -79,41 +79,28 @@ class RiderRegsController < ApplicationController
   end
 
   def pay_fee
-    
-    if params["reference_user_address"].to_b
-      address = current_user.mailing_address
-    else
-      address = MailingAddress.new(rider_reg_params['rider_attributes']['mailing_address_attributes'])
-    end
-
+    address = cc_address
     cc_info = rider_reg_params['rider_attributes']['receipt'] 
-    # p '%%'*50
     amount = RideYear.current_fee
+    payment = PayPalWrapper.new(address, cc_info, amount)
 
-    payment = PayPalWrapper.new(address, cc_info)
+    @rider_reg = current_user.rider_reg
 
+    if payment.create
+      receipt = Receipt.create(amount:          amount,
+                               paypal_id:       payment.id,
+                               user:            current_user,
+                               mailing_address: address)
 
-
-
-    # if payment.create
-    #   user = current_user
-
-
-      # receipt = Receipt.create(amount:          params[:total],
-      #                          paypal_id:       payment.id,
-      #                          user:            user,
-      #                          mailing_address: address1)
-
-      # rider_reg = user.rider_reg
-      # rider_reg.paid = true
-      # rider_reg.mailing_address = address2
-      # rider_reg.save
-
-    #   redirect_to rider_reg_path(rider_reg)
-    # else
-    #   payment.error
-    #   # TODO - add error page redirect
-    # end
+      @rider_reg.update_attributes(paid: true)
+      redirect_to rider_reg_path(@rider_reg)
+    else
+      @errors = payment.error
+      @current_ride_year = RideYear.current
+      @rider_reg = current_user.rider_reg
+      @db_address = @rider_reg.mailing_address
+      redirect_to rider_regs_fee_path 
+    end
   end
 
 	private 
@@ -135,4 +122,13 @@ class RiderRegsController < ApplicationController
     day = params["rider_reg_day"].to_i
     Date.new(year,month,day)
   end
+
+  def cc_address
+    if params["reference_user_address"].to_b
+      current_user.mailing_address
+    else
+      MailingAddress.new(rider_reg_params['rider_attributes']['mailing_address_attributes'])
+    end
+  end
+
 end
