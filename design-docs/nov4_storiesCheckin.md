@@ -38,6 +38,8 @@ conditions page
 
 rider fee page -- here give an option with autofilled address, if we need a different address they fill, other wise use same pre-entered address from before
 
+-- TODO -- ADD VALIDATIONS ON FRONT END - perhaps a JS library ala judge, or some custom popups
+
 on RIDER page -- edit button should not be green -- maybe a better color to distinguish
 
 stay away from green + red ... 

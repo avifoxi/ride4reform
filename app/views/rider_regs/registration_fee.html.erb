@@ -12,13 +12,13 @@
         <%= ff.text_field :credit_card %>
         <br>
         <%= ff.label :expire_month, "Month (MM):" %>
-        <%= ff.text_field :expire_month, nil, maxlength: 2  %>
+        <%= ff.select :month, options_for_select(month_names_nums)  %>
         <br>
-        <%= ff.label :expire_year, "Year (YYYY):" %>
-        <%= ff.text_field :expire_year, nil, maxlength: 4  %>
+        <%= ff.label :expire_year, "Year:" %>
+        <%= ff.select :expire_year, options_for_select(cc_years_range)    %>
         <br>
         <%= ff.label :cvv2, "CVV2:" %>
-        <%= ff.text_field :cvv2, nil, maxlength: 4  %>
+        <%= ff.text_field :cvv2 %>
         <br>
         <%= ff.label :first_name, "First Name:" %>
         <%= ff.text_field :first_name %>
@@ -27,6 +27,23 @@
         <%= ff.text_field :last_name %>
         <br>
       <% end %>
+
+      <div class="reference_user_address">
+        <h4>Use this address for billing?</h4>
+        
+        <%= @db_address.line1 %></br>
+        <%= @db_address.line2 %></br>
+        <%= @db_address.city %></br>
+        <%= @db_address.state %></br>
+        <%= @db_address.zip %></br>
+
+         
+        <select name="reference_user_address">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+
+      </div>
 
       <%= f.fields_for :mailing_address do |ff| %>
         <div>
@@ -54,45 +71,8 @@
 
 
 
-  <%= form_for @receipt, url: rider_regs_registration_fee_path(@rider_reg), method: :put do %>
-    <%= label_tag :type, "Credit Card Type:" %>
-    <%= select_tag :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
-    <br>
-    <%= label_tag :credit_card, "Credit Card Number:" %>
-    <%= text_field_tag :credit_card, nil, maxlength: 16 %>
-    <br>
-    <%= label_tag :expire_month, "Month (MM):" %>
-    <%= text_field_tag :expire_month, nil, maxlength: 2  %>
-    <br>
-    <%= label_tag :expire_year, "Year (YYYY):" %>
-    <%= text_field_tag :expire_year, nil, maxlength: 4  %>
-    <br>
-    <%= label_tag :cvv2, "CVV2:" %>
-    <%= text_field_tag :cvv2, nil, maxlength: 4  %>
-    <br>
-    <%= label_tag :first_name, "First Name:" %>
-    <%= text_field_tag :first_name %>
-    <br>
-    <%= label_tag :last_name, "Last Name:" %>
-    <%= text_field_tag :last_name %>
-    <br>
+ 
     
-    <div class="reference_user_address">
-      <h4>Use this address for billing?</h4>
-      
-      <%= @db_address.line1 %></br>
-      <%= @db_address.line2 %></br>
-      <%= @db_address.city %></br>
-      <%= @db_address.state %></br>
-      <%= @db_address.zip %></br>
-
-       
-      <select name="reference_user_address">
-        <option value="true">Yes</option>
-        <option value="false">No</option>
-      </select>
-
-    </div>
 
     <div class="separate_address_option">
       <h4>Alternate Billing Address</h4>
@@ -115,5 +95,5 @@
     <%= hidden_field_tag :total, 650 %>
     <p>By clicking "Register", I agree to pay $650.</p>
     <%= submit_tag 'Register' %>
-  <% end %>
+
 </div> 

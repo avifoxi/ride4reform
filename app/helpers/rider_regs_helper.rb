@@ -1,21 +1,25 @@
 module RiderRegsHelper
 
-	def month_names_nums
-		date_num_arr = [] 
-		Date::MONTHNAMES[1..12].each_with_index do |el, i| 
-			date_num_arr << [el, i+1] 
-		end
-		date_num_arr
-	end
+    def month_names_nums
+    	date_num_arr = [] 
+    	Date::MONTHNAMES[1..12].each_with_index do |el, i| 
+    		date_num_arr << [el, i+1] 
+    	end
+    	date_num_arr
+    end
 
-	def birth_year_range
-		(Time.now.year - 80)..(Time.now.year - 16)
-	end
+    def birth_year_range
+    	(Time.now.year - 80)..(Time.now.year - 16)
+    end
 
-	def birth_day_range
-		1..31
-	end
+    def birth_day_range
+    	1..31
+    end
 
+    def cc_years_range
+        (Time.now.year)..(Time.now.year + 15)
+    end
+    
   def setup_mailing_addy_receipt(rider_reg)
     if rider_reg.rider.mailing_address == nil 
         rider_reg.rider.mailing_address = MailingAddress.new

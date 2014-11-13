@@ -12,6 +12,7 @@ class RiderRegsController < ApplicationController
 	def new
 		@rider_reg = RiderReg.new
     @rider_reg.rider = current_user
+
 	end
 
 	def create 
@@ -22,7 +23,7 @@ class RiderRegsController < ApplicationController
 		
     if @rider_reg.save
       ## TODO -- what if there is an error in mailing address ? do we need error handling?
-      @rider_reg.mailing_address.save
+      @rider_reg.rider.mailing_address.save
 			redirect_to rider_regs_terms_path
     else
      p @rider_reg.errors
@@ -112,8 +113,12 @@ class RiderRegsController < ApplicationController
 	private 
 
 	def rider_reg_params
-    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms, :photo, 
-      :mailing_address_attributes => [:line1, :line2, :city, :state, :zip])
+    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms, :photo, :mailing_address_attributes => [:line1, :line2, :city, :state, :zip])
+  end
+
+  def mailing_address_params
+    # params.require(:mailing_address_attributes => [:line1, :line2, :city, :state, :zip]
+    
   end
 
   def birthdate_params
