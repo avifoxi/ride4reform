@@ -79,32 +79,25 @@ class RiderRegsController < ApplicationController
   end
 
   def pay_fee
-    p '%%'*50
-    p 'raw params'
-    p params["reference_user_address"]
-    p '%%'*50
-    p 'rider reg strong process'
-    p rider_reg_params
-    p '%%'*50
-    payment = PayPalWrapper.new(params)
+    
+    if params["reference_user_address"].to_b
+      address = current_user.mailing_address
+    else
+      address = MailingAddress.new(rider_reg_params['rider_attributes']['mailing_address_attributes'])
+    end
+
+    cc_info = rider_reg_params['rider_attributes']['receipt'] 
+    # p '%%'*50
 
 
-    if payment.create
-      user = current_user
+    payment = PayPalWrapper.new(address, cc_info)
 
-      # Two address creations so one can be assigned to the receipt
-      # and one can be assigned to the rider registration
-      # address1 = MailingAddress.create(line1:  params[:line1],
-      #                                  line2:  params[:line2],
-      #                                  city:   params[:city],
-      #                                  state:  params[:state],
-      #                                  zip:    params[:postal_code])
 
-      # address2 = MailingAddress.create(line1:  params[:line1],
-      #                                  line2:  params[:line2],
-      #                                  city:   params[:city],
-      #                                  state:  params[:state],
-      #                                  zip:    params[:postal_code])
+
+
+    # if payment.create
+    #   user = current_user
+
 
       # receipt = Receipt.create(amount:          params[:total],
       #                          paypal_id:       payment.id,
@@ -116,11 +109,11 @@ class RiderRegsController < ApplicationController
       # rider_reg.mailing_address = address2
       # rider_reg.save
 
-      redirect_to rider_reg_path(rider_reg)
-    else
-      payment.error
-      # TODO - add error page redirect
-    end
+    #   redirect_to rider_reg_path(rider_reg)
+    # else
+    #   payment.error
+    #   # TODO - add error page redirect
+    # end
   end
 
 	private 
