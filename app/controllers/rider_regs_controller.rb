@@ -72,6 +72,7 @@ class RiderRegsController < ApplicationController
 	end
 
   def registration_fee
+    @current_ride_year = RideYear.current
     @rider_reg = current_user.rider_reg
     @db_address = @rider_reg.mailing_address
     @receipt = Receipt.new
@@ -80,7 +81,7 @@ class RiderRegsController < ApplicationController
   def pay_fee
     p '%%'*50
     p 'raw params'
-    p params
+    p params["reference_user_address"]
     p '%%'*50
     p 'rider reg strong process'
     p rider_reg_params

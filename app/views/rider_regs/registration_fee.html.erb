@@ -2,7 +2,7 @@
  
   <h3>Registration Fee</h3>
 
-  <p>Every participant in the ride must pay a participation fee of </p>
+  <p>Every participant in the ride must pay a participation fee of $<%= @current_ride_year.registration_fee %>. <br>Register before <%= @current_ride_year.early_bird_cutoff.strftime("%B %d, %Y") %> and pay the discounted early bird rate of $<%= @current_ride_year.registration_fee_early %>.</p>
 
   <%= form_for setup_mailing_addy_receipt(@rider_reg),url: rider_regs_registration_fee_path(@rider_reg), method: :put do |f| %>
 

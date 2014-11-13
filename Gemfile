@@ -62,6 +62,9 @@ gem 'aws-sdk-v1'
 # Paperclip for file upload
 gem 'paperclip'
 
+# for conversion of strings to boolean via 'string'.to_b
+gem 'wannabe_bool'
+
 group :development, :test do
 	gem 'faker'
 end
