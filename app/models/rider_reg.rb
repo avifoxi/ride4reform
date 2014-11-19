@@ -2,12 +2,19 @@ class RiderReg < ActiveRecord::Base
   belongs_to :ride_year
 	
 	belongs_to :rider, :class_name => "User"
-	delegate :first_name, :last_name, :title, :full_name, to: :rider, allow_nil: true, prefix: false
+	delegate :first_name, :last_name, :title, :full_name, :receipts, :mailing_address, to: :rider, allow_nil: true, prefix: false
 
 	has_many :donations_received, through: :rider
-  has_one :mailing_address, :as => :addressable
+  
+  # has_one :mailing_address, :as => :addressable
+  accepts_nested_attributes_for :rider
 
-  # This method associates the attribute ":avatar" with a file attachment
+
+  # has_one :registration_receipt, 
+  # has_many :jobs, :foreign_key => 'user_id', :class_name => "Task"
+  # accepts_nested_attributes_for :receipts
+
+  # This method associates the attribute ":photo" with a file attachment, paperclip gem
   has_attached_file :photo, styles: {
     thumb: '100x100>',
     square: '200x200#',
@@ -16,10 +23,6 @@ class RiderReg < ActiveRecord::Base
 
   # Validate the attached image is image/jpg, image/png, etc
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
-
-
-
-
 
 
   RIDE_OPTIONS = ['Original Track', 'Light Track', 'Hiking', 'Combination Hiking/Riding']
@@ -34,6 +37,10 @@ class RiderReg < ActiveRecord::Base
   	perc = (self.raised.to_f / self.goal.to_f).round(2) * 100
   	perc.to_i.to_s
   end
+
+  # def mailing_address
+  #   self.rider.mailing_address
+  # end
 
   def donors
     donor_arr = []

@@ -1,12 +1,35 @@
-<%= form_for @rider_reg do |f| %>
+<%= form_for setup_mailing_addy_receipt(@rider_reg) do |f| %>
   <div>
-	  <%= f.label :ride_option %><br />
+	  <%= f.label :ride_option, 'Choose which ride option you want to participate in:' %><br />
 	  <%= f.select :ride_option, RiderReg.ride_options %>
 	</div>
-	<div>
-	  <%= f.label :birthdate %><br />
-	  <%= f.text_field :birthdate %>
-	</div>
+
+
+		<%= f.fields_for :rider do |rf| %>
+		  <%= rf.fields_for :mailing_address do |mf| %>
+		  
+		  <div>
+		    <h4>Your Primary Mailing Address</h4>
+		    <%= mf.label :line1, 'Line 1' %><br>
+		    <%= mf.text_field :line1 %>
+		    
+		    <%= mf.label :line2, 'Line 2' %><br>
+		    <%= mf.text_field :line2 %>
+		    
+		    <%= mf.label :city %><br>
+		    <%= mf.text_field :city %>
+
+		    <%= mf.label :state %><br>
+		    <%= mf.select :state, fiddy_states %>
+
+
+		    <%= mf.label :zip %><br>
+		    <%= mf.text_field :zip %>
+		  </div>
+			<% end %>
+		<% end %>
+		
+
 	<div>
 	  <%= f.label :primary_phone %><br />
 	  <%= f.text_field :primary_phone %>
@@ -15,19 +38,34 @@
 	  <%= f.label :secondary_phone %><br />
 	  <%= f.text_field :secondary_phone %>
 	</div>
+
 	<div>
-		<p>We ask that all riders commit to raising at least $2000 for their participation in the ride. What is your fundraising goal?</p>
-	  <%= f.label :goal %><br />
-	  <%= f.text_field :goal %>
-	</div>
-	<div>
-	  <%= f.label :bio %><br />
-	  <%= f.text_area :bio %>
+	  <h3>Your Birthdate Info</h3>
+	  <%= f.label :month %><br />
+	  <%= select_tag(:rider_reg_month, options_for_select(month_names_nums)) %>
+		
+		<%= f.label :year %><br />
+		<%= select_tag(:rider_reg_year, options_for_select(birth_year_range))%>
+
+		<%= f.label :day %><br />
+		<%= select_tag(:rider_reg_day, options_for_select(birth_day_range))%>
+
 	</div>
 
 	<div class="field">
 	  <%= f.label :photo %><br />
 	  <%= f.file_field :photo %>
+	</div>
+		
+	<div>
+	  <%= f.label :bio %><br />
+	  <%= f.text_area :bio %>
+	</div>
+
+	<div>
+		<p>We ask that all riders commit to raising at least $2000 for their participation in the ride. What is your fundraising goal?</p>
+	  <%= f.label :goal %><br />
+	  <%= f.text_field :goal %>
 	</div>
 
 

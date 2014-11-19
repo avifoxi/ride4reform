@@ -1,44 +1,81 @@
-<h3>Registration Fee</h3>
+<div class="form_container">
+ 
+  <h3>Registration Fee</h3>
 
-<%= form_for @receipt, url: rider_regs_registration_fee_path(@rider_reg), method: :put do %>
-  <%= label_tag :type, "Credit Card Type:" %>
-  <%= select_tag :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
-  <br>
-  <%= label_tag :credit_card, "Credit Card Number:" %>
-  <%= text_field_tag :credit_card, nil, maxlength: 16 %>
-  <br>
-  <%= label_tag :expire_month, "Month (MM):" %>
-  <%= text_field_tag :expire_month, nil, maxlength: 2  %>
-  <br>
-  <%= label_tag :expire_year, "Year (YYYY):" %>
-  <%= text_field_tag :expire_year, nil, maxlength: 4  %>
-  <br>
-  <%= label_tag :cvv2, "CVV2:" %>
-  <%= text_field_tag :cvv2, nil, maxlength: 4  %>
-  <br>
-  <%= label_tag :first_name, "First Name:" %>
-  <%= text_field_tag :first_name %>
-  <br>
-  <%= label_tag :last_name, "Last Name:" %>
-  <%= text_field_tag :last_name %>
-  <br>
-  <%= label_tag :line1, "Address 1:" %>
-  <%= text_field_tag :line1 %>
-  <br>
-  <%= label_tag :line2, "Address 2:" %>
-  <%= text_field_tag :line2 %>
-  <br>
-  <%= label_tag :city, "City:" %>
-  <%= text_field_tag :city %>
-  <br>
-  <%= label_tag :state, "State:" %>
-  <%= text_field_tag :state, nil, maxlength: 2 %>
-  <br>
-  <%= label_tag :postal_code, "Postal Code:" %>
-  <%= text_field_tag :postal_code, nil, maxlength: 5 %>
-  <br>
-  <%= hidden_field_tag :total, 650 %>
-  <p>By clicking "Register", I agree to pay $650.</p>
-  <%= submit_tag 'Register' %>
-<% end %>
+  <%= @errors if @errors %>
+  <p>Every participant in the ride must pay a participation fee of $<%= @current_ride_year.registration_fee %>. <br>Register before <%= @current_ride_year.early_bird_cutoff.strftime("%B %d, %Y") %> and pay the discounted early bird rate of $<%= @current_ride_year.registration_fee_early %>.</p>
 
+  <%= form_for setup_mailing_addy_receipt(@rider_reg),url: rider_regs_registration_fee_path(@rider_reg), method: :put do |f| %>
+
+      <%= f.fields_for :rider do |rider|%>
+
+      <%= rider.fields_for :receipt do |rcf|%>
+        <%= rcf.label :type, "Credit Card Type:" %>
+        <%= rcf.select :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
+        <br>
+        <%= rcf.label :credit_card, "Credit Card Number:" %>
+        <%= rcf.text_field :credit_card %>
+        <br>
+        <%= rcf.label :expire_month, "Month (MM):" %>
+        <%= rcf.select :month, options_for_select(month_names_nums)  %>
+        <br>
+        <%= rcf.label :expire_year, "Year:" %>
+        <%= rcf.select :expire_year, options_for_select(cc_years_range)    %>
+        <br>
+        <%= rcf.label :cvv2, "CVV2:" %>
+        <%= rcf.text_field :cvv2 %>
+        <br>
+        <%= rcf.label :first_name, "First name as it appears on card:" %>
+        <%= rcf.text_field :first_name %>
+        <br>
+        <%= rcf.label :last_name, "Last name as it appears on card:" %>
+        <%= rcf.text_field :last_name %>
+        <br>
+      <% end %>
+
+
+      <div class="reference_user_address">
+        <h4>Use this address for billing?</h4>
+        
+        <%= @db_address.line1 %></br>
+        <%= @db_address.line2 %></br>
+        <%= @db_address.city %></br>
+        <%= @db_address.state %></br>
+        <%= @db_address.zip %></br>
+
+         
+        <select name="reference_user_address">
+          <option value="nil">Please Select</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+
+      </div>
+      
+      <%= rider.fields_for :mailing_address do |mf| %>
+        <div>
+        <h4>Separate Billing Address</h4>
+        <%= mf.label :line1, 'Line 1' %><br>
+        <%= mf.text_field :line1 %>
+        
+        <%= mf.label :line2, 'Line 2' %><br>
+        <%= mf.text_field :line2 %>
+        
+        <%= mf.label :city %><br>
+        <%= mf.text_field :city %>
+
+        <%= mf.label :state %><br>
+        <%= mf.select :state, fiddy_states %>
+
+
+        <%= mf.label :zip %><br>
+        <%= mf.text_field :zip %>
+        </div>
+      <% end %>
+
+
+    <% end %>
+    <p>By clicking "Register", I agree to pay $650.</p>
+    <%= submit_tag 'Register' %>
+    
+  <% end %>

@@ -1,16 +1,19 @@
-<h3>Read and Review These Terms of Entry</h3>
+<div class="form_container">
 
-<p>terms......</p>
+	<h3>Read and Review These Terms of Entry</h3>
 
+	<!-- helper method, rider_regs_helper -->
 
-<span>I have read and accept the terms of the ride:</span>
-<%= form_for(@rider, url: rider_regs_terms_of_entry_path, method: :put) do |f| %>
-  <%= label_tag(:accept_terms, "Yes") %>
-  <%= radio_button_tag(:accept_terms, true) %></br>
-  <%= label_tag(:accept_terms, "No") %>
-  <%= radio_button_tag(:accept_terms, false) %>
+	<%=	correct_terms_for_ride_option(@rider)%>
 
-  <br><%= f.submit %>
-	
-<% end %>
+	<span>I have read the Riding4Reform terms and conditions above and 
+		Hereby agree to abide by them. </span>
+	<%= form_for(@rider, url: rider_regs_terms_of_entry_path, method: :put) do |f| %>
+	  <%= label_tag(:accept_terms, "I understand and accept the terms.") %>
+	  <%= check_box_tag(:accept_terms, true) %></br>
+	 
+	  <br><%= f.submit %>
+		
+	<% end %>
 
+</div>

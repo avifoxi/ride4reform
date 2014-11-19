@@ -5,12 +5,19 @@ LIVE BY END OF NOVEMBER
 
 USER STORY 1 -- RIDER REGISTERS
 
-- birthdate, input drop down menu
+- birthdate, input drop down menu 
+		-- CHECK -- input in views
+		-- CHECK - parse in controller to birthdate params, read to DB successfully 
+
 - create container for form elements -- 80% of page, and fields are scaled appropriately
+	-- CHECK - 	quick solution of creating form_container in css, specific fields may need addressing for correct size, but will do for now
 
 -- User creation first is right on
 
 BUT -- as rider fills out rider_reg complete in THIS order:
+
+	-- CHECK - step 1 in correct order 
+-- TODO - add validations
 
 SINGLE PAGE
 1) ride option
@@ -27,9 +34,13 @@ conditions page
 	3 different forms based on track choice.
 	http://www.riding4reform.org/Eng/2015/Pages/Costs.asp
 
+-- CHECK - created helper for these 
+
 rider fee page -- here give an option with autofilled address, if we need a different address they fill, other wise use same pre-entered address from before
 
-on RIDER page -- edit button should not be green -- maybe a better color to distinguish
+-- TODO -- ADD VALIDATIONS ON FRONT END - perhaps a JS library ala judge, or some custom popups
+
+-- TODO -- on RIDER page -- edit button should not be green -- maybe a better color to distinguish
 
 stay away from green + red ... 
 
@@ -141,7 +152,17 @@ basic content management system allows:
 
 
 
+-----
 
+ride back through progress gauge!
 
+-----
 
+RailsAdmin
+
+Cocoon -- nested form helper gem
+
+http://kenwheeler.github.io/slick/
+active merchant gem
+spree -- ecommerce
 
