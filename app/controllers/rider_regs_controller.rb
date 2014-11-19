@@ -52,13 +52,22 @@ class RiderRegsController < ApplicationController
 	end
 
 	def update
-		rider_reg = RiderReg.find(params[:id])
+		@rider_reg = current_user.rider_reg
+
+    respond_to do |format|
+      if @rider_reg.update_attributes(rider_reg_params)
+        format.html { redirect_to @rider_reg, notice: 'rider_reg was successfully updated.' }
+        format.json { render action: 'show', status: :created, location: @rider_reg }
+        # added:
+        format.js   { render action: 'show', status: :created, location: @rider_reg }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @rider_reg.errors, status: :unprocessable_entity }
+        # added:
+        format.js   { render json: @rider_reg.errors, status: :unprocessable_entity }
+      end
+    end
 		
-		if rider_reg.update_attributes(rider_reg_params)
-			redirect_to rider_reg
-		else
-			# notify error
-		end
 	end
 
 	def terms_of_entry
