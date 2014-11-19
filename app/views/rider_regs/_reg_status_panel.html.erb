@@ -10,30 +10,63 @@
 	</tr>
 	<tr>
 		<td>Mailing Address</td>
-		<td><%= truncate( @rider.mailing_address.one_liner )%> </td>
+		<td>
+			<% if @rider.mailing_address  %>
+				<%= truncate( @rider.mailing_address.one_liner )%> 
+			<% else %>
+				<i class="fa fa-square-o"></i>
+			<% end %>
+
+		</td>
 	</tr>
+	
 	<tr>
 		<td>Phones</td>
-		<td> <%= @rider.ride_option %></td>
-	</tr>
-	<tr>
-		<td>Ride Option</td>
-		<td> <%= @rider.ride_option %></td>
-	</tr>
-	<tr>
-		<td>Ride Option</td>
-		<td> <%= @rider.ride_option %></td>
-	</tr>
+		<td>
+			<% if @rider.primary_phone || @rider.secondary_phone %>
+				<i class="fa fa-check-square-o"></i>
+			<% else %>
+				<i class="fa fa-square-o"></i>
+			<% end %>
 
+		</td>
+	</tr>
+	<tr>
+		<td>Birthdate</td>
+		<td>
+			<% if @rider.birthdate  %>
+				<%= truncate( @rider.birthdate.strftime("%B %d, %Y") )%> 
+			<% else %>
+				<i class="fa fa-square-o"></i>
+			<% end %>
+
+		</td>
+	</tr>
+	<tr>
+		<td>Photo</td>
+		<td>
+			<% if @rider.photo_file_size  %>
+				<i class="fa fa-check-square-o"></i>
+			<% else %>
+				<i class="fa fa-square-o"></i>
+			<% end %>
+
+		</td>	</tr>
+	<tr>
+		<td>Bio</td>
+		<td>
+			<% if @rider.bio  %>
+				<i class="fa fa-check-square-o"></i>
+			<% else %>
+				<i class="fa fa-square-o"></i>
+			<% end %>
+
+		</td>
+	</tr>
 </table>
 
-<!-- 1) ride option
-2) address contents // 2nd line optional
-3) city / state / zip
-4) primary phone
-5) secondary phone
-6) DoB
-7) uploading picture
+<!-- 
+
 8) Bio 
 accepted terms
 fee paid -->
