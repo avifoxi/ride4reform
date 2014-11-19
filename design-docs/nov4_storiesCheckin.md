@@ -156,5 +156,13 @@ basic content management system allows:
 
 ride back through progress gauge!
 
+-----
 
+RailsAdmin
+
+Cocoon -- nested form heoper gem
+
+http://kenwheeler.github.io/slick/
+active merchant gem
+spree -- ecommerce
 

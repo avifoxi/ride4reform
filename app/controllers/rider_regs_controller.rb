@@ -96,6 +96,13 @@ class RiderRegsController < ApplicationController
       redirect_to rider_reg_path(@rider_reg)
     else
       @errors = payment.error
+      p '#' * 50
+      p @errors
+      p '#' * 50
+      puts 'address:'
+      p address
+      p '#' * 50
+
       @current_ride_year = RideYear.current
       @rider_reg = current_user.rider_reg
       @db_address = @rider_reg.mailing_address

@@ -82,7 +82,7 @@ class PayPalWrapper
 		              :line1 => @address[:line1],
 		              :city => @address[:city],
 		              :state => @address[:state],
-		              :postal_code => @address[:postal_code],
+		              :postal_code => @address[:zip],
 		              :country_code => "US" }}}]},
 		      :transactions => [{
 		        :item_list => {
@@ -115,7 +115,7 @@ class PayPalWrapper
                   :line1 => @params[:line1],
                   :city => @params[:city],
                   :state => @params[:state],
-                  :postal_code => @params[:postal_code],
+                  :postal_code => @params[:zip],
                   :country_code => "US" }}}]},
           :transactions => [{
             :item_list => {
