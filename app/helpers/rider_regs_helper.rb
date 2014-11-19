@@ -8,6 +8,10 @@ module RiderRegsHelper
     	date_num_arr
     end
 
+    # def mailing_addy_1_liner
+        
+    # end
+
     def birth_year_range
     	(Time.now.year - 80)..(Time.now.year - 16)
     end

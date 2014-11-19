@@ -5,4 +5,8 @@ class MailingAddress < ActiveRecord::Base
 		["RiderReg", "Receipt"]
 	end
 
+	def one_liner
+		self.line1 + ' ' + self.line2 + ' ' + self.city + ' ' + self.zip
+	end
+
 end

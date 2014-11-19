@@ -1,1 +1,40 @@
-<p>Hello grrrrrl</p>
+<table class="reg_status_panel">
+	<p>To participate in the ride, you must complete all of the pieces of the registration before *due date?*. Click on the links to complete your registration or edit existing info.</p>
+	<tr>
+		<th>Registration Details</th>
+		<th>Complete?</th>
+
+	</tr>
+	<tr>
+		<td><a href="#">Ride Option</a></td>
+		<td> <%= @rider.ride_option %></td>
+	</tr>
+	<tr>
+		<td>Mailing Address</td>
+		<td><%= truncate( @rider.mailing_address.one_liner )%> </td>
+	</tr>
+	<tr>
+		<td>Ride Option</td>
+		<td> <%= @rider.ride_option %></td>
+	</tr>
+	<tr>
+		<td>Ride Option</td>
+		<td> <%= @rider.ride_option %></td>
+	</tr>
+	<tr>
+		<td>Ride Option</td>
+		<td> <%= @rider.ride_option %></td>
+	</tr>
+
+</table>
+
+<!-- 1) ride option
+2) address contents // 2nd line optional
+3) city / state / zip
+4) primary phone
+5) secondary phone
+6) DoB
+7) uploading picture
+8) Bio 
+accepted terms
+fee paid -->

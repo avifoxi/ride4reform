@@ -40,7 +40,7 @@ rider fee page -- here give an option with autofilled address, if we need a diff
 
 -- TODO -- ADD VALIDATIONS ON FRONT END - perhaps a JS library ala judge, or some custom popups
 
-on RIDER page -- edit button should not be green -- maybe a better color to distinguish
+-- TODO -- on RIDER page -- edit button should not be green -- maybe a better color to distinguish
 
 stay away from green + red ... 
 
@@ -160,7 +160,7 @@ ride back through progress gauge!
 
 RailsAdmin
 
-Cocoon -- nested form heoper gem
+Cocoon -- nested form helper gem
 
 http://kenwheeler.github.io/slick/
 active merchant gem
