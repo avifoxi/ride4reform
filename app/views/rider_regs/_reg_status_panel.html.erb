@@ -63,10 +63,22 @@
 
 		</td>
 	</tr>
+	<tr>
+		<td>Registration Fee</td>
+		<td>
+			<% if @rider.paid  %>
+				<i class="fa fa-check-square-o"></i>
+			<% else %>
+				<i class="fa fa-square-o"></i>
+			<% end %>
+
+		</td>
+	</tr>
+	<tr>
+		<td>Fundraising Goal</td>
+		<td>
+			<% @rider.goal  %>
+		</td>
+	</tr>
 </table>
 
-<!-- 
-
-8) Bio 
-accepted terms
-fee paid -->
