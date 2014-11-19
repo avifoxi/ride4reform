@@ -53,6 +53,7 @@ class RiderRegsController < ApplicationController
 
 	def update
 		@rider_reg = current_user.rider_reg
+    p params
 
     respond_to do |format|
       if @rider_reg.update_attributes(rider_reg_params)
