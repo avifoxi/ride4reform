@@ -1,9 +1,10 @@
 $(document).ready(function(){
 
-	var rrpv = new RiderStatusPanelView({
+	var rrpView = new RiderStatusPanelView({
 		'toggleLink' : $('.showStatPan') , 
 		'table' : $('.reg_status_panel') ,
-		'form' : $('.edit_rider_reg')
+		'form' : $('.edit_rider_reg'),
+		'cancel' : $('.cancel')
 	});
 
 });
@@ -12,9 +13,10 @@ function RiderStatusPanelView(els) {
 	this.$toggleLink = els['toggleLink'];
 	this.$table = els['table'];
 	this.$form = els['form'];
+	this.$cancel = els['cancel']
 
+	// table + form hidden in css - form_styles
 	this.tableShowing = false;
-	this.formShowing = false;
 
 	var that = this;
 
@@ -33,6 +35,10 @@ function RiderStatusPanelView(els) {
 		that.parseForUpdate(e.target.innerText);
 	});
 
+	this.$cancel.click(function(e){
+		e.preventDefault();
+		$(that.$form).hide();
+	})
 } 
 
 RiderStatusPanelView.prototype = {
@@ -45,28 +51,30 @@ RiderStatusPanelView.prototype = {
 		    that.revealField('ride');
 		    break;
 		  case "Mailing Address":
-		    console.log("Apples are $0.32 a pound.");
+		    that.revealField('mail');
 		    break;
 		  case "Phones":
-		    console.log("Bananas are $0.48 a pound.");
+		    that.revealField('phones');
 		    break;
 		  case "Birthdate":
-		    console.log("Cherries are $3.00 a pound.");
+		    that.revealField('bday');
 		    break;
 		  case "Photo":
-		    console.log("Photo.");
+		    that.revealField('photo');
 		    break;
 		  case "Bio":
-		    console.log("Mangoes and papayas are $2.79 a pound.");
+		    that.revealField('bio');
 		    break;
 		  case "Fundraising Goal":
+		    that.revealField('goal');
+		    break;
 		  default:
-		    console.log("Sorry, we are out of " + expr + ".");
+		    console.log("invalid");
 		}
 	}, 
 	revealField : function(field) { 
 		this.$form.show();
-		$('.' + field + ', .submit' ).show();
+		$('.' + field + ', .submit, .cancel' ).show();
 	}
 }
 

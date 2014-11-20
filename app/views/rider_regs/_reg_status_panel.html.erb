@@ -85,8 +85,10 @@
 
 <% modal ||= false %>
 <% remote = modal ? true : false %>
+
 <%= form_for( setup_mailing_addy_receipt(@rider), remote: remote, html: {role: :form, 'data-model' => 'rider_reg'} ) do |f| %>
 		
+		<div class="update cancel"><button>X</button></div>
 		<div class='update ride'>
 			<%= f.label :ride_option, 'Choose which ride option you want to participate in:' %><br />
 		  <%= f.select :ride_option, RiderReg.ride_options %>
@@ -118,11 +120,10 @@
 			<% end %>
 		</div>
 
-		<div class='update phone1'>
+		<div class='update phones'>
 		  <%= f.label :primary_phone %><br />
 		  <%= f.text_field :primary_phone %>
-		</div>
-		<div class='update phone2'>
+		
 		  <%= f.label :secondary_phone %><br />
 		  <%= f.text_field :secondary_phone %>
 		</div>
