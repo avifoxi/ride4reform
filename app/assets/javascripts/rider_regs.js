@@ -38,6 +38,7 @@ function RiderStatusPanelView(els) {
 	this.$cancel.click(function(e){
 		e.preventDefault();
 		$(that.$form).hide();
+		$('.update').hide();
 	})
 } 
 
