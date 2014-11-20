@@ -17,15 +17,13 @@
   
   <div class="content">
   	
-  	<% if current_user && @rider == current_user.rider_reg %>
-			<h4><%= link_to 'Edit Your Profile?', edit_rider_reg_path(@rider) %></h4>
+    <h1><%= @rider.full_name %></h1>
+		
+		<% if current_user && @rider == current_user.rider_reg %>
+			<h5 class='showStatPan'><a href="#">Manage Your Registration</a></h5>
 			<%= render 'reg_status_panel'%>
 		<% end %>
 
-    
-
-    <h1><%= @rider.full_name %></h1>
-		
 		<%= render partial: 'partials/thanks_to_donor' %>
     
     <p><%= @rider.bio %></p>

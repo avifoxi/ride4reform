@@ -1,4 +1,4 @@
-<table class="reg_status_panel">
+<table class="reg_status_panel hide">
 	<p>To participate in the ride, you must complete all of the pieces of the registration before *due date?*. Click on the links to complete your registration or edit existing info.</p>
 	<tr>
 		<th>Registration Details</th>
@@ -9,31 +9,159 @@
 		<td> <%= @rider.ride_option %></td>
 	</tr>
 	<tr>
-		<td>Mailing Address</td>
-		<td><%= truncate( @rider.mailing_address.one_liner )%> </td>
-	</tr>
-	<tr>
-		<td>Phones</td>
-		<td> <%= @rider.ride_option %></td>
-	</tr>
-	<tr>
-		<td>Ride Option</td>
-		<td> <%= @rider.ride_option %></td>
-	</tr>
-	<tr>
-		<td>Ride Option</td>
-		<td> <%= @rider.ride_option %></td>
-	</tr>
+		<td><a href="#">Mailing Address</a></td>
+		<td>
+			<% if @rider.mailing_address  %>
+				<%= truncate( @rider.mailing_address.one_liner )%> 
+			<% else %>
+				<i class="fa fa-square-o"></i>
+			<% end %>
 
+		</td>
+	</tr>
+	
+	<tr>
+		<td><a href="#">Phones</a></td>
+		<td>
+			<% if @rider.primary_phone || @rider.secondary_phone %>
+				<i class="fa fa-check-square-o"></i>
+			<% else %>
+				<i class="fa fa-square-o"></i>
+			<% end %>
+
+		</td>
+	</tr>
+	<tr>
+		<td><a href="#">Birthdate</a></td>
+		<td>
+			<% if @rider.birthdate  %>
+				<%= truncate( @rider.birthdate.strftime("%B %d, %Y") )%> 
+			<% else %>
+				<i class="fa fa-square-o"></i>
+			<% end %>
+
+		</td>
+	</tr>
+	<tr>
+		<td><a href="#">Photo</a></td>
+		<td>
+			<% if @rider.photo_file_size  %>
+				<i class="fa fa-check-square-o"></i>
+			<% else %>
+				<i class="fa fa-square-o"></i>
+			<% end %>
+
+		</td>	</tr>
+	<tr>
+		<td><a href="#">Bio</a></td>
+		<td>
+			<% if @rider.bio  %>
+				<i class="fa fa-check-square-o"></i>
+			<% else %>
+				<i class="fa fa-square-o"></i>
+			<% end %>
+
+		</td>
+	</tr>
+	<tr>
+		<td><a href="#">Registration Fee</a></td>
+		<td>
+			<% if @rider.paid  %>
+				<i class="fa fa-check-square-o"></i>
+			<% else %>
+				<i class="fa fa-square-o"></i>
+			<% end %>
+
+		</td>
+	</tr>
+	<tr>
+		<td><a href="#">Fundraising Goal</a></td>
+		<td>
+			<%= sprintf( "%0.02f", @rider.goal )	  %>
+		</td>
+	</tr>
 </table>
 
-<!-- 1) ride option
-2) address contents // 2nd line optional
-3) city / state / zip
-4) primary phone
-5) secondary phone
-6) DoB
-7) uploading picture
-8) Bio 
-accepted terms
-fee paid -->
+
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+
+<%= form_for( setup_mailing_addy_receipt(@rider), remote: remote, html: {role: :form, 'data-model' => 'rider_reg'} ) do |f| %>
+		
+		<div class="update cancel"><button>X</button></div>
+		<div class='update ride'>
+			<%= f.label :ride_option, 'Choose which ride option you want to participate in:' %><br />
+		  <%= f.select :ride_option, RiderReg.ride_options %>
+		</div>
+	  
+		<div class='update mail'>
+			<%= f.fields_for :rider do |rf| %>
+			  <%= rf.fields_for :mailing_address do |mf| %>
+			  
+			  
+			    <h4>Your Primary Mailing Address</h4>
+			    <%= mf.label :line1, 'Line 1' %><br>
+			    <%= mf.text_field :line1 %>
+			    
+			    <%= mf.label :line2, 'Line 2' %><br>
+			    <%= mf.text_field :line2 %>
+			    
+			    <%= mf.label :city %><br>
+			    <%= mf.text_field :city %>
+
+			    <%= mf.label :state %><br>
+			    <%= mf.select :state, fiddy_states %>
+
+
+			    <%= mf.label :zip %><br>
+			    <%= mf.text_field :zip %>
+			  
+				<% end %>
+			<% end %>
+		</div>
+
+		<div class='update phones'>
+		  <%= f.label :primary_phone %><br />
+		  <%= f.text_field :primary_phone %>
+		
+		  <%= f.label :secondary_phone %><br />
+		  <%= f.text_field :secondary_phone %>
+		</div>
+
+		<div class='update bday'>
+		  <h3>Your Birthdate Info</h3>
+		  <%= f.label :month %><br />
+		  <%= select_tag(:rider_reg_month, options_for_select(month_names_nums)) %>
+			
+			<%= f.label :year %><br />
+			<%= select_tag(:rider_reg_year, options_for_select(birth_year_range))%>
+
+			<%= f.label :day %><br />
+			<%= select_tag(:rider_reg_day, options_for_select(birth_day_range))%>
+
+		</div>
+
+		<div class="update photo">
+		  <%= f.label :photo %><br />
+		  <%= f.file_field :photo %>
+		</div>
+			
+		<div class="update bio">
+		  <%= f.label :bio %><br />
+		  <%= f.text_area :bio %>
+		</div>
+
+		<div class="update goal">
+			<p>We ask that all riders commit to raising at least $2000 for their participation in the ride. What is your fundraising goal?</p>
+		  <%= f.label :goal %><br />
+		  <%= f.text_field :goal %>
+		</div>
+
+
+	<div class="update submit">
+		<%= f.submit 'Submit' %>
+	</div>
+<% end %>
+
+
+

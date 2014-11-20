@@ -57,15 +57,20 @@ RIDER CONTINUES REGISTERATION
 create a table with status of each registration piece. If complete, we see a check mark. If not, it's clear rider needs to complete it. 
 All of these are links to either complete or update.
 
+-- DONE 
+
 Place this below the donations section. 
 
 above 'edit your profile'
 
-make it clear to each rider -- there is a public facing part to your page
 
-and all private info is visible only to you
+TODO: 
 
-do we want a preview button for public facing view? 
+	make it clear to each rider -- there is a public facing part to your page
+
+	and all private info is visible only to you
+
+	do we want a preview button for public facing view? 
 
 ----------
 
