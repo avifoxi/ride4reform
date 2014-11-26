@@ -17,13 +17,13 @@ Rails.application.routes.draw do
 
   # resources :admin
 
-  get 'admin' => 'admin#index'
-  post 'admin' => 'admin#create'
-  delete 'admin' => 'admin#destroy'
-  get 'admin/edit' => 'admin#edit'
-  get 'admin/new' => 'admin#new'
+  get 'admins' => 'admins#index'
+  post 'admins' => 'admin#create'
+  delete 'admins' => 'admin#destroy'
+  get 'admins/edit' => 'admin#edit'
+  get 'admins/new' => 'admin#new'
 
-  get 'admin/donation'
+  get 'admins/donation'
 
   resources :rider_regs, except: [:new]
   
