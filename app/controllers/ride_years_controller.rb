@@ -36,10 +36,10 @@ class RideYearsController < ApplicationController
     params.require(:ride_year).permit(:year, :registration_fee, :registration_fee_early, :min_rider_fundraise, :early_bird_cutoff)
   end
 
-  def require_admin
-    unless current_user.try(:admin?)
-      flash[:error] = 'You must be an admin to access this page.'
-      redirect_to root_url
-    end
-  end 
+  # def require_admin
+  #   unless current_user.try(:admin?)
+  #     flash[:error] = 'You must be an admin to access this page.'
+  #     redirect_to root_url
+  #   end
+  # end 
 end

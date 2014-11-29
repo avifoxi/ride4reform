@@ -9,31 +9,31 @@
 
       <%= f.fields_for :rider do |rider|%>
 
-      <%= rider.fields_for :receipt do |rcf|%>
-        <%= rcf.label :type, "Credit Card Type:" %>
-        <%= rcf.select :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
-        <br>
-        <%= rcf.label :credit_card, "Credit Card Number:" %>
-        <%= rcf.text_field :credit_card %>
-        <br>
-        <%= rcf.label :expire_month, "Month (MM):" %>
-        <%= rcf.select :month, options_for_select(month_names_nums)  %>
-        <br>
-        <%= rcf.label :expire_year, "Year:" %>
-        <%= rcf.select :expire_year, options_for_select(cc_years_range)    %>
-        <br>
-        <%= rcf.label :cvv2, "CVV2:" %>
-        <%= rcf.text_field :cvv2 %>
-        <br>
-        <%= rcf.label :first_name, "First name as it appears on card:" %>
-        <%= rcf.text_field :first_name %>
-        <br>
-        <%= rcf.label :last_name, "Last name as it appears on card:" %>
-        <%= rcf.text_field :last_name %>
-        <br>
+        <%= rider.fields_for :receipt do |rcf|%>
+          <%= rcf.label :type, "Credit Card Type:" %>
+          <%= rcf.select :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
+          <br>
+          <%= rcf.label :credit_card, "Credit Card Number:" %>
+          <%= rcf.text_field :credit_card %>
+          <br>
+          <%= rcf.label :expire_month, "Month (MM):" %>
+          <%= rcf.select :month, options_for_select(month_names_nums)  %>
+          <br>
+          <%= rcf.label :expire_year, "Year:" %>
+          <%= rcf.select :expire_year, options_for_select(cc_years_range)    %>
+          <br>
+          <%= rcf.label :cvv2, "CVV2:" %>
+          <%= rcf.text_field :cvv2 %>
+          <br>
+          <%= rcf.label :first_name, "First name as it appears on card:" %>
+          <%= rcf.text_field :first_name %>
+          <br>
+          <%= rcf.label :last_name, "Last name as it appears on card:" %>
+          <%= rcf.text_field :last_name %>
+          <br>
+        <% end %>
+
       <% end %>
-
-
       <div class="reference_user_address">
         <h4>Use this address for billing?</h4>
         
@@ -52,7 +52,7 @@
 
       </div>
       
-      <%= rider.fields_for :mailing_address do |mf| %>
+      <%= f.fields_for :mailing_address do |mf| %>
         <div>
         <h4>Separate Billing Address</h4>
         <%= mf.label :line1, 'Line 1' %><br>
@@ -74,8 +74,8 @@
       <% end %>
 
 
-    <% end %>
-    <p>By clicking "Register", I agree to pay $650.</p>
+ 
+    <p>By clicking "Register", I agree to pay $<%= @current_ride_year.registration_fee %>.</p>
     <%= submit_tag 'Register' %>
     
   <% end %>

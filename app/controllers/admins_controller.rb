@@ -40,11 +40,7 @@ class AdminsController < ApplicationController
 
 	private
 
-	def require_admin
-		unless current_admin
-			redirect_to new_admin_session_path
-		end
-	end 
+
 
 	def admin_params
 		# refactor for strong params 
