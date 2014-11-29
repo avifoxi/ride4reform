@@ -44,7 +44,7 @@
         <%= @db_address.zip %></br>
 
          
-        <select name="reference_user_address">
+        <select name="reference_user_address" id='refUser'>
           <option value="nil">Please Select</option>
           <option value="true">Yes</option>
           <option value="false">No</option>
@@ -52,8 +52,9 @@
 
       </div>
       
+      <div id='separateBilling'>
       <%= f.fields_for :mailing_address do |mf| %>
-        <div>
+      
         <h4>Separate Billing Address</h4>
         <%= mf.label :line1, 'Line 1' %><br>
         <%= mf.text_field :line1 %>
@@ -70,12 +71,31 @@
 
         <%= mf.label :zip %><br>
         <%= mf.text_field :zip %>
-        </div>
-      <% end %>
 
+      <% end %>
+      </div>
 
  
     <p>By clicking "Register", I agree to pay $<%= @current_ride_year.registration_fee %>.</p>
     <%= submit_tag 'Register' %>
     
   <% end %>
+
+
+
+<script>
+  var $refUserAddy = $('#refUser');
+
+  $(document).ready(function(){
+    $('#separateBilling').hide();
+    
+    $refUserAddy.on('change', function(e){
+      if (e.target.value === 'false'){
+        $('#separateBilling').show();
+      } else {
+        $('#separateBilling').hide();
+      }
+    })
+  });
+
+</script>
