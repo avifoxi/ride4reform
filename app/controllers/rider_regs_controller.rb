@@ -24,10 +24,8 @@ class RiderRegsController < ApplicationController
 	
     if @rider_reg.save
       ## from strong params - this updates mailing address, must do after RR entry made in DB
-      @rider_reg.rider = current_user
-      @rider_reg.birthdate = birthdate_params
+      @rider_reg.update_attributes(rider: current_user, birthdate: birthdate_params, ride_year: RideYear.current)
       @rider_reg.update_attributes(rider_reg_params)
-
       ## TODO -- what if there is an error in mailing address ? do we need error handling?
       # @rider_reg.rider.mailing_address.save
 			redirect_to rider_regs_terms_path
