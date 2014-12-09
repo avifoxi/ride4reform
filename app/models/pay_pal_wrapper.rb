@@ -29,11 +29,13 @@ class PayPalWrapper
 		end
 	end
 
-	def error
+	def errors
 		if Rails.env == 'test'
 			'error'
 		else
-			@payment.error
+			issues = @payment.error.details.map do |d|
+				d.issue
+			end
 		end
 	end
 
