@@ -1,11 +1,13 @@
 case Rails.env
-when "development"
+when "development" || "production"
 
   rideyear1 = RideYear.create(year: 2014, registration_fee: 650, registration_fee_early: 500, min_rider_fundraise: 2500, early_bird_cutoff: Date.parse('31-12-2014'))
   rideyear2 = RideYear.create(year: 2013, registration_fee: 600, registration_fee_early: 450, min_rider_fundraise: 2000, early_bird_cutoff: Date.parse('31-12-2013'))
 
   rideyear1.set_as_current
 
+when "development"
+  
   10.times do 
     User.create(title: User.titles.sample, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: Faker::Internet.password)
   end
