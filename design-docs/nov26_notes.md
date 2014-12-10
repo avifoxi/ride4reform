@@ -13,24 +13,10 @@ Also boxes should be same size as input
 
 	DONE
  -->
-4.       Payment you prefill the Separate Billing Address with the default address- should be blank- when hit enter got a sorry something went wrong message
+<!-- 4.       Payment you prefill the Separate Billing Address with the default address- should be blank- when hit enter got a sorry something went wrong message
 
-{"utf8"=>"✓", "authenticity_token"=>"wq/uMAH/vS/jznrZdGRFEeYq7AXZ9hHMICEhgjURHdE=", "rider_reg"=>
-	{
-
-	"rider_attributes"=>
-		{
-			"receipt"=>{"type"=>"visa", "credit_card"=>"", "month"=>"1", "expire_year"=>"2014", "cvv2"=>"", "first_name"=>"", "last_name"=>""}, 
-		
-			"id"=>"14"}, 
-			"mailing_address"=>
-				{
-					"line1"=>"addy1", "line2"=>"addy2", "city"=>"city", "state"=>"Alaska", "zip"=>"12124"
-				}
-		}, 
-	
-	"reference_user_address"=>"nil", "commit"=>"Register"
-}
+DONE
+ -->
 
 
 

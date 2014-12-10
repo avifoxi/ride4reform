@@ -70,7 +70,7 @@
 	</div>
 
 	<div>
-		<p>We ask that all riders commit to raising at least $2000 for their participation in the ride. What is your fundraising goal?</p>
+		<p>We ask that all riders commit to raising at least $<%= @current_ride_year.min_goal %> for their participation in the ride. What is your fundraising goal?</p>
 	  <%= f.label :goal %><br />
 	  <%= f.text_field :goal %>
 	</div>
@@ -80,5 +80,9 @@
 		<%= f.submit %>
 	</div>
 <% end %>
+
+<script>
+	var vd = new RRvalidation( $("input[type='submit']"), <%= @current_ride_year.min_goal %> );
+</script>
 
 

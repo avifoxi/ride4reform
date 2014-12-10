@@ -12,6 +12,8 @@ class RiderRegsController < ApplicationController
 	def new
 		@rider_reg = RiderReg.new
     @rider_reg.rider = current_user
+    @current_ride_year = RideYear.current
+
 
 	end
 
@@ -28,6 +30,11 @@ class RiderRegsController < ApplicationController
       @rider_reg.update_attributes(rider_reg_params)
       ## TODO -- what if there is an error in mailing address ? do we need error handling?
       # @rider_reg.rider.mailing_address.save
+      # 
+      # p '#' * 50
+      # puts rider_reg_params
+      # p '#' * 50
+
 			redirect_to rider_regs_terms_path
     else
      # @rider_reg.errors
@@ -88,44 +95,60 @@ class RiderRegsController < ApplicationController
   end
 
   def pay_fee
-      p '#' * 50
-
-      p '#' * 50
-
-    p params
-          p '#' * 50
-
-      p '#' * 50
-
-    # address = cc_address
-    # cc_info = rider_reg_params['rider_attributes']['receipt'] 
-    # amount = RideYear.current_fee
-    # payment = PayPalWrapper.new(address, cc_info, amount)
-
-    # @rider_reg = current_user.rider_reg
-
-    # if payment.create
-    #   receipt = Receipt.create(amount:          amount,
-    #                            paypal_id:       payment.id,
-    #                            user:            current_user,
-    #                            mailing_address: address)
-
-    #   @rider_reg.update_attributes(paid: true)
-    #   redirect_to rider_reg_path(@rider_reg)
-    # else
-    #   @errors = payment.error
     #   p '#' * 50
-    #   p @errors
-    #   p '#' * 50
-    #   puts 'address:'
-    #   p address
+    # puts params["reference_user_address"]
+    # puts params["reference_user_address"].to_b
     #   p '#' * 50
 
-    #   @current_ride_year = RideYear.current
-    #   @rider_reg = current_user.rider_reg
-    #   @db_address = @rider_reg.mailing_address
-    #   redirect_to rider_regs_fee_path 
-    # end
+    # p params
+    #       p '#' * 50
+
+    #   p '#' * 50
+
+    address = cc_address
+    cc_info = rider_reg_params['rider_attributes']['receipt'] 
+    amount = RideYear.current_fee
+
+     # p '#' * 50
+     # puts address[:line1]
+     # # @address
+     #  p '#' * 50
+
+     #   p '#' * 50
+
+     #   puts cc_info
+     #  p '#' * 50
+
+     #   p '#' * 50
+     #   puts amount
+     #  p '#' * 50
+
+    payment = PayPalWrapper.new(address, cc_info, amount)
+
+    @rider_reg = current_user.rider_reg
+
+    if payment.create
+      receipt = Receipt.create(amount:          amount,
+                               paypal_id:       payment.id,
+                               user:            current_user,
+                               mailing_address: address)
+
+      @rider_reg.update_attributes(paid: true)
+      redirect_to rider_reg_path(@rider_reg)
+    else
+      # @pay_errors = payment.error
+      p '#' * 50
+      p @pay_errors
+      p '#' * 50
+      # puts 'address:'
+      # p address
+      # p '#' * 50
+
+      @current_ride_year = RideYear.current
+      @rider_reg = current_user.rider_reg
+      @db_address = @rider_reg.mailing_address
+      redirect_to rider_regs_fee_path 
+    end
   end
 
 	private 
