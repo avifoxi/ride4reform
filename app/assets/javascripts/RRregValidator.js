@@ -10,7 +10,18 @@ function RRvalidation(subButton, minGoal) {
 
 RRvalidation.prototype = {
 	validate : function(ev) {
-		this.throwAlert(ev, 'gotcha');
+		var _this = this;
+		var vds = [
+			_this.checkMailPhone(),
+			_this.checkZip(),
+			_this.checkGoal()
+		]
+		for (var i=0; i < vds.length; i++){
+			if (vds[i] !== 'valid'){
+				_this.throwAlert(ev, vds[i]);
+				return;
+			}
+		}
 	},
 	throwAlert : function(evt, text){
 		evt.preventDefault();
