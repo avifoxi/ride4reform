@@ -34,13 +34,12 @@ class PayPalWrapper
 		if Rails.env == 'test'
 			'error'
 		else
-			puts '#'*50
-			puts 'payment error from pp'
-			p @payment.error
-			puts '#'*50
-
-			issues = @payment.error.details.map do |d|
-				d.issue
+			if @payment.error 
+				issues = @payment.error.details.map do |d|
+					d.issue
+				end
+			else
+				nil
 			end
 		end
 	end
@@ -52,13 +51,14 @@ class PayPalWrapper
 			when "test"
 				# do nothing, mock
 			when "development"
-				# does this step belong in config? 
 				
 				PayPal::SDK::REST.set_config(
 		      :mode => "sandbox", # "sandbox" or "live"
 		      :client_id => ENV['PAYPAL_CLIENT_ID'],
 		      :client_secret => ENV['PAYPAL_SECRET'])
 			when "production"
+				## TODO --> this must be updated before deploy
+
 				PayPal::SDK::REST.set_config(
 		      :mode => "sandbox", 
 		      :client_id => ENV['PAYPAL_CLIENT_ID'],
