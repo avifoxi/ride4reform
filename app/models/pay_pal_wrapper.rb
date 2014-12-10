@@ -72,7 +72,7 @@ class PayPalWrapper
 		case Rails.env
 			when "test"
 				# do nothing, mock
-			when "development" || "production"
+			when "development" 
 				self.payment = Payment.new({
 		      :intent => "sale",
 		      :payer => {
@@ -107,6 +107,39 @@ class PayPalWrapper
 
 		##### TODO --> this will need separate protocol but for now, same as dev
 			# when "production" 
+
+			when  "production"
+				self.payment = Payment.new({
+		      :intent => "sale",
+		      :payer => {
+		        :payment_method => "credit_card",
+		        :funding_instruments => [{
+		          :credit_card => {
+		            :type => "visa",
+		            :number => "4417119669820331",
+		            :expire_month => "11",
+		            :expire_year => "2018",
+		            :cvv2 => "874",
+		            :first_name => @cc_info[:first_name],
+		            :last_name => @cc_info[:last_name],
+		            :billing_address => {
+		              :line1 => @address[:line1],
+		              :city => @address[:city],
+		              :state => @address[:state],
+		              :postal_code => @address[:zip],
+		              :country_code => "US" }}}]},
+		      :transactions => [{
+		        :item_list => {
+		          :items => [{
+		            :name => "item",
+		            :sku => "item",
+		            :price => "%.2f" % @amount,
+		            :currency => "USD",
+		            :quantity => 1 }]},
+		        :amount => {
+		          :total => "%.2f" % @amount,
+		          :currency => "USD" },
+		        :description => "This is the payment transaction description." }]})
 		end
 
 	end
