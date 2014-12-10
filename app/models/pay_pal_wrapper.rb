@@ -60,7 +60,7 @@ class PayPalWrapper
 		      :client_secret => ENV['PAYPAL_SECRET'])
 			when "production"
 				PayPal::SDK::REST.set_config(
-		      :mode => "sandbox", # for the time being -- don't wanna unnecessarily charge yet
+		      :mode => "sandbox", 
 		      :client_id => ENV['PAYPAL_CLIENT_ID'],
 		      :client_secret => ENV['PAYPAL_SECRET'])
 			
