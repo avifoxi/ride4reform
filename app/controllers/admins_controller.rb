@@ -1,4 +1,4 @@
-class AdminController < ApplicationController
+class AdminsController < ApplicationController
 	before_action :require_admin
 
 	def index
@@ -40,12 +40,7 @@ class AdminController < ApplicationController
 
 	private
 
-	def require_admin
-		unless current_user.try(:admin?)
-			flash[:error] = 'You must be an admin to access this page.'
-			redirect_to root_url
-		end
-	end 
+
 
 	def admin_params
 		# refactor for strong params 

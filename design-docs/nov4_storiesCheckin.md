@@ -5,12 +5,6 @@ LIVE BY END OF NOVEMBER
 
 USER STORY 1 -- RIDER REGISTERS
 
-- birthdate, input drop down menu 
-		-- CHECK -- input in views
-		-- CHECK - parse in controller to birthdate params, read to DB successfully 
-
-- create container for form elements -- 80% of page, and fields are scaled appropriately
-	-- CHECK - 	quick solution of creating form_container in css, specific fields may need addressing for correct size, but will do for now
 
 -- User creation first is right on
 

@@ -11,9 +11,26 @@
 	<%= form_for(@rider, url: rider_regs_terms_of_entry_path, method: :put) do |f| %>
 	  <%= label_tag(:accept_terms, "I understand and accept the terms.") %>
 	  <%= check_box_tag(:accept_terms, true) %></br>
-	 
+
 	  <br><%= f.submit %>
 		
 	<% end %>
 
 </div>
+
+
+<script>
+	var checkbox = document.querySelector('#accept_terms');
+	
+	$(document).ready(function(){
+
+		$('form').submit(function(e){
+			if (!checkbox.checked){
+				e.preventDefault();
+				alert('You must agree to the terms to proceed with your ride registration. Please accept the terms to continue.');
+			}	
+			
+		});
+
+	});
+</script>

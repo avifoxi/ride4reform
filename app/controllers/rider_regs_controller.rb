@@ -12,6 +12,8 @@ class RiderRegsController < ApplicationController
 	def new
 		@rider_reg = RiderReg.new
     @rider_reg.rider = current_user
+    @current_ride_year = RideYear.current
+
 
 	end
 
@@ -24,12 +26,15 @@ class RiderRegsController < ApplicationController
 	
     if @rider_reg.save
       ## from strong params - this updates mailing address, must do after RR entry made in DB
-      @rider_reg.rider = current_user
-      @rider_reg.birthdate = birthdate_params
+      @rider_reg.update_attributes(rider: current_user, birthdate: birthdate_params, ride_year: RideYear.current)
       @rider_reg.update_attributes(rider_reg_params)
-
       ## TODO -- what if there is an error in mailing address ? do we need error handling?
       # @rider_reg.rider.mailing_address.save
+      # 
+      # p '#' * 50
+      # puts rider_reg_params
+      # p '#' * 50
+
 			redirect_to rider_regs_terms_path
     else
      # @rider_reg.errors
@@ -85,10 +90,12 @@ class RiderRegsController < ApplicationController
     @current_ride_year = RideYear.current
     @rider_reg = current_user.rider_reg
     @db_address = @rider_reg.mailing_address
+    @mailing_address = MailingAddress.new
     @receipt = Receipt.new
   end
 
   def pay_fee
+
     address = cc_address
     cc_info = rider_reg_params['rider_attributes']['receipt'] 
     amount = RideYear.current_fee
@@ -105,18 +112,24 @@ class RiderRegsController < ApplicationController
       @rider_reg.update_attributes(paid: true)
       redirect_to rider_reg_path(@rider_reg)
     else
-      @errors = payment.error
+      @pay_errors = payment.errors
       p '#' * 50
-      p @errors
+      p @pay_errors
       p '#' * 50
+      # p address
       puts 'address:'
       p address
       p '#' * 50
 
+            puts 'parasm:'
+      p params
+      p '#' * 50
+
+
       @current_ride_year = RideYear.current
       @rider_reg = current_user.rider_reg
       @db_address = @rider_reg.mailing_address
-      redirect_to rider_regs_fee_path 
+      render rider_regs_fee_path 
     end
   end
 
@@ -129,8 +142,9 @@ class RiderRegsController < ApplicationController
           :id, 
           :mailing_address_attributes => [:line1, :line2, :city, :state, :zip],
           :receipt => [:type, :credit_card, :month, :expire_year, :cvv2, :first_name, :last_name]  
-        ]
-      )
+        ],
+      :mailing_address => [:line1, :line2, :city, :state, :zip]
+    )
   end
 
   def birthdate_params
@@ -144,7 +158,7 @@ class RiderRegsController < ApplicationController
     if params["reference_user_address"].to_b
       current_user.mailing_address
     else
-      MailingAddress.new(rider_reg_params['rider_attributes']['mailing_address_attributes'])
+      MailingAddress.new(rider_reg_params['mailing_address'])
     end
   end
 

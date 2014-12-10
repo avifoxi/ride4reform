@@ -2,38 +2,50 @@
  
   <h3>Registration Fee</h3>
 
-  <%= @errors if @errors %>
+  <% if @pay_errors %>
+  
+    <div class="errors">
+      <h4>Please correct the following errors:</h4>
+      <ul>
+      <% @pay_errors.each do |pe| %>
+        
+        <li><%= pe %></li>
+      
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
   <p>Every participant in the ride must pay a participation fee of $<%= @current_ride_year.registration_fee %>. <br>Register before <%= @current_ride_year.early_bird_cutoff.strftime("%B %d, %Y") %> and pay the discounted early bird rate of $<%= @current_ride_year.registration_fee_early %>.</p>
 
   <%= form_for setup_mailing_addy_receipt(@rider_reg),url: rider_regs_registration_fee_path(@rider_reg), method: :put do |f| %>
 
       <%= f.fields_for :rider do |rider|%>
 
-      <%= rider.fields_for :receipt do |rcf|%>
-        <%= rcf.label :type, "Credit Card Type:" %>
-        <%= rcf.select :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
-        <br>
-        <%= rcf.label :credit_card, "Credit Card Number:" %>
-        <%= rcf.text_field :credit_card %>
-        <br>
-        <%= rcf.label :expire_month, "Month (MM):" %>
-        <%= rcf.select :month, options_for_select(month_names_nums)  %>
-        <br>
-        <%= rcf.label :expire_year, "Year:" %>
-        <%= rcf.select :expire_year, options_for_select(cc_years_range)    %>
-        <br>
-        <%= rcf.label :cvv2, "CVV2:" %>
-        <%= rcf.text_field :cvv2 %>
-        <br>
-        <%= rcf.label :first_name, "First name as it appears on card:" %>
-        <%= rcf.text_field :first_name %>
-        <br>
-        <%= rcf.label :last_name, "Last name as it appears on card:" %>
-        <%= rcf.text_field :last_name %>
-        <br>
+        <%= rider.fields_for :receipt do |rcf|%>
+          <%= rcf.label :type, "Credit Card Type:" %>
+          <%= rcf.select :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
+          <br>
+          <%= rcf.label :credit_card, "Credit Card Number:" %>
+          <%= rcf.text_field :credit_card %>
+          <br>
+          <%= rcf.label :expire_month, "Month (MM):" %>
+          <%= rcf.select :month, options_for_select(month_names_nums)  %>
+          <br>
+          <%= rcf.label :expire_year, "Year:" %>
+          <%= rcf.select :expire_year, options_for_select(cc_years_range)    %>
+          <br>
+          <%= rcf.label :cvv2, "CVV2:" %>
+          <%= rcf.text_field :cvv2 %>
+          <br>
+          <%= rcf.label :first_name, "First name as it appears on card:" %>
+          <%= rcf.text_field :first_name %>
+          <br>
+          <%= rcf.label :last_name, "Last name as it appears on card:" %>
+          <%= rcf.text_field :last_name %>
+          <br>
+        <% end %>
+
       <% end %>
-
-
       <div class="reference_user_address">
         <h4>Use this address for billing?</h4>
         
@@ -44,7 +56,7 @@
         <%= @db_address.zip %></br>
 
          
-        <select name="reference_user_address">
+        <select name="reference_user_address" id='refUser'>
           <option value="nil">Please Select</option>
           <option value="true">Yes</option>
           <option value="false">No</option>
@@ -52,8 +64,9 @@
 
       </div>
       
-      <%= rider.fields_for :mailing_address do |mf| %>
-        <div>
+      <div id='separateBilling'>
+      <%= f.fields_for :mailing_address do |mf| %>
+      
         <h4>Separate Billing Address</h4>
         <%= mf.label :line1, 'Line 1' %><br>
         <%= mf.text_field :line1 %>
@@ -70,12 +83,32 @@
 
         <%= mf.label :zip %><br>
         <%= mf.text_field :zip %>
-        </div>
+
       <% end %>
+      </div>
 
-
-    <% end %>
-    <p>By clicking "Register", I agree to pay $650.</p>
+ 
+    <p>By clicking "Register", I agree to pay $<%= @current_ride_year.registration_fee %>.</p>
     <%= submit_tag 'Register' %>
     
   <% end %>
+
+
+
+<script>
+  var $refUserAddy = $('#refUser');
+
+  $(document).ready(function(){
+    $('#separateBilling').hide();
+    
+    $refUserAddy.on('change', function(e){
+      if (e.target.value === 'false'){
+        $('#separateBilling').show();
+      } else {
+        $('#separateBilling').hide();
+      }
+    })
+    vd = new RRvalidation( $("input[type='submit']") );
+  });
+
+</script>
