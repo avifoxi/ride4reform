@@ -1,13 +1,13 @@
-$(document).ready(function(){
+// $(document).ready(function(){
 
-	var rrpView = new RiderStatusPanelView({
-		'toggleLink' : $('.showStatPan') , 
-		'table' : $('.reg_status_panel') ,
-		'form' : $('.edit_rider_reg'),
-		'cancel' : $('.cancel')
-	});
+// 	var rrpView = new RiderStatusPanelView({
+// 		'toggleLink' : $('.showStatPan') , 
+// 		'table' : $('.reg_status_panel') ,
+// 		'form' : $('.edit_rider_reg'),
+// 		'cancel' : $('.cancel')
+// 	});
 
-});
+// });
 
 function RiderStatusPanelView(els) {
 	this.$toggleLink = els['toggleLink'];
