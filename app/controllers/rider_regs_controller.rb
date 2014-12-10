@@ -95,34 +95,10 @@ class RiderRegsController < ApplicationController
   end
 
   def pay_fee
-    #   p '#' * 50
-    # puts params["reference_user_address"]
-    # puts params["reference_user_address"].to_b
-    #   p '#' * 50
-
-    # p params
-    #       p '#' * 50
-
-    #   p '#' * 50
 
     address = cc_address
     cc_info = rider_reg_params['rider_attributes']['receipt'] 
     amount = RideYear.current_fee
-
-     # p '#' * 50
-     # puts address[:line1]
-     # # @address
-     #  p '#' * 50
-
-     #   p '#' * 50
-
-     #   puts cc_info
-     #  p '#' * 50
-
-     #   p '#' * 50
-     #   puts amount
-     #  p '#' * 50
-
     payment = PayPalWrapper.new(address, cc_info, amount)
 
     @rider_reg = current_user.rider_reg
@@ -136,18 +112,24 @@ class RiderRegsController < ApplicationController
       @rider_reg.update_attributes(paid: true)
       redirect_to rider_reg_path(@rider_reg)
     else
-      # @pay_errors = payment.error
+      @pay_errors = payment.errors
       p '#' * 50
       p @pay_errors
       p '#' * 50
-      # puts 'address:'
       # p address
-      # p '#' * 50
+      puts 'address:'
+      p address
+      p '#' * 50
+
+            puts 'parasm:'
+      p params
+      p '#' * 50
+
 
       @current_ride_year = RideYear.current
       @rider_reg = current_user.rider_reg
       @db_address = @rider_reg.mailing_address
-      redirect_to rider_regs_fee_path 
+      render rider_regs_fee_path 
     end
   end
 
@@ -160,8 +142,9 @@ class RiderRegsController < ApplicationController
           :id, 
           :mailing_address_attributes => [:line1, :line2, :city, :state, :zip],
           :receipt => [:type, :credit_card, :month, :expire_year, :cvv2, :first_name, :last_name]  
-        ]
-      )
+        ],
+      :mailing_address => [:line1, :line2, :city, :state, :zip]
+    )
   end
 
   def birthdate_params
@@ -175,7 +158,7 @@ class RiderRegsController < ApplicationController
     if params["reference_user_address"].to_b
       current_user.mailing_address
     else
-      MailingAddress.new(rider_reg_params['rider_attributes']['mailing_address'])
+      MailingAddress.new(rider_reg_params['mailing_address'])
     end
   end
 

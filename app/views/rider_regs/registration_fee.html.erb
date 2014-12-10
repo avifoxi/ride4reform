@@ -5,6 +5,7 @@
   <% if @pay_errors %>
   
     <div class="errors">
+      <h4>Please correct the following errors:</h4>
       <ul>
       <% @pay_errors.each do |pe| %>
         
@@ -107,6 +108,7 @@
         $('#separateBilling').hide();
       }
     })
+    vd = new RRvalidation( $("input[type='submit']") );
   });
 
 </script>
