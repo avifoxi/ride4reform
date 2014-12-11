@@ -9,7 +9,7 @@ class RiderReg < ActiveRecord::Base
   # has_one :mailing_address, :as => :addressable
   accepts_nested_attributes_for :rider
 
-  before_create :associate_current_year
+  before_validation :associate_current_year
 
   # This method associates the attribute ":photo" with a file attachment, paperclip gem
   has_attached_file :photo, styles: {
