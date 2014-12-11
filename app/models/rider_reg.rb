@@ -9,10 +9,7 @@ class RiderReg < ActiveRecord::Base
   # has_one :mailing_address, :as => :addressable
   accepts_nested_attributes_for :rider
 
-
-  # has_one :registration_receipt, 
-  # has_many :jobs, :foreign_key => 'user_id', :class_name => "Task"
-  # accepts_nested_attributes_for :receipts
+  before_create :associate_current_year
 
   # This method associates the attribute ":photo" with a file attachment, paperclip gem
   has_attached_file :photo, styles: {
@@ -24,7 +21,8 @@ class RiderReg < ActiveRecord::Base
   # Validate the attached image is image/jpg, image/png, etc
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
 
-
+  validates :goal, numericality: { greater_than_or_equal_to:  :selfs_current_min }
+  # RideYear.current.min_goal
   RIDE_OPTIONS = ['Original Track', 'Light Track', 'Hiking', 'Combination Hiking/Riding']
 
   def self.ride_options 
@@ -37,10 +35,6 @@ class RiderReg < ActiveRecord::Base
   	perc = (self.raised.to_f / self.goal.to_f).round(2) * 100
   	perc.to_i.to_s
   end
-
-  # def mailing_address
-  #   self.rider.mailing_address
-  # end
 
   def donors
     donor_arr = []
@@ -83,5 +77,14 @@ class RiderReg < ActiveRecord::Base
       end
     end
   end
+
+  private
+    def associate_current_year
+      self.ride_year = RideYear.current
+    end
+
+    def selfs_current_min
+      self.ride_year.min_goal
+    end
   
 end
