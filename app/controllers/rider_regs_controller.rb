@@ -23,17 +23,10 @@ class RiderRegsController < ApplicationController
     p_copy.delete('rider_attributes')
 
     @rider_reg = RiderReg.new(p_copy)
-	
     if @rider_reg.save
       ## from strong params - this updates mailing address, must do after RR entry made in DB
       @rider_reg.update_attributes(rider: current_user, birthdate: birthdate_params)
       @rider_reg.update_attributes(rider_reg_params)
-      ## TODO -- what if there is an error in mailing address ? do we need error handling?
-      # @rider_reg.rider.mailing_address.save
-      # 
-      # p '#' * 50
-      # puts rider_reg_params
-      # p '#' * 50
 
 			redirect_to rider_regs_terms_path
     else
@@ -95,37 +88,31 @@ class RiderRegsController < ApplicationController
   end
 
   def pay_fee
+    @rider_reg = current_user.rider_reg
 
     address = cc_address
     cc_info = rider_reg_params['rider_attributes']['receipt'] 
     amount = RideYear.current_fee
     payment = PayPalWrapper.new(address, cc_info, amount)
 
-    @rider_reg = current_user.rider_reg
 
     if payment.create
       receipt = Receipt.create(amount:          amount,
                                paypal_id:       payment.id,
                                user:            current_user,
-                               mailing_address: address)
+                               reference_user_address: params["reference_user_address"].to_b
+                               # ,
+                               # mailing_address: address
+                               )
+      unless params["reference_user_address"].to_b
+        receipt.update_attributes(mailing_address: address)
+      end
 
       @rider_reg.update_attributes(paid: true)
+
       redirect_to rider_reg_path(@rider_reg)
     else
       @pay_errors = payment.errors
-      p '#' * 50
-      p @pay_errors
-      p '#' * 50
-      # p address
-      puts 'address:'
-      p address
-      p '#' * 50
-
-            puts 'parasm:'
-      p params
-      p '#' * 50
-
-
       @current_ride_year = RideYear.current
       @rider_reg = current_user.rider_reg
       @db_address = @rider_reg.mailing_address
@@ -155,7 +142,7 @@ class RiderRegsController < ApplicationController
   end
 
   def cc_address
-    if params["reference_user_address"].to_b
+    if params["reference_user_address"].to_b    
       current_user.mailing_address
     else
       MailingAddress.new(rider_reg_params['mailing_address'])

@@ -28,7 +28,7 @@ module RiderRegsHelper
     if rider_reg.rider.mailing_address == nil 
         rider_reg.rider.mailing_address = MailingAddress.new
     else
-        rider_reg.rider.mailing_address
+        rider_reg.mailing_address
     end
     rider_reg.rider.receipts.new
     rider_reg
