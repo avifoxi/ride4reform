@@ -10,22 +10,23 @@ class Receipt < ActiveRecord::Base
 		end
 	end
 
-	def set_mailing_address(params_hash)
-		if self.reference_user_address
-			m = MailingAddress.new(params_hash)
-			if m.save
-				self.user.mailing_address = m
-			else
-				m.errors
-			end
-		else
-			m = MailingAddress.new(params_hash)
-			if m.save
-				self.mailing_address = m
-			else
-				m.errors
-			end
-		end
-	end
+	# perhaps this should move to the model? or keep in controller?
+	# def set_mailing_address(params_hash)
+	# 	if self.reference_user_address
+	# 		m = MailingAddress.new(params_hash)
+	# 		if m.save
+	# 			self.user.mailing_address = m
+	# 		else
+	# 			m.errors
+	# 		end
+	# 	else
+	# 		m = MailingAddress.new(params_hash)
+	# 		if m.save
+	# 			self.mailing_address = m
+	# 		else
+	# 			m.errors
+	# 		end
+	# 	end
+	# end
 
 end

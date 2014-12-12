@@ -1,14 +1,3 @@
-// global function, in case e.preventDefault() fails ... ala firefox
-
-function ie8SafePreventEvent(e){
-		alert('stopping');
-    if(e.preventDefault){ e.preventDefault()}
-    else{e.stop()};
-
-    e.returnValue = false;
-    e.stopPropagation();        
-}
-
 // and below, a validator object
 
 function RRvalidation(subButton, minGoal) {

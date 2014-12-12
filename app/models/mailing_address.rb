@@ -6,7 +6,12 @@ class MailingAddress < ActiveRecord::Base
 	end
 
 	def one_liner
-		self.line1 + ' ' + self.line2 + ' ' + self.city + ' ' + self.zip
+		o_l = self.line1 + ' ' 
+		if self.line2 
+			o_l += (self.line2 + ' ')
+		end
+		o_l + self.city + ' ' + self.zip
 	end
 
 end
+
