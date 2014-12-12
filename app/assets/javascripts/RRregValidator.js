@@ -1,3 +1,16 @@
+// global function, in case e.preventDefault() fails ... ala firefox
+
+function ie8SafePreventEvent(e){
+		alert('stopping');
+    if(e.preventDefault){ e.preventDefault()}
+    else{e.stop()};
+
+    e.returnValue = false;
+    e.stopPropagation();        
+}
+
+// and below, a validator object
+
 function RRvalidation(subButton, minGoal) {
 	this.$subButton = subButton;
 	this.minGoal = minGoal;
@@ -19,6 +32,8 @@ function RRvalidation(subButton, minGoal) {
 	}
 
 	this.$subButton.click( function(ev){
+
+		ev.preventDefault(ev);
 		_this.validate(ev);
 	});
 
@@ -27,10 +42,11 @@ function RRvalidation(subButton, minGoal) {
 
 RRvalidation.prototype = {
 	validate : function(ev) {
-		var _this = this;
-		console.log(_this);
-		var rep = this.repertoires[ _this.selectRep()];
 
+		var _this = this;
+		// console.log(_this);
+		var rep = this.repertoires[ _this.selectRep()];
+		// var clear = true;
 
 		// ev.preventDefault();
 		for (var i=0; i < rep.length; i++){
@@ -40,13 +56,23 @@ RRvalidation.prototype = {
 				return;
 			}
 		}
+		$('form').submit();
 	},
 	selectRep : function(){
-		return $('.form_container h3')[0].innerText;
+	
+		return $('.form_container h3')[0].innerHTML;
 	},
 	throwAlert : function(evt, text){
-		evt.preventDefault();
+		evt.originalEvent.preventDefault(evt);
 		alert(text);
+	},
+	ie8SafePreventEvent : function(e){
+		alert('stopping');
+    if(e.preventDefault){ e.preventDefault()}
+    else{e.stop()};
+
+    e.returnValue = false;
+    e.stopPropagation();        
 	},
 	checkZip : function(){
 		var input = $('#rider_reg_rider_attributes_mailing_address_attributes_zip').val();		

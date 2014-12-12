@@ -82,7 +82,11 @@
 <% end %>
 
 <script>
-	var vd = new RRvalidation( $("input[type='submit']"), <%= @current_ride_year.min_goal %> );
+	$( document ).ready( function() {
+		console.log('ready');
+		 vd = new RRvalidation( $("input[type='submit']"), <%= @current_ride_year.min_goal %> );
+	});
+	
 </script>
 
 
