@@ -100,9 +100,9 @@ class RiderRegsController < ApplicationController
       receipt = Receipt.create(amount:          amount,
                                paypal_id:       payment.id,
                                user:            current_user,
-                               reference_user_address: params["reference_user_address"].to_b,
-                               paid: true)
-
+                               reference_user_address: params["reference_user_address"].to_b
+                              )
+      @rider_reg.update_attributes(paid: true)
       unless params["reference_user_address"].to_b
         receipt.update_attributes(mailing_address: address)
       end
