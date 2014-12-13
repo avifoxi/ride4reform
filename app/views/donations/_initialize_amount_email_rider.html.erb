@@ -1,0 +1,14 @@
+<p>Thank you for choosing to donate to <%= @rider.full_name %>'s campaign! Please enter the amount you would like to donate, and your email address.</p>
+
+<%= form_for @donation, url: donations_create_path, remote: true do %>
+
+	<div>
+	  <%= label_tag :user_email, 'Your email address:' %><br />
+	  <%= text_field_tag :email %>
+	</div>
+	<div>
+	  <%= label_tag :amount, 'Amount you wish to donate:' %><br />
+	  <%= text_field_tag :amount %>
+	</div>
+	<%= submit_tag 'Donate' %>
+<% end %>
