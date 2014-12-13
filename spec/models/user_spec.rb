@@ -4,6 +4,7 @@ RSpec.describe User, :type => :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end
 
+#### NOTES
 # Not entirely clear of the relationship btwn riders and ride years
 # from what i see, a ride year has many riders. not sure how the interaction
 # is supposed to work. remember to ask avi.
