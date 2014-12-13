@@ -15,3 +15,8 @@ WHAT do Admins do ?
 	export all donors
 	export all donor 
 4) Create new Ride Years, and decide when a Ride Year is live
+
+<!-- //////
+when a user makes a donation - this happens
+
+when a user registers, they do this in this order -->
