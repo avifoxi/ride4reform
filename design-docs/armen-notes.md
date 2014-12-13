@@ -1,11 +1,22 @@
-#### Notes on controllers
+#### User sign up
+
+There is a log in button on the bottom that should probably be removed
+
+_bug_ upon putting my mailing address there is an error. the reason is because the file upload is fucking it
+```
+Showing /Users/hippopotamus/Documents/contracting/ride4reform/app/views/rider_regs/_rr_form.html.erb where line #1 raised:
+
+undefined method `mailing_address' for nil:NilClass
+```
+
+#### Controllers
 
 rider_regs#index is the root url
 new user (rider) is nested in user route. the rest are in rider_regs resources
 
 donations new and create are nested in rider_regs#show
 
-#### Notes on models
+#### Models
 
 Not entirely clear of the relationship btwn riders and ride years from what i see, a ride year has many riders. not sure how the interaction is supposed to work. remember to ask avi.
 
