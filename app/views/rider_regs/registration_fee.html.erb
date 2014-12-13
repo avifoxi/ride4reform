@@ -25,18 +25,28 @@
           <%= rcf.label :type, "Credit Card Type:" %>
           <%= rcf.select :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
           <br>
-          <%= rcf.label :credit_card, "Credit Card Number:" %>
-          <%= rcf.text_field :credit_card %>
+          <%= rcf.label :credit_card, "Credit Card Number (no spaces please):" %>
+          <%= rcf.text_field :credit_card, :maxlength => 16 %>
           <br>
+
+          <div>
+          <div class="form_thirds">
           <%= rcf.label :expire_month, "Month (MM):" %>
           <%= rcf.select :month, options_for_select(month_names_nums)  %>
           <br>
+          </div>
+          <div class="form_thirds">
           <%= rcf.label :expire_year, "Year:" %>
           <%= rcf.select :expire_year, options_for_select(cc_years_range)    %>
           <br>
+          </div>
+          <div class="form_thirds">
           <%= rcf.label :cvv2, "CVV2:" %>
-          <%= rcf.text_field :cvv2 %>
+          <%= rcf.text_field :cvv2, :maxlength => 4 %>
           <br>
+          </div>
+          </div>
+
           <%= rcf.label :first_name, "First name as it appears on card:" %>
           <%= rcf.text_field :first_name %>
           <br>

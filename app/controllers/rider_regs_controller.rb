@@ -13,8 +13,6 @@ class RiderRegsController < ApplicationController
 		@rider_reg = RiderReg.new
     @rider_reg.rider = current_user
     @current_ride_year = RideYear.current
-
-
 	end
 
 	def create 
@@ -87,6 +85,8 @@ class RiderRegsController < ApplicationController
     @receipt = Receipt.new
   end
 
+  
+
   def pay_fee
     @rider_reg = current_user.rider_reg
 
@@ -101,14 +101,13 @@ class RiderRegsController < ApplicationController
                                paypal_id:       payment.id,
                                user:            current_user,
                                reference_user_address: params["reference_user_address"].to_b
-                               # ,
-                               # mailing_address: address
-                               )
+                              )
+      @rider_reg.update_attributes(paid: true)
       unless params["reference_user_address"].to_b
         receipt.update_attributes(mailing_address: address)
       end
 
-      @rider_reg.update_attributes(paid: true)
+      # @rider_reg.update_attributes()
 
       redirect_to rider_reg_path(@rider_reg)
     else

@@ -16,7 +16,8 @@ function RRvalidation(subButton, minGoal) {
 			'checkCCnum',
 			'checkCVV',
 			'checkCCnames',
-			'ensureAddyRef'
+			'ensureAddyRef',
+			'ensureDateNotPast'
 		]
 	}
 
@@ -96,7 +97,7 @@ RRvalidation.prototype = {
 	checkGoal : function() {
 		var inputGoal = Number($('#rider_reg_goal').val());
 		var min = this.minGoal;
-		var failText = 'Please enter a fundraising goal in above $' + 
+		var failText = 'Please enter a fundraising goal of at least $' + 
 			min;
 		return inputGoal < min ? failText : 'valid' ;
 	},
@@ -176,5 +177,15 @@ RRvalidation.prototype = {
 			}
 		});
 		return (!clear) ? failText : '';
+	},
+	ensureDateNotPast : function() {
+		var month = $('#rider_reg_rider_attributes_receipt_month').val();
+		var year = $('#rider_reg_rider_attributes_receipt_expire_year').val();
+		var exp = new Date(year, (month - 1) );
+		var today = new Date();
+		if (exp < today){
+			return 'Please enter a valid expiration date.';
+		};
+		return 'valid';
 	}
 }
