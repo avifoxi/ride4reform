@@ -97,7 +97,7 @@ RRvalidation.prototype = {
 	checkGoal : function() {
 		var inputGoal = Number($('#rider_reg_goal').val());
 		var min = this.minGoal;
-		var failText = 'Please enter a fundraising goal in above $' + 
+		var failText = 'Please enter a fundraising goal of at least $' + 
 			min;
 		return inputGoal < min ? failText : 'valid' ;
 	},

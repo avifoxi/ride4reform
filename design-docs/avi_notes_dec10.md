@@ -24,4 +24,4 @@ Entering Zip code- tried entering 5+4 zip code. Error message said please enter 
 Paying- I entered too many digits in the credit card-rejected but error code was please enter credit card again if limit to 16 digits problem solved
 Card expiration allowed a past date (January 2014) – are you simply going to pass any valid length CC info to PayPal to edit?
 
-	-- writing additional validation
+	-- writing additional validation - DONE
