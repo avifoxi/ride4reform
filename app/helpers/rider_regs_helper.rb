@@ -21,15 +21,14 @@ module RiderRegsHelper
     end
 
     def cc_years_range
-        (Time.now.year)..(Time.now.year + 15)
+      (Time.now.year)..(Time.now.year + 15)
     end
 
   def setup_mailing_addy_receipt(rider_reg)
-    print("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy")
     if rider_reg.rider.mailing_address == nil
-        rider_reg.rider.mailing_address.new
+      rider_reg.rider.mailing_address.new
     else
-        rider_reg.mailing_address
+      rider_reg.mailing_address
     end
     rider_reg.rider.receipts.new
     rider_reg

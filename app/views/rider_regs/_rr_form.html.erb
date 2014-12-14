@@ -1,42 +1,38 @@
 <%= print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n") %>
 
-<%= print(@rider_reg.rider.mailing_address) %>
-<%= form_for setup_mailing_addy_receipt(@rider_reg) do |f| %>
+<%= print(@rider_reg) %>
+<%= form_for @rider_reg do |f| %>
   <div>
 	  <%= f.label :ride_option, 'Choose which ride option you want to participate in:' %><br />
 	  <%= f.select :ride_option, RiderReg.ride_options %>
 	</div>
 
+	  <%= f.fields_for :mailing_address do |mf| %>
 
-		<%= f.fields_for :rider do |rf| %>
-		  <%= rf.fields_for :mailing_address do |mf| %>
+	  <div>
+	    <h4>Your Primary Mailing Address</h4>
+	    <%= mf.label :line1, 'Line 1' %><br>
+	    <%= mf.text_field :line1 %>
 
-		  <div>
-		    <h4>Your Primary Mailing Address</h4>
-		    <%= mf.label :line1, 'Line 1' %><br>
-		    <%= mf.text_field :line1 %>
+	    <%= mf.label :line2, 'Line 2' %><br>
+	    <%= mf.text_field :line2 %>
 
-		    <%= mf.label :line2, 'Line 2' %><br>
-		    <%= mf.text_field :line2 %>
-
-		    <div>
-		    	<div class="form_thirds">
-			    <%= mf.label :city %><br>
-			    <%= mf.text_field :city %>
-					</div>
-					<div class="form_thirds">
-			    <%= mf.label :state %><br>
-			    <%= mf.select :state, fiddy_states %>
-					</div>
-					<div class="form_thirds">
-			    <%= mf.label :zip %><br>
-			    <%= mf.text_field :zip, :maxlength => 5 %>
-					</div>
+	    <div>
+	    	<div class="form_thirds">
+		    <%= mf.label :city %><br>
+		    <%= mf.text_field :city %>
 				</div>
-		  </div>
-			<% end %>
+				<div class="form_thirds">
+		    <%= mf.label :state %><br>
+		    <%= mf.select :state, fiddy_states %>
+				</div>
+				<div class="form_thirds">
+		    <%= mf.label :zip %><br>
+		    <%= mf.text_field :zip, :maxlength => 5 %>
+				</div>
+			</div>
+	  </div>
 		<% end %>
-
 
 	<div>
 	  <%= f.label :primary_phone %><br />

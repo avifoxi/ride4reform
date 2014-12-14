@@ -1,6 +1,7 @@
 class RiderReg < ActiveRecord::Base
-  
+
   belongs_to :ride_year
+  has_many :mailing_addresses
 
 	belongs_to :rider, :class_name => "User"
 	delegate :first_name, :last_name, :title, :full_name, :receipts, :mailing_address, to: :rider, allow_nil: true, prefix: false
@@ -8,7 +9,7 @@ class RiderReg < ActiveRecord::Base
 	has_many :donations_received, through: :rider
 
   # has_one :mailing_address, :as => :addressable
-  accepts_nested_attributes_for :rider
+  accepts_nested_attributes_for :rider, :mailing_addresses
 
   before_validation :associate_current_year
 

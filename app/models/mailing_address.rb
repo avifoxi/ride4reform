@@ -3,7 +3,7 @@ class MailingAddress < ActiveRecord::Base
 
 	validates :line1, :city, :state, :zip, presence: true
 	validates :city, format: { with: /[a-zA-Z]{3,}/, message: "Please enter a valid City." }
-	validates :zip, format: { with: /\d{5}/, message: "Please enter a valid zip code" }
+	validates :zip, format: { with: /\d{5}(-+\d{4}|$)/, message: "Valid zip code formats: '12345' or '12345-6789'" }
 
 	def self.valid_types
 		["RiderReg", "Receipt"]
