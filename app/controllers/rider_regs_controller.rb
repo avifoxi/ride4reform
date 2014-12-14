@@ -1,6 +1,6 @@
 class RiderRegsController < ApplicationController
-	
-	def index 
+
+	def index
 		@riders = RiderReg.all
 
     respond_to do |format|
@@ -15,7 +15,7 @@ class RiderRegsController < ApplicationController
     @current_ride_year = RideYear.current
 	end
 
-	def create 
+	def create
     ## don't want to commit to DB before kosher, copy from strong params and remove user id info
     p_copy = rider_reg_params.dup
     p_copy.delete('rider_attributes')
@@ -44,7 +44,7 @@ class RiderRegsController < ApplicationController
 		@rider_reg = RiderReg.find(params[:id])
 		unless current_user == @rider_reg.rider
 			redirect_to root_url
-		end    
+		end
 	end
 
 	def update
@@ -64,7 +64,7 @@ class RiderRegsController < ApplicationController
         format.js   { render json: @rider_reg.errors, status: :unprocessable_entity }
       end
     end
-		
+
 	end
 
 	def terms_of_entry
@@ -85,13 +85,13 @@ class RiderRegsController < ApplicationController
     @receipt = Receipt.new
   end
 
-  
+
 
   def pay_fee
     @rider_reg = current_user.rider_reg
 
     address = cc_address
-    cc_info = rider_reg_params['rider_attributes']['receipt'] 
+    cc_info = rider_reg_params['rider_attributes']['receipt']
     amount = RideYear.current_fee
     payment = PayPalWrapper.new(address, cc_info, amount)
 
@@ -115,21 +115,21 @@ class RiderRegsController < ApplicationController
       @current_ride_year = RideYear.current
       @rider_reg = current_user.rider_reg
       @db_address = @rider_reg.mailing_address
-      render rider_regs_fee_path 
+      render rider_regs_fee_path
     end
   end
 
-	private 
+	private
 
 	def rider_reg_params
-    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms, :photo, 
-      :rider_attributes =>
-        [
-          :id, 
-          :mailing_address_attributes => [:line1, :line2, :city, :state, :zip],
-          :receipt => [:type, :credit_card, :month, :expire_year, :cvv2, :first_name, :last_name]  
-        ],
-      :mailing_address => [:line1, :line2, :city, :state, :zip]
+    params.require(:rider_reg).permit(:ride_option, :primary_phone, :secondary_phone, :birthdate, :goal, :bio, :accept_terms, :photo 
+      # :rider_attributes =>
+      #   [
+      #     :id,
+      #     :mailing_address_attributes => [:line1, :line2, :city, :state, :zip],
+      #     :receipt => [:type, :credit_card, :month, :expire_year, :cvv2, :first_name, :last_name]
+      #   ],
+      # :mailing_address => [:line1, :line2, :city, :state, :zip]
     )
   end
 
@@ -141,7 +141,7 @@ class RiderRegsController < ApplicationController
   end
 
   def cc_address
-    if params["reference_user_address"].to_b    
+    if params["reference_user_address"].to_b
       current_user.mailing_address
     else
       MailingAddress.new(rider_reg_params['mailing_address'])

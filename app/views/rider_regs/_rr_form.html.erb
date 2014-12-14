@@ -1,6 +1,3 @@
-<%= print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n") %>
-
-<%= print(@rider_reg) %>
 <%= form_for @rider_reg do |f| %>
   <div>
 	  <%= f.label :ride_option, 'Choose which ride option you want to participate in:' %><br />
@@ -51,7 +48,6 @@
 		  <%= select_tag(:rider_reg_month, options_for_select(month_names_nums)) %>
 		</div>
 
-
 		<div class="form_thirds">
 			<%= f.label :day %><br />
 			<%= select_tag(:rider_reg_day, options_for_select(birth_day_range))%>
@@ -79,7 +75,6 @@
 	  <%= f.text_field :goal %>
 	</div>
 
-
 	<div>
 		<%= f.submit %>
 	</div>
@@ -90,5 +85,4 @@
 		console.log('ready');
 		 vd = new RRvalidation( $("input[type='submit']"), <%= @current_ride_year.min_goal %> );
 	});
-
 </script>

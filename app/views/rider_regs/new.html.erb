@@ -1,6 +1,11 @@
-
 <div class="form_container">
 	<h3>Please fill out your Rider Registration!</h3>
-
+	<% if @rider_reg.errors.any? %>
+	<ul>
+		<% @rider_reg.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+		<% end %>
+	</ul>
+	<% end %>
 	<%= render 'rr_form', :rider_reg => @rider_reg %>
 </div>

@@ -3,7 +3,7 @@
 function RRvalidation(subButton, minGoal) {
 	this.$subButton = subButton;
 	this.minGoal = minGoal;
-	
+
 	var _this = this;
 
 	this.repertoires = {
@@ -39,17 +39,17 @@ RRvalidation.prototype = {
 		// var clear = true;
 
 		// ev.preventDefault();
-		for (var i=0; i < rep.length; i++){
-			var vdText = _this[rep[i]]();
-			if (vdText !== 'valid'){
-				_this.throwAlert(ev, vdText);
-				return;
-			}
-		}
+		// for (var i=0; i < rep.length; i++){
+		// 	var vdText = _this[rep[i]]();
+		// 	if (vdText !== 'valid'){
+		// 		_this.throwAlert(ev, vdText);
+		// 		return;
+		// 	}
+		// }
 		$('form').submit();
 	},
 	selectRep : function(){
-	
+
 		return $('.form_container h3')[0].innerHTML;
 	},
 	throwAlert : function(evt, text){
@@ -62,23 +62,25 @@ RRvalidation.prototype = {
     else{e.stop()};
 
     e.returnValue = false;
-    e.stopPropagation();        
+    e.stopPropagation();
 	},
-	checkZip : function(){
-		var input = $('#rider_reg_rider_attributes_mailing_address_attributes_zip').val();		
-		var testing = Number(input);
-		var failText = 'Please enter a valid postal code';
-
-		if ( !testing.valueOf() ){
-			return failText;
-		}  
-		if (input.length !== ( 5 || 9 ) ) {
-			return failText;
-		}
-		return 'valid';
-	},
+	// checkZip : function(){
+	// 	var input = $('#rider_reg_rider_attributes_mailing_address_attributes_zip').val();
+	// 	var testing = Number(input);
+	// 	var failText = 'Please enter a valid postal code';
+	//
+	// 	if ( !testing.valueOf() ){
+	// 		console.log()
+	// 		console.log(input.length)
+	// 		return failText;
+	// 	}
+	// 	if (input.length !== ( 5 || 9 ) ) {
+	// 		return failText;
+	// 	}
+	// 	return 'valid';
+	// },
 	checkMailPhone : function() {
-		var mp = [ 
+		var mp = [
 			$('#rider_reg_rider_attributes_mailing_address_attributes_line1'),
 			$('#rider_reg_rider_attributes_mailing_address_attributes_city'),
 			$('#rider_reg_primary_phone')
@@ -88,16 +90,16 @@ RRvalidation.prototype = {
 		mp.forEach( function($el){
 
 			if ( $el.val() === '') {
-				clear = false; 
+				clear = false;
 			}
 		});
-		
+
 		return (!clear) ? failText : 'valid';
 	},
 	checkGoal : function() {
 		var inputGoal = Number($('#rider_reg_goal').val());
 		var min = this.minGoal;
-		var failText = 'Please enter a fundraising goal of at least $' + 
+		var failText = 'Please enter a fundraising goal of at least $' +
 			min;
 		return inputGoal < min ? failText : 'valid' ;
 	},
@@ -109,7 +111,7 @@ RRvalidation.prototype = {
 
 		if ( !numCheck.valueOf() ){
 			return failText;
-		}  
+		}
 		if (ccNum.length !== 16) {
 			return failText;
 		}
@@ -122,7 +124,7 @@ RRvalidation.prototype = {
 
 		if ( !numCheck.valueOf() ){
 			return failText;
-		}  
+		}
 		if ( (cvv.length > 4 )||(cvv.length < 3) ) {
 			return failText;
 		}
@@ -135,11 +137,11 @@ RRvalidation.prototype = {
 		var names = [
 			$('#rider_reg_rider_attributes_receipt_first_name'),
 			$('#rider_reg_rider_attributes_receipt_last_name')
-		] 
+		]
 
 		names.forEach( function($el){
 			if ( $el.val() === '') {
-				clear = false; 
+				clear = false;
 			}
 		});
 		return (!clear) ? failText : 'valid';
@@ -151,7 +153,7 @@ RRvalidation.prototype = {
 		var failText = '';
 		if ( ref === 'nil'){
 			failText = 'Please choose whether to reference your existing address.';
-		} 
+		}
 		var wtf = _this.checkCCnames();
 		console.log(wtf);
 		var falseCheck = _this.cda();
@@ -173,7 +175,7 @@ RRvalidation.prototype = {
 		]
 		els.forEach( function($el){
 			if ( $el.val() === '') {
-				clear = false; 
+				clear = false;
 			}
 		});
 		return (!clear) ? failText : '';
