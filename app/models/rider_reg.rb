@@ -1,11 +1,12 @@
 class RiderReg < ActiveRecord::Base
+  
   belongs_to :ride_year
-	
+
 	belongs_to :rider, :class_name => "User"
 	delegate :first_name, :last_name, :title, :full_name, :receipts, :mailing_address, to: :rider, allow_nil: true, prefix: false
 
 	has_many :donations_received, through: :rider
-  
+
   # has_one :mailing_address, :as => :addressable
   accepts_nested_attributes_for :rider
 
@@ -25,13 +26,13 @@ class RiderReg < ActiveRecord::Base
   # RideYear.current.min_goal
   RIDE_OPTIONS = ['Original Track', 'Light Track', 'Hiking', 'Combination Hiking/Riding']
 
-  def self.ride_options 
+  def self.ride_options
   	RIDE_OPTIONS
   end
 
   def percent_of_goal
     return "0" if self.goal <= 0
-    
+
   	perc = (self.raised.to_f / self.goal.to_f).round(2) * 100
   	perc.to_i.to_s
   end
@@ -86,5 +87,5 @@ class RiderReg < ActiveRecord::Base
     def selfs_current_min
       self.ride_year.min_goal
     end
-  
+
 end

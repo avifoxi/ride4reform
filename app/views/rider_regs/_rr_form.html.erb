@@ -1,3 +1,6 @@
+<%= print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n") %>
+
+<%= print(@rider_reg.rider.mailing_address) %>
 <%= form_for setup_mailing_addy_receipt(@rider_reg) do |f| %>
   <div>
 	  <%= f.label :ride_option, 'Choose which ride option you want to participate in:' %><br />
@@ -7,15 +10,15 @@
 
 		<%= f.fields_for :rider do |rf| %>
 		  <%= rf.fields_for :mailing_address do |mf| %>
-		  
+
 		  <div>
 		    <h4>Your Primary Mailing Address</h4>
 		    <%= mf.label :line1, 'Line 1' %><br>
 		    <%= mf.text_field :line1 %>
-		    
+
 		    <%= mf.label :line2, 'Line 2' %><br>
 		    <%= mf.text_field :line2 %>
-		    
+
 		    <div>
 		    	<div class="form_thirds">
 			    <%= mf.label :city %><br>
@@ -29,11 +32,11 @@
 			    <%= mf.label :zip %><br>
 			    <%= mf.text_field :zip, :maxlength => 5 %>
 					</div>
-				</div>	  
+				</div>
 		  </div>
 			<% end %>
 		<% end %>
-		
+
 
 	<div>
 	  <%= f.label :primary_phone %><br />
@@ -51,7 +54,7 @@
 		  <%= f.label :month %><br />
 		  <%= select_tag(:rider_reg_month, options_for_select(month_names_nums)) %>
 		</div>
-		
+
 
 		<div class="form_thirds">
 			<%= f.label :day %><br />
@@ -68,7 +71,7 @@
 	  <%= f.label :photo %><br />
 	  <%= f.file_field :photo %>
 	</div>
-		
+
 	<div>
 	  <%= f.label :bio %><br />
 	  <%= f.text_area :bio %>
@@ -91,7 +94,5 @@
 		console.log('ready');
 		 vd = new RRvalidation( $("input[type='submit']"), <%= @current_ride_year.min_goal %> );
 	});
-	
+
 </script>
-
-

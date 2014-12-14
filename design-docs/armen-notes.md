@@ -25,3 +25,6 @@ it would take a total of 5 minutes to give permission to a new admin, vs buildin
 
 receipt can have one mailing address, no relationship on the other end.
 Guessing this is for normalization
+
+#### Donations Controller
+line 31 - the word password is used to saving a new user's password
