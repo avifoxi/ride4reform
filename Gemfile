@@ -7,7 +7,7 @@ gem 'rails', '4.1.5'
 # group :development, :test do
 gem 'pg'
 # end
-
+gem 'awesome_print'
 # Use mysql as the database for AWS deployment
 # gem 'mysql2', group: :production
 
@@ -69,7 +69,7 @@ group :development, :test do
 	gem 'faker'
 end
 
-group :test do 
+group :test do
 	gem 'rspec-rails', '~> 3.0.0'
 	gem 'capybara'
 	gem 'selenium-webdriver'
