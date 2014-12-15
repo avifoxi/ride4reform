@@ -28,3 +28,7 @@ Guessing this is for normalization
 
 #### Donations Controller
 line 31 - the word password is used to saving a new user's password
+
+#### reg_status_panel
+
+the update needs fixed now that it's using nested attributes. it doesn't render a text field for stuff in mailing_address
