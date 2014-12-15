@@ -1,3 +1,7 @@
+#### Schema
+
+Maybe I'm seeing this wrong... MailingAddress says that RiderReg is a valid type, but they are saved to users (riders). Not sure about the relationship...
+
 #### User sign up
 
 There is a log in button on the bottom that should probably be removed
@@ -31,4 +35,6 @@ line 31 - the word password is used to saving a new user's password
 
 #### reg_status_panel
 
-the update needs fixed now that it's using nested attributes. it doesn't render a text field for stuff in mailing_address
+the update needs fixed now that it's using nested attributes. it doesn't render a text field for stuff in mailing_address. this is happening on line 55 of rider_regs.js. i don't know the name of field. probably faster for you to figure out the new name.
+
+if you click on multiple fields, it doesn't toggle the previous field clicked, it appends to it.

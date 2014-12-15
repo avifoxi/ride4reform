@@ -34,6 +34,10 @@ module RiderRegsHelper
     rider_reg
   end
 
+  def setup_rider(rider_reg)
+    rider_reg.rider.mailing_address ||= MailingAddress.new
+    rider_reg
+  end
 
   def correct_terms_for_ride_option(rider_reg)
   	html = ''

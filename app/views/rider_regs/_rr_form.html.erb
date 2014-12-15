@@ -1,4 +1,4 @@
-<%= form_for @rider_reg do |f| %>
+<%= form_for setup_rider(@rider_reg) do |f| %>
   <div>
 	  <%= f.label :ride_option, 'Choose which ride option you want to participate in:' %><br />
 	  <%= f.select :ride_option, RiderReg.ride_options %>

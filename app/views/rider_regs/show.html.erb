@@ -1,31 +1,31 @@
 <div class="side-image">
-  
+
   <div class="images-wrapper">
 		<% if @rider.photo_file_size %>
 			<%= image_tag @rider.photo.url(:medium), :class => "img" %>
 		<% else %>
 			<i class="fa fa-bicycle"></i>
-		<% end  %> 
-		
+		<% end  %>
+
 		<div class="raise-visualization">
 
 			<div id="gauge" class="200x160px"></div>
 
-			<%= @rider.first_name %> has raised <span id="percent_of_goal"><%= @rider.percent_of_goal %></span>% of their goal of $<%= @rider.goal %> 
-		</div> 	
+			<%= @rider.first_name %> has raised <span id="percent_of_goal"><%= @rider.percent_of_goal %></span>% of their goal of $<%= @rider.goal %>
+		</div>
   </div>
-  
+
   <div class="content">
-  	
+
     <h1><%= @rider.full_name %></h1>
-		
+
 		<% if current_user && @rider == current_user.rider_reg %>
 			<h5 class='showStatPan'><a href="#">Manage Your Registration</a></h5>
-			<%= render 'reg_status_panel'%>
+			<%= render 'reg_status_panel' %>
 		<% end %>
 
 		<%= render partial: 'partials/thanks_to_donor' %>
-    
+
     <p><%= @rider.bio %></p>
 
     <%= link_to 'Donate Now!', rider_reg_donations_path(@rider), class: 'button' %>

@@ -1,5 +1,4 @@
 class RiderReg < ActiveRecord::Base
-
   belongs_to :ride_year
   has_one :mailing_address
 

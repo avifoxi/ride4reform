@@ -1,7 +1,7 @@
 // $(document).ready(function(){
 
 // 	var rrpView = new RiderStatusPanelView({
-// 		'toggleLink' : $('.showStatPan') , 
+// 		'toggleLink' : $('.showStatPan') ,
 // 		'table' : $('.reg_status_panel') ,
 // 		'form' : $('.edit_rider_reg'),
 // 		'cancel' : $('.cancel')
@@ -40,11 +40,11 @@ function RiderStatusPanelView(els) {
 		$(that.$form).hide();
 		$('.update').hide();
 	})
-} 
+}
 
 RiderStatusPanelView.prototype = {
 
-	parseForUpdate : function(clickText) {	
+	parseForUpdate : function(clickText) {
 		var field;
 		var that = this;
 		switch (clickText) {
@@ -72,14 +72,9 @@ RiderStatusPanelView.prototype = {
 		  default:
 		    console.log("invalid");
 		}
-	}, 
-	revealField : function(field) { 
+	},
+	revealField : function(field) {
 		this.$form.show();
 		$('.' + field + ', .submit, .cancel' ).show();
 	}
 }
-
-
-
-
-
