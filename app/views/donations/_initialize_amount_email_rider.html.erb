@@ -14,18 +14,24 @@
 <% end %>
 
 <script>
-	$('form').submit(function(e){
-		e.preventDefault();
-		console.log(e);
 
-		$.ajax({
-			type: "POST",
-		  url: '<%= donation_queries_path %>',
-		  data: {
-		  	email: 'foo@bar.com'
-		  }
-		}).done(function(response) {
-		  console.log(response);
-		});	})
+	var dfb = new DonationsFormBuilder({
+		'form' : $('form') ,
+		'query_path' : '<%= donation_queries_path %>',
+		'submission_path' : '<%= donations_create_path(@rider) %>'
+	});
+	// $('form').submit(function(e){
+	// 	e.preventDefault();
+	// 	console.log(e);
+
+	// 	$.ajax({
+	// 		type: "POST",
+	// 	  url: '<%= donation_queries_path %>',
+	// 	  data: {
+	// 	  	email: 'foo@bar.com'
+	// 	  }
+	// 	}).done(function(response) {
+	// 	  console.log(response);
+	// 	});	})
 
 </script>
