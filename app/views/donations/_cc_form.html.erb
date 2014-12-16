@@ -3,7 +3,7 @@
     <%= select_tag :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
     <br>
     <%= label_tag :credit_card, "Credit Card Number (no spaces please):" %>
-    <%= text_field_tag :credit_card, maxlength: 16 %>
+    <%= text_field_tag :credit_card, nil, maxlength: 16 %>
     <br>
 
     <div>

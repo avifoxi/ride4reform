@@ -7,7 +7,7 @@ function DonationsFormBuilder (els) {
 	this.donationData = {};
 	// this.complete = false;
 	this.currentStep = 0;
-	this.donorExistsInDB = false;
+	this.donorDBinfo = null;
 	this.$showProcess = $('.show_donation_in_process ul');
 	
 	var _this = this;
@@ -20,8 +20,10 @@ function DonationsFormBuilder (els) {
 	this.steps = {
 		0 : 'prepEmailAmount',
 		1 : 'getEmailAmount',
-		2 : 'prepAddress',
-		3 : 'getAddress'
+		2 : 'prepPrivacyAndMessage',
+		3 : 'getPrivacyAndMessage',
+		4 : 'prepAddress',
+		5 : 'getAddress'
 		// 3 : 'cc_form',
 		// 3 : 'privacyAndMessage',
 		// 4 : 'submit'
@@ -39,8 +41,19 @@ DonationsFormBuilder.prototype = {
 		var step = this.currentStep;
 		var stepFunc = this.steps[step];
 		this[stepFunc]();
+		this.updateShowProcess();
 	},
+	prepAddress : function(){
+		var _this = this;
+		$('.donationSteps').hide();
+		var found = this.donorDBinfo;
+		if (found){
+			_this.dbAddyOptionShow(found.mailing_address);
+		}
+		$('.newAddy').show();
+		this.currentStep += 1;
 
+	}, 
 	prepEmailAmount : function(){
 		$('.donationSteps').hide();
 		$('#emailAmount').show();
@@ -58,8 +71,22 @@ DonationsFormBuilder.prototype = {
 			_this.donationData.amount = am;
 			_this.currentStep += 1;
 			_this.queryEmailInDBGetAddy(_this.donationData.email);	
+			_this.stepThrough();
 		}
 
+	},
+	getPrivacyAndMessage : function() {
+		var anon = $('#privacy').val();
+		var message = $('#message').val();
+		this.donationData.anon = anon;
+		this.donationData.message = message;
+		this.currentStep += 1;
+	},
+	prepPrivacyAndMessage : function() {
+		// console.log('in prep priv + mess');
+		$('.donationSteps').hide();
+		$('#privacyAndMessage').show();
+		this.currentStep += 1;
 	},
 	queryEmailInDBGetAddy : function(email){
 		var _this = this;
@@ -71,15 +98,14 @@ DonationsFormBuilder.prototype = {
 		  	email: email
 		  }
 		}).done(function(response) {
-		  console.log(response);
+		  // console.log(response);
 		  if (response.donor){
-		  	// update screen with info
+		  	// save json for reference
+		  	_this.donorDBinfon = response;
+
 		  	// give option to use existing mailing_addy
-		  	_this.dbAddyOptionShow(response.mailing_address);
-		  } else {
-		  	// solicit User info for 
-		  }
-		  // _this.privacyAndMessage();
+		  	// _this.dbAddyOptionShow(response.mailing_address);
+		  } 
 		});	
 	},
 	updateShowProcess : function(){
@@ -87,6 +113,8 @@ DonationsFormBuilder.prototype = {
 		var data = _this.donationData;
 		var donationFields = Object.getOwnPropertyNames(_this.donationData);
 		// first clear before appending... 
+		this.$showProcess.children().remove();
+
 		for (var i=0; i < donationFields.length; i++ ){
 			var li = document.createElement('li');
 			li.innerHTML = donationFields[i] + ': ' +

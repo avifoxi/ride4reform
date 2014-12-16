@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20141216163849) do
     t.integer  "rider_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "private",          default: false
+    t.boolean  "anonymous",        default: false
     t.text     "message_to_rider"
   end
 

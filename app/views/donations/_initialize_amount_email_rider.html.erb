@@ -16,6 +16,16 @@
 	  <%= label_tag :amount, 'Amount you wish to donate:' %><br />
 	  <%= text_field_tag :amount %>
 	</div>
+
+	<div class="donationSteps" id="privacyAndMessage">
+	  <%= label_tag :privacy, "Would you like your donation to be anonymous on the rider's profile page? The amount will be tallied in the total, but your name will not be listed publically." %><br />
+	  <select name="privacy" id='privacy'>
+          <option value="false">No</option>
+          <option value="true">Yes</option>
+        </select></br>
+    <%= label_tag :message, 'Your note to the rider (optional):' %>
+    <%= text_area_tag :message %>
+	</div>
 	<div class="donationSteps" id="dbAddy">
 	  <%= label_tag :mailing_yay_or_nay, 'Reference this mailing address?' %><br />
 	  <br><span class="addyInsert"></span>
