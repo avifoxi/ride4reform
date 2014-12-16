@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get 'rider_regs/registration_fee' => 'rider_regs#registration_fee', as: :rider_regs_fee
   put 'rider_regs/registration_fee' => 'rider_regs#pay_fee'#, as: :rider_regs_pay_fee
   
-  get 'donations/donation_queries' => 'donations#donation_queries', as: :donation_queries
+  post 'donations/donation_queries' => 'donations#donation_queries', as: :donation_queries
   
   resources :users do 
     resources :rider_regs, only: [:new]

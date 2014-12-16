@@ -1,6 +1,6 @@
 <p>Thank you for choosing to donate to <%= @rider.full_name %>'s campaign! Please enter the amount you would like to donate, and your email address.</p>
 
-<%= form_for @donation, url: donations_create_path, remote: true do %>
+<%= form_for @donation, url: donation_queries_path do %>
 
 	<div>
 	  <%= label_tag :user_email, 'Your email address:' %><br />
@@ -12,3 +12,20 @@
 	</div>
 	<%= submit_tag 'Donate' %>
 <% end %>
+
+<script>
+	$('form').submit(function(e){
+		e.preventDefault();
+		console.log(e);
+
+		$.ajax({
+			type: "POST",
+		  url: '<%= donation_queries_path %>',
+		  data: {
+		  	email: 'foo@bar.com'
+		  }
+		}).done(function(response) {
+		  console.log(response);
+		});	})
+
+</script>
