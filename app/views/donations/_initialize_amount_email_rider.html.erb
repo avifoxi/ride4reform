@@ -17,7 +17,37 @@
 	  <%= label_tag :amount, 'Amount you wish to donate:' %><br />
 	  <%= text_field_tag :amount %>
 	</div>
-	<%= submit_tag 'Donate' %>
+	<div>
+	  <%= label_tag :mailing_yay_or_nay, 'Reference this mailing address?' %><br />
+	  <br><span class="addyInsert"></span>
+	  <select name="mailing_yay_or_nay" id='mailing_yay_or_nay'>
+          <option value="nil">Please Select</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+	</div>
+	<div class="newAddy">
+		<h4>Separate Billing Address</h4>
+      <%= label_tag :line1, 'Line 1' %><br>
+      <%= text_field_tag :line1 %>
+      
+      <%= label_tag :line2, 'Line 2' %><br>
+      <%= text_field_tag :line2 %>
+      
+      <%= label_tag :city %><br>
+      <%= text_field_tag :city %>
+
+      <%= label_tag :state %><br>
+      <%= select_tag :state, fiddy_states %>
+
+
+      <%= label_tag :zip %><br>
+      <%= text_field_tag :zip %>
+	</div>
+
+	<%= render partial: 'cc_form' %>
+
+	<%= submit_tag 'Process' %>
 <% end %>
 
 <script>

@@ -43,6 +43,7 @@ DonationsFormBuilder.prototype = {
 		  	// update screen with info
 		  	_this.updateShowProcess();
 		  	// give option to use existing mailing_addy
+		  	_this.referenceOldOrNewAddy(response.mailing_address);
 		  } else {
 		  	// solicit User info for 
 		  }
@@ -58,6 +59,10 @@ DonationsFormBuilder.prototype = {
 				data[donationFields[i]];
 			this.$showProcess.append(li);
 		}
+	},
+	referenceOldOrNewAddy : function(addy){
+		$('.addyInsert').text(addy) ;
+		
 	}
 }
 

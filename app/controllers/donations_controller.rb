@@ -20,7 +20,7 @@ class DonationsController < ApplicationController
     p '#' * 50
     @donor = User.find_by(email: params[:email])
     if @donor
-      @mailing_address = @donor.mailing_address
+      @mailing_address = @donor.mailing_address.one_liner
     end
 
     # p '#' * 50
