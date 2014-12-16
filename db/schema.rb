@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210213437) do
+ActiveRecord::Schema.define(version: 20141216163849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 20141210213437) do
     t.integer  "rider_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "private",          default: false
+    t.text     "message_to_rider"
   end
 
   create_table "mailing_addresses", force: true do |t|

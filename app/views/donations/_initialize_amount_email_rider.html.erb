@@ -1,5 +1,11 @@
 <p>Thank you for choosing to donate to <%= @rider.full_name %>'s campaign! Please enter the amount you would like to donate, and your email address.</p>
 
+<div class="show_donation_in_process">
+	<ul>
+		
+	</ul>
+</div>
+
 <%= form_for @donation, url: donation_queries_path do %>
 
 	<div>

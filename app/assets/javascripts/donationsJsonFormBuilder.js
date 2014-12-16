@@ -36,7 +36,12 @@ DonationsFormBuilder.prototype = {
 		  	email: email
 		  }
 		}).done(function(response) {
-		  console.log(response);
+		  if (response.donor){
+		  	// update screen with info
+		  	// give option to use existing mailing_addy
+		  } else {
+		  	// solicit User info for 
+		  }
 		});	
 
 	}

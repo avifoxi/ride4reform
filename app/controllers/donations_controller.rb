@@ -19,20 +19,15 @@ class DonationsController < ApplicationController
     p params
     p '#' * 50
     @donor = User.find_by(email: params[:email])
-    # unless @donor 
-    #   @donor = User.new(email: params[:email])
-    # end
+    if @donor
+      @mailing_address = @donor.mailing_address
+    end
 
-    p '#' * 50
-    p 'search for donor in Users'
-    p @donor
-    p '#' * 50
-    # respond_to do |format|
-    #   # if @rider_reg.update_attributes(rider_reg_params)
-    #     # format.html { redirect_to @rider_reg, notice: 'rider_reg was successfully updated.' }
-    #     format.json { @donor}
-    # end
-    render json: @donor
+    # p '#' * 50
+    # p 'search for donor in Users'
+    # p @donor
+    # p '#' * 50
+    render json: { donor: @donor, mailing_address: @mailing_address}
 
   end
 
