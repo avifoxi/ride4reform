@@ -5,7 +5,9 @@ function DonationsFormBuilder (els) {
 	this.queryPath = els['query_path'];
 	this.submitPath = els['submission_path'];
 	this.donationData = {};
-
+	this.complete = false;
+	this.$showProcess = $('.show_donation_in_process ul');
+	
 	var _this = this;
 
 	this.$form.submit(function(e){
@@ -23,6 +25,7 @@ DonationsFormBuilder.prototype = {
 		this.donationData.email = $('#email').val();
 
 		this.donationData.amount = $('#amount').val();
+		// 
 		// console.log(_this.donationData);
 		this.queryEmailMailingAddy(_this.donationData.email);
 	},
@@ -38,12 +41,23 @@ DonationsFormBuilder.prototype = {
 		}).done(function(response) {
 		  if (response.donor){
 		  	// update screen with info
+		  	_this.updateShowProcess();
 		  	// give option to use existing mailing_addy
 		  } else {
 		  	// solicit User info for 
 		  }
 		});	
-
+	},
+	updateShowProcess : function(){
+		var _this = this;
+		var data = _this.donationData;
+		var donationFields = Object.getOwnPropertyNames(_this.donationData);
+		for (var i=0; i < donationFields.length; i++ ){
+			var li = document.createElement('li');
+			li.innerHTML = donationFields[i] + ': ' +
+				data[donationFields[i]];
+			this.$showProcess.append(li);
+		}
 	}
 }
 
