@@ -9,15 +9,14 @@
 
 <%= form_for @donation, url: donation_queries_path do %>
 
-	<div>
+	<div class="donationSteps" id="emailAmount">
 	  <%= label_tag :user_email, 'Your email address:' %><br />
 	  <%= text_field_tag :email %>
-	</div>
-	<div>
+
 	  <%= label_tag :amount, 'Amount you wish to donate:' %><br />
 	  <%= text_field_tag :amount %>
 	</div>
-	<div>
+	<div class="donationSteps" id="dbAddy">
 	  <%= label_tag :mailing_yay_or_nay, 'Reference this mailing address?' %><br />
 	  <br><span class="addyInsert"></span>
 	  <select name="mailing_yay_or_nay" id='mailing_yay_or_nay'>
@@ -26,8 +25,8 @@
           <option value="false">No</option>
         </select>
 	</div>
-	<div class="newAddy">
-		<h4>Separate Billing Address</h4>
+	<div class="newAddy donationSteps">
+		<h4>Billing Address</h4>
       <%= label_tag :line1, 'Line 1' %><br>
       <%= text_field_tag :line1 %>
       
@@ -47,7 +46,7 @@
 
 	<%= render partial: 'cc_form' %>
 
-	<%= submit_tag 'Process' %>
+	<%= submit_tag 'Next' %>
 <% end %>
 
 <script>
@@ -57,18 +56,5 @@
 		'query_path' : '<%= donation_queries_path %>',
 		'submission_path' : '<%= donations_create_path(@rider) %>'
 	});
-	// $('form').submit(function(e){
-	// 	e.preventDefault();
-	// 	console.log(e);
-
-	// 	$.ajax({
-	// 		type: "POST",
-	// 	  url: '<%= donation_queries_path %>',
-	// 	  data: {
-	// 	  	email: 'foo@bar.com'
-	// 	  }
-	// 	}).done(function(response) {
-	// 	  console.log(response);
-	// 	});	})
 
 </script>
