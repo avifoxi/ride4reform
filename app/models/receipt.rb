@@ -2,6 +2,8 @@ class Receipt < ActiveRecord::Base
 	belongs_to :user
 	has_one :mailing_address, :as => :addressable
   
+  accepts_nested_attributes_for :user, :mailing_address
+  
 	def get_mailing_address
 		if self.reference_user_address
 			self.user.mailing_address

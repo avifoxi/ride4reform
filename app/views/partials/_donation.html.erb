@@ -1,3 +1,19 @@
+<%= form_for @donation, url: donations_create_path(@rider) do |d| %>
+  
+  <%= d.fields_for :receipt do |dr| %>
+
+  
+    <%= dr.fields_for :user do |dru| %>
+
+    <% end %>
+
+
+
+  <% end %>
+
+
+<% end %>
+<!-- old form -->
 <%= form_for @donation, url: donations_create_path do %>
   <%= label_tag :type, "Credit Card Type:" %>
   <%= select_tag :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>

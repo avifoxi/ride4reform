@@ -3,7 +3,6 @@
 function DonationsFormBuilder (els) {
 	this.$form = els['form'];
 	this.queryPath = els['query_path'];
-	this.submitPath = els['submission_path'];
 	this.donationData = {};
 	this.complete = false;
 	this.currentStep = 0;

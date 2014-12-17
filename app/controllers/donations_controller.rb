@@ -16,24 +16,16 @@ class DonationsController < ApplicationController
   end
 
   def donation_queries
-    p '#' * 50
-    p params
-    p '#' * 50
     @donor = User.find_by(email: params[:email])
     if @donor
       @mailing_address = @donor.mailing_address.one_liner
     end
-
-    # p '#' * 50
-    # p 'search for donor in Users'
-    # p @donor
-    # p '#' * 50
     render json: { donor: @donor, mailing_address: @mailing_address}
 
   end
 
   def create
-
+    
     # @rider_reg = User.find(params[:id])
     p '$'*50
     p params
