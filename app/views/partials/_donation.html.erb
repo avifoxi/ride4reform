@@ -1,61 +1,40 @@
 <%= form_for @donation, url: donations_create_path(@rider) do |d| %>
+
+  <div class="donationSteps" id="privacyAndMessage">
+  
+    <%= d.label :anonymous, "Would you like your donation to be anonymous on the rider's profile page? The amount will be tallied in the total, but your name will not be listed publically."%>
+    <%= d.select :anonymous, options_for_select([['No', 'false'],['Yes', 'true']]) %>
+
+    <%= d.label :message_to_rider, "Your message to the rider, shown on their page (optional):" %>
+    <%= d.text_area :message_to_rider %>
+
+  </div>
+  
   
   <%= d.fields_for :receipt do |dr| %>
 
-  
+    <%= dr.label :amount, 'Amount you wish to donate:' %>
+    <%= dr.text_field :amount %>
+    <!-- dr. ( amount ) -->
+    <!-- dr. (reference_user_address, amount ) -->
+
+      <!-- dr. (reference_user_address) -->
+
+    <!-- cc_info including first _ last names-->
+    
     <%= dr.fields_for :user do |dru| %>
+    
+      <!-- dru. (email) -->
 
     <% end %>
+    <%= dr.fields_for :mailing_address do |drm| %>
 
 
+        <!-- drm. (addy stuff) -->
+      
+    <% end %>
 
   <% end %>
 
 
-<% end %>
-<!-- old form -->
-<%= form_for @donation, url: donations_create_path do %>
-  <%= label_tag :type, "Credit Card Type:" %>
-  <%= select_tag :type, options_for_select([['Visa', 'visa'], ['Mastercard', 'mastercard'], ['Discover', 'discover'], ['AMEX', 'amex']]) %>
-  <br>
-  <%= label_tag :credit_card, "Credit Card Number:" %>
-  <%= text_field_tag :credit_card, nil, maxlength: 16 %>
-  <br>
-  <%= label_tag :expire_month, "Month (MM):" %>
-  <%= text_field_tag :expire_month, nil, maxlength: 2  %>
-  <br>
-  <%= label_tag :expire_year, "Year (YYYY):" %>
-  <%= text_field_tag :expire_year, nil, maxlength: 4  %>
-  <br>
-  <%= label_tag :cvv2, "CVV2:" %>
-  <%= text_field_tag :cvv2, nil, maxlength: 4  %>
-  <br>
-  <%= label_tag :first_name, "First Name:" %>
-  <%= text_field_tag :first_name %>
-  <br>
-  <%= label_tag :last_name, "Last Name:" %>
-  <%= text_field_tag :last_name %>
-  <br>
-  <%= label_tag :email, "Email:" %>
-  <%= text_field_tag :email %>
-  <br>
-  <%= label_tag :line1, "Address 1:" %>
-  <%= text_field_tag :line1 %>
-  <br>
-  <%= label_tag :line2, "Address 2:" %>
-  <%= text_field_tag :line2 %>
-  <br>
-  <%= label_tag :city, "City:" %>
-  <%= text_field_tag :city %>
-  <br>
-  <%= label_tag :state, "State:" %>
-  <%= text_field_tag :state, nil, maxlength: 2 %>
-  <br>
-  <%= label_tag :postal_code, "Postal Code:" %>
-  <%= text_field_tag :postal_code, nil, maxlength: 5 %>
-  <br>
-  <%= label_tag :total, "Donation:" %>
-  <%= text_field_tag :total %>
-  <br>
-  <%= submit_tag 'Donate' %>
 <% end %>

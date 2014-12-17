@@ -59,12 +59,3 @@
 	<%= submit_tag 'Next' %>
 <% end %>
 
-<script>
-
-	var dfb = new DonationsFormBuilder({
-		'form' : $('form') ,
-		'query_path' : '<%= donation_queries_path %>',
-		'submission_path' : '<%= donations_create_path(@rider) %>'
-	});
-
-</script>

@@ -1,3 +1,24 @@
- <%= render partial: 'initialize_amount_email_rider'  %>
+<!--  < #% = render partial: 'initialize_amount_email_rider'  % > -->
 
- <!-- < % = #render partial: 'partials/donation' % > -->
+<p>Thank you for choosing to donate to <%= @rider.full_name %>'s campaign!</p>
+
+<div class="show_donation_in_process">
+	<h4>Your Donation to <%= @rider.full_name %>:</h4>
+	<ul>
+		
+	</ul>
+</div>
+
+
+<%= render partial: 'partials/donation' %>
+
+
+<script>
+
+	// var dfb = new DonationsFormBuilder({
+	// 	'form' : $('form') ,
+	// 	'query_path' : '<%= donation_queries_path %>',
+	// 	'submission_path' : '<%= donations_create_path(@rider) %>'
+	// });
+
+</script>
