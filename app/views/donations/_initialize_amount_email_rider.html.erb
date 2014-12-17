@@ -7,7 +7,7 @@
 	</ul>
 </div>
 
-<%= form_for @donation, url: donation_queries_path do %>
+<%= form_for donations_create_path(@rider) do %>
 
 	<div class="donationSteps" id="emailAmount">
 	  <%= label_tag :user_email, 'Your email address:' %><br />
@@ -47,7 +47,7 @@
       <%= text_field_tag :city %>
 
       <%= label_tag :state %><br>
-      <%= select_tag :state, fiddy_states %>
+      <%= select_tag :state, options_for_select(fiddy_states) %>
 
 
       <%= label_tag :zip %><br>

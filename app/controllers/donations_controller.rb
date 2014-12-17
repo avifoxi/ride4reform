@@ -1,4 +1,5 @@
 class DonationsController < ApplicationController
+  # helper RiderReg::RiderRegsHelper
 
   def index
     @donations = Donation.order(:created_at)
@@ -33,8 +34,10 @@ class DonationsController < ApplicationController
 
   def create
 
-    @rider_reg = User.find(params[:id])
+    # @rider_reg = User.find(params[:id])
+    p '$'*50
     p params
+    p '$'*50
     @donor = User.find_by(email: params[:email])
     unless @donor 
       @donor = User.new(email: params[:email])

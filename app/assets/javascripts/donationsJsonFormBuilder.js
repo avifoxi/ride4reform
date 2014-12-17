@@ -5,7 +5,7 @@ function DonationsFormBuilder (els) {
 	this.queryPath = els['query_path'];
 	this.submitPath = els['submission_path'];
 	this.donationData = {};
-	// this.complete = false;
+	this.complete = false;
 	this.currentStep = 0;
 	this.donorDBinfo = null;
 	this.$showProcess = $('.show_donation_in_process ul');
@@ -13,8 +13,10 @@ function DonationsFormBuilder (els) {
 	var _this = this;
 
 	this.$form.submit(function(e){
-		e.preventDefault(e);
-		_this.stepThrough();	
+		if (!_this.complete){
+			e.preventDefault(e);
+		}
+		_this.stepThrough(e);	
 	});
 
 	this.steps = {
@@ -23,24 +25,19 @@ function DonationsFormBuilder (els) {
 		2 : 'prepPrivacyAndMessage',
 		3 : 'getPrivacyAndMessage',
 		4 : 'prepAddress',
-		5 : 'getAddress'
-		// 3 : 'cc_form',
-		// 3 : 'privacyAndMessage',
-		// 4 : 'submit'
+		5 : 'getAddress',
+		6 : 'prepCC',
+		7 : 'getCC'
 	}
 
 	this.stepThrough();
 }
 
 DonationsFormBuilder.prototype = {
-	// init : function(){
-	// 	$('.donationSteps').hide();
-		
-	// },
-	stepThrough : function(){
+	stepThrough : function(event){
 		var step = this.currentStep;
 		var stepFunc = this.steps[step];
-		this[stepFunc]();
+		this[stepFunc](event);
 		this.updateShowProcess();
 	},
 	prepAddress : function(){
@@ -51,9 +48,46 @@ DonationsFormBuilder.prototype = {
 			_this.dbAddyOptionShow(found.mailing_address);
 		}
 		$('.newAddy').show();
-		this.currentStep += 1;
+		this.currentStep += 	1;
 
 	}, 
+	getAddress : function(){
+		var _this = this;
+		var refDB = $('#mailing_yay_or_nay').val();
+		if (refDB === 'true'){
+			_this.donationData.refDB = true;
+		} else {
+			_this.donationData.mailing_address = {};
+			_this.donationData.mailing_address.line1 = $('#line1').val();
+			_this.donationData.mailing_address.line2 = $('#line2').val();
+			_this.donationData.mailing_address.city = 	$('#city').val();		
+			_this.donationData.mailing_address.state = $('#state').val();
+			_this.donationData.mailing_address.zip = $('#zip').val();
+		}
+		this.currentStep += 	1;
+	},
+	prepCC : function(){
+		$('.donationSteps').hide();
+		$('#ccForm').show();
+		$('input[type=submit]').val('Submit');
+		this.currentStep += 1;
+	},
+	getCC : function(event) {
+		// validate ins
+		console.log(event);
+		var _this = this;
+		this.donationData.cc_info = {
+			'type' : $('#type').val(),
+			'number' : $('#credit_card').val(),
+			'expire_month' :$('#expire_month').val(),
+			'expire_year' : $('#expire_year').val(),
+			'cvv2' :$('#cvv2').val(),
+			'first_name' : $('#first_name').val(),
+			'last_name' :$('#last_name').val()
+		};
+		// this.$form.submit();
+		this.complete = true;
+	},
 	prepEmailAmount : function(){
 		$('.donationSteps').hide();
 		$('#emailAmount').show();
@@ -78,7 +112,7 @@ DonationsFormBuilder.prototype = {
 	getPrivacyAndMessage : function() {
 		var anon = $('#privacy').val();
 		var message = $('#message').val();
-		this.donationData.anon = anon;
+		this.donationData.anonymous = anon;
 		this.donationData.message = message;
 		this.currentStep += 1;
 	},
@@ -117,8 +151,14 @@ DonationsFormBuilder.prototype = {
 
 		for (var i=0; i < donationFields.length; i++ ){
 			var li = document.createElement('li');
-			li.innerHTML = donationFields[i] + ': ' +
-				data[donationFields[i]];
+			var content;
+			if (typeof data[donationFields[i]] === 'object'){
+				content = '<i class="fa fa-check-square-o"></i>';
+			} else {
+				content = data[donationFields[i]];
+			}
+			li.innerHTML = '<strong>' + donationFields[i] + ':</strong> ' +
+				content;
 			this.$showProcess.append(li);
 		}
 	},
@@ -129,7 +169,5 @@ DonationsFormBuilder.prototype = {
 }
 
 
-// prototype = {
-	
-// }
+
 
