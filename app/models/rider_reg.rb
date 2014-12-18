@@ -20,6 +20,10 @@ class RiderReg < ActiveRecord::Base
   # Validate the attached image is image/jpg, image/png, etc
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
 
+  # validates :rider, uniqueness: { scope: :ride_year_id,
+  #   message: "rider may only register once per ride_year" }
+  validates_uniqueness_of :rider, scope: :ride_year_id
+
   validates :goal, numericality: { greater_than_or_equal_to:  :selfs_current_min }
   # RideYear.current.min_goal
   RIDE_OPTIONS = ['Original Track', 'Light Track', 'Hiking', 'Combination Hiking/Riding']
