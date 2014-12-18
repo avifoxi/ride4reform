@@ -45,23 +45,31 @@ class DonationsController < ApplicationController
     #       "type"=>"visa", "credit_card"=>"1232341234213412", "expire_month"=>"1", "expire_year"=>"2016", "cvv2"=>"1234", "first_name"=>"flee", "last_name"=>"badfsd", "commit"=>"Submit", "controller"=>"donations", "action"=>"create", "id"=>"5"
     # }
     
+
     # @rider_reg = User.find(params[:id])
     p '$'*50
+    puts 'regular params, unfiltered: '
     p params
     p '$'*50
-    @donor = User.find_by(email: params[:email])
-    unless @donor 
-      @donor = User.new(email: params[:email], password: 'donor_not_yet_rider')
-    end
 
-    p '#' * 50
-    p 'search for donor in Users'
-    p @donor
-    p '#' * 50
-    respond_to do |format|
+    p '$'*50
+    puts 'donation_params: '
+    p donation_params
+    p '$'*50
+    # donation_params
+    # @donor = User.find_by(email: params[:email])
+    # unless @donor 
+    #   @donor = User.new(email: params[:email], password: 'donor_not_yet_rider')
+    # end
+
+    # p '#' * 50
+    # p 'search for donor in Users'
+    # p @donor
+    # p '#' * 50
+    # respond_to do |format|
       # if @rider_reg.update_attributes(rider_reg_params)
         # format.html { redirect_to @rider_reg, notice: 'rider_reg was successfully updated.' }
-        format.json { @donor }
+        # format.json { @donor }
         # added:
         # format.js   { render action: 'show', status: :created, location: @rider_reg }
       # else
@@ -70,7 +78,7 @@ class DonationsController < ApplicationController
       #   # added:
       #   format.js   { render json: @rider_reg.errors, status: :unprocessable_entity }
       # end
-    end
+    # end
 
     # First -- find user if user and return
     # payment = PayPalWrapper.new(params)
@@ -113,5 +121,22 @@ class DonationsController < ApplicationController
   def show
 
   end
+
+  private 
+    def donation_params
+      params.require(:donation).permit(
+        :anonymous, :message_to_rider, 
+        :receipt_attributes =>
+          [
+            :amount, :reference_user_address, 
+            :user_attributes => 
+              [:email],
+            :mailing_address_attributes => 
+              [
+                :line1, :line2, :city, :state, :zip
+              ]
+          ]
+      )
+    end
 
 end
