@@ -32,12 +32,13 @@
       
       <div class="donationSteps emailAmount">
 
-        <%= dru.label :email %>
+        <%= dru.label :email, 'Your Primary Email Address' %>
         <%= dru.text_field :email %>
       </div>
     <% end %>
     <%= dr.fields_for :mailing_address do |drm| %>
       <div class="newAddy donationSteps">      
+        <h4>Credit Card Billing Address</h4>
         <%= drm.label :line1 %>
         <%= drm.text_field :line1 %>
         <%= drm.label :line2 %>
@@ -46,10 +47,10 @@
         <%= drm.text_field :city %>
         
         <%= drm.label :state %>
-        <%= drm.text_field :state %>
+        <%= drm.select :state, fiddy_states %>
 
         <%= drm.label :zip %>
-        <%= drm.text_field :zip %>
+        <%= drm.text_field :zip, :maxlength => 5  %>
       </div>      
     <% end %>
 

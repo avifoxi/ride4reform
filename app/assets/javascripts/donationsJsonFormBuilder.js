@@ -23,10 +23,10 @@ function DonationsFormBuilder (els) {
 		1 : 'getEmailAmount',
 		2 : 'prepPrivacyAndMessage',
 		3 : 'getPrivacyAndMessage',
-		4 : 'prepAddress',
-		5 : 'getAddress',
-		6 : 'prepCC',
-		7 : 'getCC'
+		4 : 'prepCC',
+		5 : 'getCC',
+		6 : 'prepAddress',
+		7 : 'getAddress'
 	}
 
 	this.stepThrough();
@@ -57,13 +57,15 @@ DonationsFormBuilder.prototype = {
 			_this.donationData.refDB = true;
 		} else {
 			_this.donationData.mailing_address = {};
-			_this.donationData.mailing_address.line1 = $('#line1').val();
-			_this.donationData.mailing_address.line2 = $('#line2').val();
-			_this.donationData.mailing_address.city = 	$('#city').val();		
-			_this.donationData.mailing_address.state = $('#state').val();
-			_this.donationData.mailing_address.zip = $('#zip').val();
+			_this.donationData.mailing_address.line1 = $('#donation_receipt_attributes_mailing_address_attributes_line1').val();
+			_this.donationData.mailing_address.line2 = $('#donation_receipt_attributes_mailing_address_attributes_line2').val();
+			_this.donationData.mailing_address.city = 	$('#donation_receipt_attributes_mailing_address_attributes_city').val();		
+			_this.donationData.mailing_address.state = $('#donation_receipt_attributes_mailing_address_attributes_state').val();
+			_this.donationData.mailing_address.zip = $('#donation_receipt_attributes_mailing_address_attributes_zip').val();
 		}
-		this.currentStep += 	1;
+		
+		this.complete = true;
+		this.stepThrough();
 	},
 	prepCC : function(){
 		$('.donationSteps').hide();
@@ -84,12 +86,12 @@ DonationsFormBuilder.prototype = {
 			'first_name' : $('#first_name').val(),
 			'last_name' :$('#last_name').val()
 		};
-		// this.$form.submit();
-		this.complete = true;
+		this.currentStep += 	1;
+		this.stepThrough();
 	},
 	prepEmailAmount : function(){
 		$('.donationSteps').hide();
-		$('#emailAmount').show();
+		$('.emailAmount').show();
 		this.currentStep += 1;
 	},
 	getEmailAmount : function(){
@@ -97,8 +99,8 @@ DonationsFormBuilder.prototype = {
 		var _this = this;
 
 		// TODO add validations...
-		var em = $('#email').val();
-		var am = $('#amount').val();
+		var em = $('#donation_receipt_attributes_amount').val();
+		var am = $('#donation_receipt_attributes_user_attributes_email').val();
 		if ( em !== '' && am !== ''){
 			_this.donationData.email = em;
 			_this.donationData.amount = am;
@@ -109,11 +111,13 @@ DonationsFormBuilder.prototype = {
 
 	},
 	getPrivacyAndMessage : function() {
-		var anon = $('#privacy').val();
-		var message = $('#message').val();
+		var anon = $('#donation_anonymous').val();
+		var message = $('#donation_message_to_rider').val();
 		this.donationData.anonymous = anon;
 		this.donationData.message = message;
 		this.currentStep += 1;
+		this.stepThrough();
+
 	},
 	prepPrivacyAndMessage : function() {
 		// console.log('in prep priv + mess');
