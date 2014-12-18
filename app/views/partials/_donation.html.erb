@@ -10,31 +10,50 @@
 
   </div>
   
-  
   <%= d.fields_for :receipt do |dr| %>
-
-    <%= dr.label :amount, 'Amount you wish to donate:' %>
-    <%= dr.text_field :amount %>
+    
+    <div class="donationSteps emailAmount">
+  
+      <%= dr.label :amount, 'Amount you wish to donate:' %>
+      <%= dr.text_field :amount %>
+    </div>
     <!-- dr. ( amount ) -->
-    <!-- dr. (reference_user_address, amount ) -->
+    <div class="donationSteps" id="dbAddy">
 
-      <!-- dr. (reference_user_address) -->
+      <%= dr.label :reference_user_address, 'Use this as your billing address?' %>
+      <br><span class="addyInsert"></span>
+      <%= dr.select :reference_user_address, options_for_select([['Please Choose', nil],['No', 'false'],['Yes', 'true']]) %>
+    </div>
 
+      <%= render partial: 'cc_form' %>
     <!-- cc_info including first _ last names-->
     
     <%= dr.fields_for :user do |dru| %>
-    
-      <!-- dru. (email) -->
+      
+      <div class="donationSteps emailAmount">
 
+        <%= dru.label :email %>
+        <%= dru.text_field :email %>
+      </div>
     <% end %>
     <%= dr.fields_for :mailing_address do |drm| %>
+      <div class="newAddy donationSteps">      
+        <%= drm.label :line1 %>
+        <%= drm.text_field :line1 %>
+        <%= drm.label :line2 %>
+        <%= drm.text_field :line2 %>
+        <%= drm.label :city %>
+        <%= drm.text_field :city %>
+        
+        <%= drm.label :state %>
+        <%= drm.text_field :state %>
 
-
-        <!-- drm. (addy stuff) -->
-      
+        <%= drm.label :zip %>
+        <%= drm.text_field :zip %>
+      </div>      
     <% end %>
 
   <% end %>
 
-
+  <%= submit_tag 'Next' %>
 <% end %>

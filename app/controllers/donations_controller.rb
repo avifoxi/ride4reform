@@ -13,6 +13,9 @@ class DonationsController < ApplicationController
   def new
     @rider = RiderReg.find(params[:id])
     @donation = Donation.new
+    @donation.receipt = Receipt.new
+    @donation.receipt.user = User.new
+    @donation.receipt.mailing_address = MailingAddress.new
   end
 
   def donation_queries
