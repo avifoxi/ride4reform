@@ -47,6 +47,7 @@ DonationsFormBuilder.prototype = {
 			_this.dbAddyOptionShow(found.mailing_address);
 		}
 		$('.newAddy').show();
+		$('input[type=submit]').val('Submit');
 		this.currentStep += 	1;
 
 	}, 
@@ -70,7 +71,6 @@ DonationsFormBuilder.prototype = {
 	prepCC : function(){
 		$('.donationSteps').hide();
 		$('#ccForm').show();
-		$('input[type=submit]').val('Submit');
 		this.currentStep += 1;
 	},
 	getCC : function(event) {

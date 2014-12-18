@@ -28,94 +28,81 @@ class DonationsController < ApplicationController
   end
 
   def create
-    # {
-    #   "utf8"=>"✓", 
-    #   "authenticity_token"=>"q7Xts374F44nI7qc3vD//i30KOD5ulk1GGx81FfX6EU=", 
-    #   "donation"=>
-    #     {"anonymous"=>"false", "message_to_rider"=>"asfdlaksjdflaskdjf\r\n", 
-    #       "receipt_attributes"=>
-    #         {
-    #           "amount"=>"20.0", "reference_user_address"=>"", 
-    #           "user_attributes"=>
-    #             {"email"=>"foox@blsfdj.com"}, 
-    #           "mailing_address_attributes"=>
-    #             {"line1"=>"1234", "line2"=>"erwer", "city"=>"werqwer", "state"=>"Maine", "zip"=>"1234"}
-    #           }
-    #       }, 
-    #       "type"=>"visa", "credit_card"=>"1232341234213412", "expire_month"=>"1", "expire_year"=>"2016", "cvv2"=>"1234", "first_name"=>"flee", "last_name"=>"badfsd", "commit"=>"Submit", "controller"=>"donations", "action"=>"create", "id"=>"5"
-    # }
     
 
-    # @rider_reg = User.find(params[:id])
-    p '$'*50
-    puts 'regular params, unfiltered: '
-    p params
-    p '$'*50
+    
+    # p '$'*50
+    # puts 'regular params, unfiltered: '
+    # p params
+    # p '$'*50
 
-    p '$'*50
-    puts 'donation_params: '
-    p donation_params
-    p '$'*50
+    # p '$'*50
+    # puts 'donation_params: '
+    # p donation_params
+    # p '$'*50
+
+    # cc_info
+
+    # p '$'*50
+    # puts 'cc_info private method: '
+    # p cc_info
+    # p '$'*50
     # donation_params
-    # @donor = User.find_by(email: params[:email])
-    # unless @donor 
-    #   @donor = User.new(email: params[:email], password: 'donor_not_yet_rider')
-    # end
+    email = donation_params['receipt_attributes']['user_attributes']['email']
+    
+    @donor = User.find_by(email: email)
+    unless @donor 
+      @donor = User.new(email: email, password: 'donor_not_yet_rider', first_name: cc_info['first_name'], last_name: cc_info['last_name'])
+    end
 
     # p '#' * 50
-    # p 'search for donor in Users'
+    # p 'search for donor in Users OR create new'
     # p @donor
     # p '#' * 50
-    # respond_to do |format|
-      # if @rider_reg.update_attributes(rider_reg_params)
-        # format.html { redirect_to @rider_reg, notice: 'rider_reg was successfully updated.' }
-        # format.json { @donor }
-        # added:
-        # format.js   { render action: 'show', status: :created, location: @rider_reg }
-      # else
-      #   format.html { render action: 'new' }
-      #   format.json { render json: @rider_reg.errors, status: :unprocessable_entity }
-      #   # added:
-      #   format.js   { render json: @rider_reg.errors, status: :unprocessable_entity }
-      # end
-    # end
+
+    @rider_reg = RiderReg.find(params[:id])
+    # p '#' * 50
+    # p 'search for RiderReg by id'
+    # p @rider_reg 
+    # p '#' * 50
+  
 
     # First -- find user if user and return
-    # payment = PayPalWrapper.new(params)
+    payment = PayPalWrapper.new(donation_address, cc_info, amount)
 
-    # if payment.create
-    #   rider_reg = RiderReg.find(params[:id])
-    #   rider = rider_reg.rider
+    if payment.create
+      rider_reg = RiderReg.find(params[:id])
+      rider = rider_reg.rider
 
-    #   user = User.find_by_email(params[:email])
+      user = User.find_by_email(params[:email])
 
-    #   unless user
-    #     user = User.create(first_name: params[:first_name],
-    #                        last_name:  params[:last_name],
-    #                        email:      params[:email],
-    #                        password:   "password")
-    #   end
+      unless user
+        user = User.create(first_name: params[:first_name],
+                           last_name:  params[:last_name],
+                           email:      params[:email],
+                           password:   "password")
+      end
 
-    #   address = MailingAddress.create(line1:  params[:line1],
-    #                                   line2:  params[:line2],
-    #                                   city:   params[:city],
-    #                                   state:  params[:state],
-    #                                   zip:    params[:postal_code])
+      address = MailingAddress.create(line1:  params[:line1],
+                                      line2:  params[:line2],
+                                      city:   params[:city],
+                                      state:  params[:state],
+                                      zip:    params[:postal_code])
 
-    #   receipt = Receipt.create(amount:            params[:total],
-    #                            paypal_id:         payment.id,
-    #                            user:              user,
-    #                            mailing_address:   address)
+      receipt = Receipt.create(amount:            params[:total],
+                               paypal_id:         payment.id,
+                               user:              user,
+                               mailing_address:   address)
 
-    #   donation = Donation.create(receipt: receipt, rider: rider)
+      donation = Donation.create(receipt: receipt, rider: rider)
 
-    #   UserMailer.donation_receipt(donation).deliver
+      UserMailer.donation_receipt(donation).deliver
 
-    #   redirect_to rider_reg_path(rider_reg), :flash => { :thanks_to_donor => user.full_name }
-    # else
-    #   payment.error
-    #   # TODO - add error page redirect
-    # end
+      redirect_to rider_reg_path(rider_reg), :flash => { :thanks_to_donor => user.full_name }
+    else
+      payment.error
+      # TODO - add error page redirect
+    end
   end
 
   def show
@@ -137,6 +124,22 @@ class DonationsController < ApplicationController
               ]
           ]
       )
+    end
+
+    def donation_address 
+      donation_params['receipt_attributes']['mailing_address_attributes']
+    end
+
+    def cc_info
+      {
+        :type => params[:type],
+        :number => params[:number],
+        :expire_month => params[:expire_month],
+        :expire_year => params[:expire_year],
+        :cvv2 => params[:cvv2],
+        :first_name => params[:first_name],
+        :last_name => params[:last_name]
+      }
     end
 
 end
