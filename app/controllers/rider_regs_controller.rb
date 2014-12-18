@@ -1,7 +1,7 @@
 class RiderRegsController < ApplicationController
 	
 	def index 
-		@riders = RiderReg.all
+		@riders = RiderReg.all.where(ride_year: RideYear.current)
 
     respond_to do |format|
       format.html

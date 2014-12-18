@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   
   # has_many :donations_given, :foreign_key => "donor_id", :class_name => "Donation"
 
-  has_many :rider_reg, :foreign_key => :rider_id
+  has_many :rider_regs, :foreign_key => :rider_id
   
   has_one :admin_reg
 
@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
 
   def rider?
   	self.rider_reg ? true : false
+  end
+
+  def current_rider_reg
+    self.rider_regs.find_by(ride_year: RideYear.current)
   end
 
   def full_name
