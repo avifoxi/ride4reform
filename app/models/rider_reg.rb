@@ -22,7 +22,7 @@ class RiderReg < ActiveRecord::Base
 
   # validates :rider, uniqueness: { scope: :ride_year_id,
   #   message: "rider may only register once per ride_year" }
-  validates_uniqueness_of :rider, scope: :ride_year_id
+  validates_uniqueness_of :rider, scope: :ride_year_id, message: "rider may only register once per ride_year"
 
   validates :goal, numericality: { greater_than_or_equal_to:  :selfs_current_min }
   # RideYear.current.min_goal
