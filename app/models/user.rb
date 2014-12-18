@@ -4,10 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   
-  has_many :donations_received, :foreign_key => "rider_id", :class_name => "Donation"
-  has_many :donations_given, :foreign_key => "donor_id", :class_name => "Donation"
+  # has_many :donations_given, :foreign_key => "donor_id", :class_name => "Donation"
 
-  has_one :rider_reg, :foreign_key => :rider_id
+  has_many :rider_reg, :foreign_key => :rider_id
   
   has_one :admin_reg
 
@@ -34,6 +33,7 @@ class User < ActiveRecord::Base
       self.title + ' ' + self.first_name + ' ' + self.last_name
     end
   end
+
 
 
 

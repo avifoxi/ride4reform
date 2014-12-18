@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216163849) do
+ActiveRecord::Schema.define(version: 20141218200429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,11 +39,11 @@ ActiveRecord::Schema.define(version: 20141216163849) do
 
   create_table "donations", force: true do |t|
     t.integer  "receipt_id"
-    t.integer  "rider_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "anonymous",        default: false
     t.text     "message_to_rider"
+    t.integer  "rider_reg_id"
   end
 
   create_table "mailing_addresses", force: true do |t|

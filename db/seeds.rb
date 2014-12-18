@@ -18,7 +18,7 @@ when "development"
   10.times do 
     user = users.pop
     address = MailingAddress.create(line1: Faker::Address.street_address, line2: Faker::Address.secondary_address, city: Faker::Address.city, state: Faker::Address.state, zip: Faker::Address.zip)
-    RiderReg.create(ride_year: [rideyear1, rideyear2].sample, rider: user, ride_option: RiderReg.ride_options.sample, birthdate: Date.new(1982,4,19), primary_phone: Faker::PhoneNumber.phone_number, secondary_phone: Faker::PhoneNumber.phone_number, goal: amounts.sample, bio: Faker::Hacker.say_something_smart, accept_terms: [true,false].sample)
+    RiderReg.create(ride_year: [rideyear1, rideyear2].sample, rider: user, ride_option: RiderReg.ride_options.sample, birthdate: Date.new(1982,4,19), primary_phone: Faker::PhoneNumber.phone_number, secondary_phone: Faker::PhoneNumber.phone_number, goal: amounts.sample, bio: Faker::Hacker.say_something_smart, accept_terms: true)
     RiderReg.last.rider.mailing_address = address
   end
 
@@ -28,10 +28,10 @@ when "development"
   users = User.all.to_a
 
 
-  10.times do
+  20.times do
     address = MailingAddress.create(line1: Faker::Address.street_address, line2: Faker::Address.secondary_address, city: Faker::Address.city, state: Faker::Address.state, zip: Faker::Address.zip)    
     receipt = Receipt.create(mailing_address: address, amount: amounts.sample, paypal_id: paypal_ids.sample, user: users.sample)
-    Donation.create(receipt: receipt, rider: users.sample)
+    Donation.create(receipt: receipt, rider_reg: RiderReg.all.sample)
   end
 
 

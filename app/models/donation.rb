@@ -1,5 +1,5 @@
 class Donation < ActiveRecord::Base
-	belongs_to :rider, :class_name => "User"
+	belongs_to :rider_reg #, :class_name => "User"
 	belongs_to :receipt
 
   delegate :amount, :user, to: :receipt, allow_nil: true, prefix: false
@@ -36,8 +36,8 @@ class Donation < ActiveRecord::Base
 
   protected
    def update_amount_raised
-    self.rider.rider_reg.raised += self.receipt.amount
-    self.rider.rider_reg.save
+    self.rider_reg.raised += self.receipt.amount
+    self.rider_reg.save
    end
 
 

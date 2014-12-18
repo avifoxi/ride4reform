@@ -4,9 +4,8 @@ class RiderReg < ActiveRecord::Base
 	belongs_to :rider, :class_name => "User"
 	delegate :first_name, :last_name, :title, :full_name, :receipts, :mailing_address, to: :rider, allow_nil: true, prefix: false
 
-	has_many :donations_received, through: :rider
-  
-  # has_one :mailing_address, :as => :addressable
+  has_many :donations_received, :foreign_key => "rider_reg_id", :class_name => "Donation"
+
   accepts_nested_attributes_for :rider
 
   before_validation :associate_current_year
