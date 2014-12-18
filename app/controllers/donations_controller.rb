@@ -48,19 +48,13 @@ class DonationsController < ApplicationController
     # p cc_info
     # p '$'*50
     # donation_params
-    email = donation_params['receipt_attributes']['user_attributes']['email']
     
-    @donor = User.find_by(email: email)
-    unless @donor 
-      @donor = User.new(email: email, password: 'donor_not_yet_rider', first_name: cc_info['first_name'], last_name: cc_info['last_name'])
-    end
 
     # p '#' * 50
     # p 'search for donor in Users OR create new'
     # p @donor
     # p '#' * 50
 
-    @rider_reg = RiderReg.find(params[:id])
     # p '#' * 50
     # p 'search for RiderReg by id'
     # p @rider_reg 
@@ -68,37 +62,31 @@ class DonationsController < ApplicationController
   
 
     # First -- find user if user and return
-    payment = PayPalWrapper.new(donation_address, cc_info, amount)
+    payment = PayPalWrapper.new(donor_address, cc_info, amount)
 
     if payment.create
-      rider_reg = RiderReg.find(params[:id])
-      rider = rider_reg.rider
 
-      user = User.find_by_email(params[:email])
-
-      unless user
-        user = User.create(first_name: params[:first_name],
-                           last_name:  params[:last_name],
-                           email:      params[:email],
-                           password:   "password")
+      @donor = User.find_by(email: donor_email)
+      unless @donor 
+        @donor = User.create(email: donor_email, password: 'donor_not_yet_rider', first_name: cc_info['first_name'], last_name: cc_info['last_name'])
       end
 
-      address = MailingAddress.create(line1:  params[:line1],
-                                      line2:  params[:line2],
-                                      city:   params[:city],
-                                      state:  params[:state],
-                                      zip:    params[:postal_code])
+      @rider_reg = RiderReg.find(params[:id])
 
-      receipt = Receipt.create(amount:            params[:total],
+      @receipt = Receipt.create(amount:            amount,
                                paypal_id:         payment.id,
-                               user:              user,
-                               mailing_address:   address)
+                               user:              user )
 
-      donation = Donation.create(receipt: receipt, rider: rider)
+      unless donation_params['receipt_attributes']['reference_user_address'].to_b
+        @receipt.update_attributes(reference_user_address: false)
+        @receipt.mailing_address.create(donor_address)
+      end
+      
+      @donation = Donation.create(receipt: @receipt, rider_reg: @rider_reg, anonymous: donation_params['anonymous'], message_to_rider: donation_params['message_to_rider'] )
 
-      UserMailer.donation_receipt(donation).deliver
+      # UserMailer.donation_receipt(donation).deliver
 
-      redirect_to rider_reg_path(rider_reg), :flash => { :thanks_to_donor => user.full_name }
+      redirect_to rider_reg_path(@rider_reg), :flash => { :thanks_to_donor => user.full_name }
     else
       payment.error
       # TODO - add error page redirect
@@ -126,8 +114,20 @@ class DonationsController < ApplicationController
       )
     end
 
-    def donation_address 
-      donation_params['receipt_attributes']['mailing_address_attributes']
+    def donor_email
+      donation_params['receipt_attributes']['user_attributes']['email']
+    end
+
+    def donor_address 
+      if donation_params['receipt_attributes']['reference_user_address'].to_b
+        User.find_by(email: donor_email).mailing_address
+      else
+        MailingAddress.create(donation_params['receipt_attributes']['mailing_address_attributes'])
+      end
+    end
+
+    def amount 
+      donation_params['receipt_attributes']['amount']
     end
 
     def cc_info
