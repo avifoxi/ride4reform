@@ -28,6 +28,22 @@ class DonationsController < ApplicationController
   end
 
   def create
+    # {
+    #   "utf8"=>"✓", 
+    #   "authenticity_token"=>"q7Xts374F44nI7qc3vD//i30KOD5ulk1GGx81FfX6EU=", 
+    #   "donation"=>
+    #     {"anonymous"=>"false", "message_to_rider"=>"asfdlaksjdflaskdjf\r\n", 
+    #       "receipt_attributes"=>
+    #         {
+    #           "amount"=>"20.0", "reference_user_address"=>"", 
+    #           "user_attributes"=>
+    #             {"email"=>"foox@blsfdj.com"}, 
+    #           "mailing_address_attributes"=>
+    #             {"line1"=>"1234", "line2"=>"erwer", "city"=>"werqwer", "state"=>"Maine", "zip"=>"1234"}
+    #           }
+    #       }, 
+    #       "type"=>"visa", "credit_card"=>"1232341234213412", "expire_month"=>"1", "expire_year"=>"2016", "cvv2"=>"1234", "first_name"=>"flee", "last_name"=>"badfsd", "commit"=>"Submit", "controller"=>"donations", "action"=>"create", "id"=>"5"
+    # }
     
     # @rider_reg = User.find(params[:id])
     p '$'*50
@@ -35,7 +51,7 @@ class DonationsController < ApplicationController
     p '$'*50
     @donor = User.find_by(email: params[:email])
     unless @donor 
-      @donor = User.new(email: params[:email])
+      @donor = User.new(email: params[:email], password: 'donor_not_yet_rider')
     end
 
     p '#' * 50
