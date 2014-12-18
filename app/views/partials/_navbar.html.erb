@@ -13,13 +13,13 @@
         
         <% if user_signed_in? %>
 
-          <% if current_user.rider_reg %>
+          <% if current_user.current_rider_reg %>
             <li class="nav-link">
-              <%= link_to('Your Rider Profile', rider_reg_path( current_user.rider_reg) ) %>
+              <%= link_to('Your Rider Profile', rider_reg_path( current_user.current_rider_reg) ) %>
             </li>
           <% else %>
             <li class="nav-link">
-              <%= link_to('Create Your Rider Profile', new_user_rider_reg_path(current_user)  ) %>
+              <%= link_to('Create Your Rider Profile for This Year', new_user_rider_reg_path(current_user)  ) %>
             </li>
           <% end %>
           
