@@ -31,10 +31,10 @@ class DonationsController < ApplicationController
     
 
     
-    # p '$'*50
-    # puts 'regular params, unfiltered: '
-    # p params
-    # p '$'*50
+    p '$'*50
+    puts 'regular params, unfiltered: '
+    p params
+    p '$'*50
 
     # p '$'*50
     # puts 'donation_params: '
@@ -68,27 +68,65 @@ class DonationsController < ApplicationController
 
       @donor = User.find_by(email: donor_email)
       unless @donor 
-        @donor = User.create(email: donor_email, password: 'donor_not_yet_rider', first_name: cc_info['first_name'], last_name: cc_info['last_name'])
+        @donor = User.create(email: donor_email, password: 'donor_not_yet_rider', first_name: cc_info[:first_name], last_name: cc_info[:last_name], title: 'None')
       end
+
+      p '#' * 50
+      p 'search for or createe user / donor :'
+      p @donor
+      p '#' * 50
+
+      p '#' * 50
+      p 'first + last names -- likely cant add to db bc of strong params ... so ... fix? :'
+      puts cc_info['first_name']
+      puts cc_info['last_name']
+      p '#' * 50
+
 
       @rider_reg = RiderReg.find(params[:id])
 
+      p '#' * 50
+      p 'rider_reg'
+      p @rider_reg 
+      p '#' * 50
+
+
       @receipt = Receipt.create(amount:            amount,
                                paypal_id:         payment.id,
-                               user:              user )
+                               user:              @donor )
+
+      p '#' * 50
+      p 'receitp:'
+      p @receipt 
+      p '#' * 50
+
 
       unless donation_params['receipt_attributes']['reference_user_address'].to_b
         @receipt.update_attributes(reference_user_address: false)
-        @receipt.mailing_address.create(donor_address)
+        m = MailingAddress.create(donor_address)
+        m.update_attributes(addressable: @receipt)
+
+
+        p '#' * 50
+        p 'mailing address:'
+        p m
+        p '#' * 50
+   
       end
       
       @donation = Donation.create(receipt: @receipt, rider_reg: @rider_reg, anonymous: donation_params['anonymous'], message_to_rider: donation_params['message_to_rider'] )
 
+      p '#' * 50
+      p 'donation'
+      p @donation 
+      p '#' * 50
       # UserMailer.donation_receipt(donation).deliver
 
-      redirect_to rider_reg_path(@rider_reg), :flash => { :thanks_to_donor => user.full_name }
+      redirect_to rider_reg_path(@rider_reg) #, :flash => { :thanks_to_donor => @donor.full_name }
     else
+      p 'tough titty'
       payment.error
+
       # TODO - add error page redirect
     end
   end
@@ -122,7 +160,7 @@ class DonationsController < ApplicationController
       if donation_params['receipt_attributes']['reference_user_address'].to_b
         User.find_by(email: donor_email).mailing_address
       else
-        MailingAddress.create(donation_params['receipt_attributes']['mailing_address_attributes'])
+        donation_params['receipt_attributes']['mailing_address_attributes']
       end
     end
 
